@@ -821,13 +821,43 @@ function updateStreakBadge() {
 }
 
 /* ---------- voorlezen (Web Speech API, gratis, ingebouwd) ---------- */
+var nlStem = null;
+function zoekNlStem() {
+  if (!("speechSynthesis" in window)) return;
+  var stemmen = speechSynthesis.getVoices() || [];
+  for (var i = 0; i < stemmen.length; i++) {
+    if ((stemmen[i].lang || "").toLowerCase().indexOf("nl") === 0) { nlStem = stemmen[i]; return; }
+  }
+  nlStem = null;
+}
+if ("speechSynthesis" in window) {
+  zoekNlStem();
+  speechSynthesis.onvoiceschanged = zoekNlStem;
+}
+var actieveUitspraak = null;
+var ttsGestart = false;
 function leesVoor(tekst) {
-  if (!("speechSynthesis" in window)) { alert("Voorlezen werkt niet in deze browser."); return; }
-  var u = new SpeechSynthesisUtterance(tekst);
-  u.lang = "nl-NL";
-  u.rate = 0.95;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
+  if (!tekst) return;
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(tekst);
+    u.lang = "nl-NL";
+    if (nlStem) u.voice = nlStem;
+    u.rate = 0.95;
+    ttsGestart = false;
+    u.onstart = function () { ttsGestart = true; };
+    u.onerror = function () {
+      toast(nlStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Nederlandse stem gevonden. Voeg een Nederlandse stem toe in de instellingen van je toestel.");
+    };
+    actieveUitspraak = u;
+    setTimeout(function () { speechSynthesis.speak(u); }, 60);
+    setTimeout(function () {
+      if (!ttsGestart && !speechSynthesis.speaking) {
+        toast("Geen geluid? Zet het media-volume van je toestel hoger.");
+      }
+    }, 2500);
+  } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
 }
 function plainText(zin) {
   return zin.replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1");
@@ -1394,6 +1424,10 @@ document.getElementById("app").addEventListener("click", function (e) {
   else if (act === "lees-voor") {
     var lt = leesKaart();
     if (lt) leesVoor(plainText(lt[cur.laag]));
+  }
+  else if (act === "woord-luister") {
+    var winfo = WOORDEN[el.getAttribute("data-w")];
+    leesVoor(el.getAttribute("data-w") + ". " + (winfo ? winfo.u : ""));
   }
   else if (act === "start-quiz") startQuiz(id);
   else if (act === "naar-teksten") ga("teksten");
