@@ -1858,6 +1858,7 @@ if ("speechSynthesis" in window) {
 }
 var actieveUitspraak = null;
 var ttsGestart = false;
+var ttsStatus = "uit";
 function leesVoor(tekst, lang) {
   if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
   if (!tekst) return;
@@ -1870,8 +1871,12 @@ function leesVoor(tekst, lang) {
     if (stem) u.voice = stem;
     u.rate = 0.95;
     ttsGestart = false;
-    u.onstart = function () { ttsGestart = true; };
+    u.onstart = function () { ttsGestart = true; ttsStatus = "speelt"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
+    u.onend = function () { ttsStatus = "uit"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
     u.onerror = function () {
+      ttsStatus = "uit";
+      ttsKnoppenVervers();
+      if (view === "lezer" || view === "trainer") render();
       if (engels) {
         toast(enStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Engelse stem gevonden. Voeg een Engelse stem toe in de instellingen van je toestel.");
       } else {
@@ -1887,6 +1892,32 @@ function leesVoor(tekst, lang) {
     }, 2500);
   } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
 }
+function ttsKnoppenVervers() {
+  var b = document.querySelector('#sheet [data-act="woord-luister"]');
+  if (b) b.textContent = ttsStatus === "uit" ? "Voorlezen" : "Stoppen";
+}
+function ttsCancel() {
+  try { speechSynthesis.cancel(); } catch (e) {}
+  ttsStatus = "uit";
+  ttsKnoppenVervers();
+}
+function stopVoorlezen() {
+  ttsCancel();
+  if (view === "lezer" || view === "trainer") render();
+}
+function pauzeerVoorlezen() {
+  if (!("speechSynthesis" in window)) return;
+  try { speechSynthesis.pause(); } catch (e) {}
+  setTimeout(function () {
+    if (speechSynthesis.paused) { ttsStatus = "pauze"; if (view === "lezer") render(); }
+    else { ttsCancel(); if (view === "lezer") render(); }
+  }, 150);
+}
+function hervatVoorlezen() {
+  try { speechSynthesis.resume(); } catch (e) {}
+  ttsStatus = "speelt";
+  if (view === "lezer") render();
+}
 function leesWoordVoor(w) {
   var info = WOORDEN[w];
   if (!info) { leesVoor(w, "nl"); return; }
@@ -1898,10 +1929,14 @@ function leesWoordVoor(w) {
       u1.lang = "en-GB";
       if (enStem) u1.voice = enStem;
       u1.rate = 0.9;
+      u1.onstart = function () { ttsStatus = "speelt"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
+      u1.onerror = function () { ttsStatus = "uit"; ttsKnoppenVervers(); };
       var u2 = new SpeechSynthesisUtterance("Betekent: " + info.u);
       u2.lang = "nl-NL";
       if (nlStem) u2.voice = nlStem;
       u2.rate = 0.95;
+      u2.onend = function () { ttsStatus = "uit"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
+      u2.onerror = function () { ttsStatus = "uit"; ttsKnoppenVervers(); };
       actieveUitspraak = u1;
       setTimeout(function () { speechSynthesis.speak(u1); speechSynthesis.speak(u2); }, 60);
     } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
@@ -1996,6 +2031,7 @@ function setFilter(nieuw) {
 }
 
 function ga(naar) {
+  ttsCancel();
   view = naar;
   render();
   window.scrollTo(0, 0);
@@ -2004,6 +2040,7 @@ function leesKaart() {
   return TEKSTEN.find(function (t) { return t.id === cur.tekstId; }) || null;
 }
 function openTekst(id, laag) {
+  ttsCancel();
   cur.tekstId = id;
   cur.laag = laag || "origineel";
   addGelezen(id);
@@ -2012,6 +2049,7 @@ function openTekst(id, laag) {
   window.scrollTo(0, 0);
 }
 function startQuiz(id) {
+  ttsCancel();
   quiz = { tekstId: id, i: 0, goed: 0, gekozen: null };
   view = "quiz";
   render();
@@ -2033,6 +2071,7 @@ function startTrainer(mode, scope) {
     pool = t ? shuffle(t.woorden) : shuffle(actieveWoorden());
   }
   if (!pool.length) { toast("Geen woordjes voor deze keuze. Kies bovenin een ander vak of een andere leerweg."); return; }
+  ttsCancel();
   trainer = { mode: mode, scope: scope, pool: pool, i: 0, goed: 0, flipped: false, gekozen: null, opties: [], gevraagd: null };
   if (mode === "invul") maakInvulVraag();
   view = "trainer";
@@ -2053,6 +2092,7 @@ function swOpdracht() {
   return SCHRIJF.find(function (o) { return o.id === sw.id; }) || null;
 }
 function openSchrijf(id) {
+  ttsCancel();
   sw = { id: id, stap: 1, woorden: [], starters: [], tekst: "", checks: [], toonVoorbeeld: false, toonJouwTekst: false };
   var opgeslagen = schrijfOpslag()[id];
   if (opgeslagen && opgeslagen.tekst) { sw.tekst = opgeslagen.tekst; }
@@ -2104,6 +2144,7 @@ function aantalWoorden(t) {
 function openWoord(w) {
   var info = WOORDEN[w];
   if (!info) return;
+  stopVoorlezen();
   var isGeleerd = geleerd().indexOf(w) !== -1;
   var sheet = document.getElementById("sheet");
   var back = document.getElementById("sheetBack");
@@ -2113,7 +2154,7 @@ function openWoord(w) {
     '<div class="uitleg-regel">' + info.u + '</div>' +
     '<div class="voorbeeld">' + info.v + '</div>' +
     '<div class="sheetknoppen">' +
-    '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">Voorlezen</button>' +
+    '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">' + (ttsStatus === "uit" ? "Voorlezen" : "Stoppen") + '</button>' +
     '<button class="btn btn-green btn-small" data-act="woord-geleerd" data-w="' + w + '">' + (isGeleerd ? "In je lijst" : "Geleerd") + '</button>' +
     '<button class="btn btn-outline btn-small" data-act="woord-close">Sluiten</button>' +
     '</div>';
@@ -2219,7 +2260,10 @@ function viewLezer() {
     '<button data-act="laag" data-laag="eenvoudig" class="' + (cur.laag === "eenvoudig" ? "actief" : "") + '">Eenvoudig</button>' +
     '<button data-act="laag" data-laag="origineel" class="' + (cur.laag === "origineel" ? "actief" : "") + '">' + (t.taal === "en" ? "A2-examen" : "2F-examen") + '</button>' +
     '</div>' +
-    '<button class="btn btn-soft btn-small" data-act="lees-voor">Voorlezen</button>' +
+    (ttsStatus === "uit" ?
+      '<button class="btn btn-soft btn-small" data-act="lees-voor">Voorlezen</button>' :
+      '<button class="btn btn-outline btn-small" data-act="tts-stop">Stoppen</button>' +
+      '<button class="btn btn-soft btn-small" data-act="tts-pauze">' + (ttsStatus === "pauze" ? "Hervatten" : "Pauzeren") + '</button>') +
     '<div class="tekst">' + tekstNaarHtml(t, cur.laag) + '</div>' +
     '<div class="waarom"><b>Tip:</b> tik op een gemarkeerd woord voor uitleg. Woorden in deze tekst: ' + woordjesRij + '</div>' +
     '<button class="btn btn-primary" data-act="start-quiz" data-id="' + t.id + '">Naar de examenvragen (' + t.vragen.length + ')</button>' +
@@ -2320,7 +2364,7 @@ function viewTrainer() {
       (trainer.flipped ?
         '<button class="btn btn-green" data-act="flash-wist">Wist ik het</button>' +
         '<button class="btn btn-outline" data-act="flash-nog">Nog niet</button>' :
-        '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">Voorlezen</button>');
+        '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">' + (ttsStatus === "uit" ? "Voorlezen" : "Stoppen") + '</button>');
   }
 
   /* invulmodus */
@@ -2543,13 +2587,16 @@ document.getElementById("app").addEventListener("click", function (e) {
     var openstaand = lijst2.filter(function (o) { return !(swk[o.id] && swk[o.id].afgerond); });
     openSchrijf(openstaand.length ? openstaand[0].id : lijst2[0].id);
   }
-  else if (act === "laag") { cur.laag = el.getAttribute("data-laag"); render(); }
+  else if (act === "laag") { ttsCancel(); cur.laag = el.getAttribute("data-laag"); render(); }
   else if (act === "lees-voor") {
     var lt = leesKaart();
     if (lt) leesVoor(plainText(lt[cur.laag]), lt.taal === "en" ? "en" : "nl");
   }
+  else if (act === "tts-stop") stopVoorlezen();
+  else if (act === "tts-pauze") { if (ttsStatus === "pauze") hervatVoorlezen(); else pauzeerVoorlezen(); }
   else if (act === "woord-luister") {
-    leesWoordVoor(el.getAttribute("data-w"));
+    if (ttsStatus !== "uit") stopVoorlezen();
+    else leesWoordVoor(el.getAttribute("data-w"));
   }
   else if (act === "start-quiz") startQuiz(id);
   else if (act === "naar-teksten") ga("teksten");
@@ -2657,7 +2704,8 @@ document.getElementById("sheet").addEventListener("click", function (e) {
   var act = el.getAttribute("data-act");
   var w = el.getAttribute("data-w");
   if (act === "woord-luister") {
-    leesWoordVoor(w);
+    if (ttsStatus !== "uit") ttsCancel();
+    else leesWoordVoor(w);
   } else if (act === "woord-geleerd") {
     addGeleerd(w);
     touchStreak();
