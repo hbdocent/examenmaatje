@@ -1,0 +1,1525 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14181f">
+<title>ExamenMaatje 2F</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f3f4f6;
+    color: #14181f;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  header.top {
+    background: #14181f;
+    color: #fff;
+    padding: 14px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .logo { font-weight: 800; font-size: 18px; letter-spacing: .3px; display: flex; align-items: center; gap: 8px; }
+  .logo em { font-style: normal; border: 1px solid rgba(255,255,255,.45); color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 13px; font-weight: 700; letter-spacing: 1px; }
+  .streak { color: #d7dbe4; font-size: 14px; font-weight: 600; letter-spacing: .3px; }
+  main { max-width: 560px; margin: 0 auto; padding: 18px 16px 96px; }
+  .card {
+    background: #fff; border-radius: 12px; padding: 18px;
+    box-shadow: 0 1px 4px rgba(18,24,38,.07); margin-bottom: 14px;
+  }
+  .hero h1 { margin: 4px 0 6px; font-size: 23px; letter-spacing: -.2px; }
+  .hero p.sub { margin: 0 0 14px; color: #565f6e; }
+  .btn {
+    display: block; width: 100%; border: 0; border-radius: 10px;
+    padding: 13px 16px; font-size: 16px; font-weight: 700; cursor: pointer;
+    margin-bottom: 10px; text-align: center; font-family: inherit; letter-spacing: .2px;
+  }
+  .btn-primary { background: #14181f; color: #fff; }
+  .btn-accent { background: #4f46e5; color: #fff; }
+  .btn-green { background: #0f766e; color: #fff; }
+  .btn-outline { background: #fff; color: #14181f; border: 1.5px solid #14181f; }
+  .btn-soft { background: #e8eaf1; color: #14181f; }
+  .btn-small { display: inline-block; width: auto; padding: 8px 14px; font-size: 14px; margin-right: 8px; margin-bottom: 0; }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .stats { display: flex; gap: 10px; margin: 12px 0; }
+  .stat { flex: 1; background: #f5f6f9; border-radius: 10px; padding: 10px; text-align: center; }
+  .stat b { display: block; font-size: 21px; color: #14181f; }
+  .stat small { color: #565f6e; }
+  .tekstcard { cursor: pointer; border: 1.5px solid #e3e6ec; }
+  .tekstcard:active { border-color: #4f46e5; }
+  .tekstcard h3 { margin: 0 0 4px; font-size: 17px; }
+  .meta { color: #565f6e; font-size: 14px; }
+  .badge { display: inline-block; background: #ecfdf5; color: #0f766e; border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 700; margin-left: 6px; letter-spacing: .3px; }
+  .badge-blauw { background: #eef2ff; color: #4338ca; }
+  .laagtabs { display: flex; gap: 8px; margin: 12px 0; }
+  .laagtabs button {
+    flex: 1; border: 1.5px solid #d5dae3; background: #fff; color: #2a3140;
+    padding: 10px; border-radius: 9px; font-weight: 700; cursor: pointer; font-size: 14.5px; font-family: inherit;
+  }
+  .laagtabs button.actief { border-color: #14181f; background: #14181f; color: #fff; }
+  .tekst p { margin: 0 0 14px; }
+  .tekst h2 { font-size: 19px; margin: 0 0 14px; }
+  .w {
+    color: #4338ca; font-weight: 700; cursor: pointer;
+    text-decoration: underline dotted #8f88e8 2px; text-underline-offset: 3px;
+  }
+  .w.geleerd { color: #0f766e; text-decoration-color: #0f766e; }
+  .vraag { margin-bottom: 18px; }
+  .vraag h3 { font-size: 17.5px; margin: 0 0 12px; }
+  .optie {
+    display: block; width: 100%; text-align: left; background: #fff;
+    border: 1.5px solid #d5dae3; border-radius: 9px; padding: 12px 14px;
+    margin-bottom: 8px; font-size: 16px; cursor: pointer; font-family: inherit; color: #14181f;
+  }
+  .optie:disabled { cursor: default; }
+  .optie.goed { border-color: #0f766e; background: #ecfdf5; font-weight: 700; }
+  .optie.fout { border-color: #b91c1c; background: #fef2f2; }
+  .waarom {
+    background: #eef2ff; border-left: 3px solid #4338ca;
+    padding: 10px 12px; border-radius: 8px; margin: 10px 0; font-size: 15px;
+  }
+  .flash {
+    background: linear-gradient(150deg, #232a3a, #14181f); color: #fff;
+    border-radius: 12px; padding: 28px 18px; text-align: center; margin-bottom: 14px;
+    min-height: 160px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .flash .groot { font-size: 25px; font-weight: 800; margin-bottom: 8px; letter-spacing: .2px; }
+  .flash .uitleg { font-size: 16.5px; color: #d7dbe4; }
+  .flash .vb { font-style: italic; font-size: 14.5px; opacity: .85; margin-top: 8px; }
+  .invulzin { font-size: 18.5px; line-height: 1.6; background: #f5f6f9; border-radius: 9px; padding: 14px; margin-bottom: 14px; }
+  .blank { display: inline-block; min-width: 90px; border-bottom: 3px solid #4f46e5; text-align: center; color: #4f46e5; font-weight: 800; }
+  nav#nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff; display: flex; border-top: 1px solid #e3e6ec;
+    z-index: 10; max-width: 560px; margin: 0 auto;
+  }
+  nav#nav button {
+    flex: 1; border: 0; background: none; padding: 12px 2px 13px;
+    font-size: 10.5px; font-weight: 700; color: #78808f; cursor: pointer; font-family: inherit;
+    text-transform: uppercase; letter-spacing: .8px;
+    border-top: 2px solid transparent;
+  }
+  nav#nav button.actief { color: #14181f; border-top-color: #4f46e5; }
+  #sheetBack {
+    position: fixed; inset: 0; background: rgba(10,14,22,.5); z-index: 20;
+  }
+  #sheet {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 21;
+    background: #fff; border-radius: 16px 16px 0 0; padding: 20px 18px 26px;
+    max-width: 560px; margin: 0 auto; box-shadow: 0 -4px 20px rgba(0,0,0,.2);
+  }
+  #sheet h3 { margin: 0 0 2px; font-size: 21px; color: #14181f; }
+  #sheet .soort { color: #78808f; font-size: 13.5px; text-transform: uppercase; letter-spacing: .6px; }
+  #sheet .uitleg-regel { margin: 12px 0 4px; font-size: 16.5px; }
+  #sheet .voorbeeld { background: #f5f6f9; border-radius: 8px; padding: 8px 12px; font-size: 15px; margin: 8px 0 14px; }
+  .sheetknoppen { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sheetknoppen .btn { margin-bottom: 0; }
+  footer {
+    text-align: center; font-size: 12.5px; color: #78808f;
+    padding: 10px 16px 84px; max-width: 560px; margin: 0 auto;
+  }
+  #toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    background: #14181f; color: #fff; padding: 10px 18px; border-radius: 999px;
+    font-weight: 600; font-size: 14.5px; z-index: 30; display: none;
+  }
+  .terug { background: none; border: none; color: #4f46e5; font-weight: 700; font-size: 14.5px; cursor: pointer; padding: 0; margin-bottom: 10px; font-family: inherit; }
+  details.hoe { margin-top: 6px; }
+  details.hoe summary { font-weight: 700; color: #4f46e5; cursor: pointer; }
+  details.hoe ol { padding-left: 20px; }
+  .pbalk { background: #e2e6ee; border-radius: 999px; height: 10px; overflow: hidden; margin: 6px 0 12px; }
+  .pbalk > div { background: #0f766e; height: 100%; border-radius: 999px; }
+  .score-groot { text-align: center; font-size: 42px; font-weight: 800; color: #14181f; margin: 8px 0; letter-spacing: -.5px; }
+  .label-boven { text-transform: uppercase; letter-spacing: 1px; font-size: 12px; color: #78808f; font-weight: 700; margin: 0 0 4px; }
+  .chip {
+    display: inline-block; border: 1.5px solid #d5dae3; background: #fff; color: #2a3140;
+    border-radius: 999px; padding: 7px 13px; margin: 0 6px 8px 0; cursor: pointer;
+    font-size: 14.5px; font-weight: 600; font-family: inherit;
+  }
+  .chip-aan { border-color: #4338ca; background: #eef2ff; color: #312e81; }
+  .stapbalk { display: flex; gap: 5px; margin: 4px 0 16px; }
+  .stapbalk span { flex: 1; height: 4px; border-radius: 2px; background: #e2e6ee; }
+  .stapbalk span.aan { background: #4f46e5; }
+  .stapnr { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .stapnr b { background: #14181f; color: #fff; border-radius: 999px; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+  textarea {
+    width: 100%; min-height: 230px; border: 1.5px solid #d5dae3; border-radius: 10px;
+    padding: 12px; font-size: 16px; font-family: inherit; line-height: 1.6;
+    background: #fff; color: #14181f; resize: vertical;
+  }
+  textarea:focus { outline: 2px solid #4f46e5; outline-offset: -1px; }
+  .checkitem {
+    display: flex; gap: 10px; align-items: flex-start; background: #fff;
+    border: 1.5px solid #d5dae3; border-radius: 9px; padding: 11px 12px; margin-bottom: 8px;
+    cursor: pointer; font-size: 15.5px; text-align: left; font-family: inherit; color: #14181f; width: 100%;
+  }
+  .checkitem.aan { border-color: #0f766e; background: #ecfdf5; }
+  .checkbox { min-width: 20px; height: 20px; border: 1.5px solid #b9bfc9; border-radius: 5px; display: inline-block; margin-top: 2px; }
+  .checkitem.aan .checkbox { border-color: #0f766e; background: #0f766e; }
+  .voorbeeldtekst { background: #f5f6f9; border-left: 3px solid #0f766e; border-radius: 8px; padding: 12px 14px; font-size: 15.5px; white-space: pre-wrap; }
+  .startersnotitie { background: #f5f6f9; border-radius: 9px; padding: 12px; margin: 10px 0; font-size: 15.5px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo">ExamenMaatje <em>2F</em></div>
+  <div class="streak" id="streakBadge">0 dagen</div>
+</header>
+
+<main id="app"></main>
+
+<div id="sheetBack" hidden></div>
+<div id="sheet" hidden></div>
+<div id="toast"></div>
+
+<footer>
+  ExamenMaatje slaat niets op een server op. Je voortgang en teksten blijven op dit toestel. Geen account, geen tracking, gratis.
+</footer>
+
+<nav id="nav">
+  <button data-nav="home">Start</button>
+  <button data-nav="teksten">Teksten</button>
+  <button data-nav="woordjes">Woordjes</button>
+  <button data-nav="schrijven">Schrijven</button>
+  <button data-nav="voortgang">Voortgang</button>
+</nav>
+
+<script>
+/* ============================================================
+   EXAMENMAATJE 2F — NT2-leerlingen klas 3/4 vmbo basis/kader
+   Eén bestand, geen server, geen accounts (AVG-proof).
+
+   CONTENT AANPASSEN:
+   - WOORDEN      : woordenbank (u = uitleg, v = voorbeeldzin, s = woordsoort)
+   - TEKSTEN      : teksten + vragen; markeer moeilijke woorden met [[woord]]
+                    of [[woord|andere schrijfwijze]], bv. [[verdienen|verdient]]
+   - SCHRIJF      : schrijfopdrachten (e-mail/bericht, examenformaat 2F)
+   ============================================================ */
+
+var WOORDEN = {
+  "solliciteren": { u: "Je vraagt of je ergens mag werken.", v: "Ik ga solliciteren bij de supermarkt.", s: "werkwoord" },
+  "vacature": { u: "Een tekst waarin staat: we zoeken iemand voor dit werk.", v: "Ik heb een leuke vacature gezien.", s: "zelfstandig naamwoord" },
+  "vakkenvuller": { u: "Iemand die de producten in de schappen zet.", v: "De vakkenvuller werkt op zaterdag.", s: "zelfstandig naamwoord" },
+  "schappen": { u: "De planken in een winkel waar producten liggen.", v: "De cola staat in schap 3.", s: "zelfstandig naamwoord (meervoud)" },
+  "controleren": { u: "Kijken of iets goed of nog goed is.", v: "De juf controleert je huiswerk.", s: "werkwoord" },
+  "vers": { u: "Niet oud. Net gemaakt of net gekocht.", v: "Dit brood is nog vers.", s: "bijvoeglijk naamwoord" },
+  "minimaal": { u: "Niet minder dan. Ten minste.", v: "Je moet minimaal 15 jaar zijn.", s: "bijwoord" },
+  "ervaring": { u: "Dingen die je al eerder hebt gedaan, bijvoorbeeld in werk.", v: "Hij heeft ervaring met kassawerk.", s: "zelfstandig naamwoord" },
+  "training": { u: "Les waarin je leert hoe je het werk moet doen.", v: "De training duurt twee uur.", s: "zelfstandig naamwoord" },
+  "verdienen": { u: "Geld krijgen voor je werk.", v: "Zij verdient 4 euro per uur.", s: "werkwoord" },
+  "korting": { u: "Je betaalt minder dan de normale prijs.", v: "Studenten krijgen korting op kaartjes.", s: "zelfstandig naamwoord" },
+  "bovendien": { u: "Ook. Daarnaast.", v: "Het is goedkoop en bovendien mooi.", s: "bijwoord" },
+  "gezellig": { u: "Leuk om bij te zijn. Prettig samen.", v: "We hadden een gezellige dag.", s: "bijvoeglijk naamwoord" },
+  "vermelden": { u: "Opschrijven of zeggen in een bericht.", v: "Vermeld je naam en je leeftijd.", s: "werkwoord" },
+
+  "stage": { u: "Werk waarbij je leert hoe een vak echt gaat.", v: "Mijn stage is bij de garage.", s: "zelfstandig naamwoord" },
+  "spannend": { u: "Iets waar je zenuwachtig van bent, maar wat je wel leuk vindt.", v: "De wedstrijd was spannend.", s: "bijvoeglijk naamwoord" },
+  "indruk": { u: "Wat iemand van je vindt nadat die je heeft gezien.", v: "Je maakt een goede eerste indruk.", s: "zelfstandig naamwoord" },
+  "eerder": { u: "Vroeger dan een ander of dan de afgesproken tijd.", v: "Kom tien minuten eerder.", s: "bijwoord" },
+  "serieus": { u: "Je doet je best en vindt het belangrijk.", v: "Hij neemt zijn werk serieus.", s: "bijvoeglijk naamwoord" },
+  "vragen stellen": { u: "Iets vragen als je het niet snapt.", v: "Stel vooral veel vragen op je stage.", s: "werkwoord" },
+  "aanbieden": { u: "Vragen of je iets mag doen, zoals helpen.", v: "Ik bied aan om te helpen.", s: "werkwoord" },
+  "opdracht": { u: "Een taak die je moet doen.", v: "Deze opdracht is bijna klaar.", s: "zelfstandig naamwoord" },
+  "gemotiveerd": { u: "Je wilt het echt doen. Je hebt zin om te werken.", v: "Zij is een gemotiveerde leerling.", s: "bijvoeglijk naamwoord" },
+  "bedenken": { u: "Denken en onthouden in je hoofd.", v: "Bedenk: je bent er om te leren.", s: "werkwoord" },
+  "stagebegeleider": { u: "De persoon op je werk die je helpt en jou iets leert.", v: "Vraag het aan je stagebegeleider.", s: "zelfstandig naamwoord" },
+  "normaal": { u: "Iets wat vaak gebeurt. Niet vreemd.", v: "Een fout maken is normaal.", s: "bijvoeglijk naamwoord" },
+  "fouten": { u: "Dingen die je verkeerd doet.", v: "Iedereen maakt soms fouten.", s: "zelfstandig naamwoord (meervoud)" },
+  "wachten": { u: "Blijven staan of zitten tot er iets gebeurt.", v: "Wacht niet tot iemand je helpt.", s: "werkwoord" },
+
+  "stappen": { u: "Kleine onderdelen van een plan: stap 1, stap 2, stap 3.", v: "Volg de drie stappen in de tekst.", s: "zelfstandig naamwoord (meervoud)" },
+  "tieners": { u: "Jongeren van ongeveer 13 tot 19 jaar.", v: "Veel tieners sparen niet.", s: "zelfstandig naamwoord (meervoud)" },
+  "uitgeven": { u: "Geld gebruiken om iets te kopen.", v: "Ik geef te veel geld uit aan games.", s: "werkwoord" },
+  "halverwege": { u: "In het midden van iets, zoals de maand of een wedstrijd.", v: "Halverwege de maand is mijn geld op.", s: "bijwoord" },
+  "portemonnee": { u: "Het mapje waarin je je geld bewaart.", v: "Mijn portemonnee is leeg.", s: "zelfstandig naamwoord" },
+  "noteren": { u: "Kort opschrijven.", v: "Noteer elke dag wat je koopt.", s: "werkwoord" },
+  "lijken": { u: "Het ziet eruit alsof het zo is. Je denkt dat het zo is.", v: "Dat lijkt weinig geld, maar het is veel.", s: "werkwoord" },
+  "schrikken": { u: "Even heel verbaasd zijn, bijvoorbeeld van een hoog bedrag.", v: "Je schrikt van wat je allemaal uitgeeft.", s: "werkwoord" },
+  "verdelen": { u: "In stukken of delen doen.", v: "Verdeel je geld in drie delen.", s: "werkwoord" },
+  "sparen": { u: "Geld bewaren voor later. Het niet uitgeven.", v: "Ik spaar voor een nieuwe telefoon.", s: "werkwoord" },
+  "nodig": { u: "Iets dat je moet hebben of moeten gebruiken.", v: "Dit heb ik eigenlijk niet nodig.", s: "bijvoeglijk naamwoord" },
+  "besparen": { u: "Zorgen dat je geld overhoud. Minder uitgeven.", v: "Zo bespaar je tien euro per week.", s: "werkwoord" },
+  "moeite": { u: "Iets is lastig om te doen. Je moet er je best voor doen.", v: "Je bespaart geld zonder moeite.", s: "zelfstandig naamwoord" },
+  "overhouden": { u: "Nog hebben nadat je alles hebt betaald.", v: "Ik houd elke maand geld over.", s: "werkwoord" },
+
+  "geschikt": { u: "Je past bij iets. Je kunt het werk goed doen.", v: "Ik ben geschikt voor dit werk.", s: "bijvoeglijk naamwoord" },
+  "verzoek": { u: "Iets wat je aanvraagt of vraagt aan iemand.", v: "Ik stuur een verzoek naar de gemeente.", s: "zelfstandig naamwoord" },
+  "excursie": { u: "Een schoolreisje waarbij je iets leert.", v: "De excursie gaat naar het museum.", s: "zelfstandig naamwoord" },
+
+  "gehoorschade": { u: "Schade aan je gehoor. Je kunt daarna slechter horen.", v: "Harde muziek kan gehoorschade geven.", s: "zelfstandig naamwoord" },
+  "verband": { u: "Een link tussen twee dingen. Het een heeft met het ander te maken.", v: "Er is een verband tussen hard geluid en slecht gehoor.", s: "zelfstandig naamwoord" },
+  "vervolgonderzoek": { u: "Een nieuw onderzoek, na het eerste onderzoek.", v: "Na het eerste onderzoek startte een vervolgonderzoek.", s: "zelfstandig naamwoord" },
+  "gesuis": { u: "Een zoemend geluid in je oor.", v: "Na het feest had ik een gesuis in mijn oor.", s: "zelfstandig naamwoord" },
+  "beschadiging": { u: "Iets is kapot of kapot gemaakt.", v: "De beschadiging aan mijn oor is blijvend.", s: "zelfstandig naamwoord" },
+  "vergelijken": { u: "Twee dingen naast elkaar zetten: wat lijkt op elkaar?", v: "Vergelijk het met een brandwond.", s: "werkwoord" },
+  "opbouwen": { u: "Iets wordt steeds meer. Het stapelt op.", v: "De schade bouwt zich langzaam op.", s: "werkwoord" },
+  "stoer": { u: "Iets wat indruk maakt op anderen. Cool.", v: "Een motor is stoer, vinden sommigen.", s: "bijvoeglijk naamwoord" },
+  "bereiken": { u: "Bij iemand komen met je boodschap.", v: "Met de rapper bereiken ze de jongeren.", s: "werkwoord" },
+  "volumebegrenzer": { u: "Instelling die zorgt dat het geluid niet te hard kan.", v: "Zet de volumebegrenzer van je telefoon aan.", s: "zelfstandig naamwoord" },
+  "decibel": { u: "De maat voor hoe hard een geluid is.", v: "85 decibel is hard voor je oren.", s: "zelfstandig naamwoord" },
+  "afsluitend": { u: "Die goed dichtzit. Laat geen geluid van buiten door.", v: "Een afsluitende koptelefoon gaat over je oren.", s: "bijvoeglijk naamwoord" },
+  "achter elkaar": { u: "De ene keer na de andere, zonder pauze.", v: "Luister niet te lang achter elkaar naar muziek.", s: "bijwoord" },
+  "oorpauze": { u: "Korte pauze waarin je ooren kunnen rusten.", v: "Neem na een half uur een oorpauze.", s: "zelfstandig naamwoord" },
+
+  "bijbaantje": { u: "Klein betaald werk naast je school.", v: "Ik zoek een bijbaantje voor in het weekend.", s: "zelfstandig naamwoord" },
+  "kieskeurig": { u: "Je wilt alleen het beste. Je bent moeilijk tevreden.", v: "Jongeren zijn kieskeurig over hun baan.", s: "bijvoeglijk naamwoord" },
+  "tegenstaan": { u: "Je hebt er steeds minder zin in. Het wordt je te veel.", v: "Het reizen met de tram ging hem tegenstaan.", s: "werkwoord" },
+  "jobhopper": { u: "Iemand die vaak van baan wisselt.", v: "Het aantal jonge jobhoppers stijgt.", s: "zelfstandig naamwoord" },
+  "eisen stellen": { u: "Zeggen wat je wilt. Voorwaarden maken voor iets.", v: "Jongeren stellen steeds meer eisen aan hun baan.", s: "werkwoord" },
+  "gebonden": { u: "Vast aan iets. Je moet het doen, je kunt niet kiezen.", v: "Ik wil niet gebonden zijn aan een vast rooster.", s: "bijvoeglijk naamwoord" },
+  "rooster": { u: "Het overzicht van wanneer je moet werken.", v: "Mijn rooster laat zien wanneer ik zaterdag werk.", s: "zelfstandig naamwoord" },
+  "secundaire arbeidsvoorwaarden": { u: "Extra dingen bij je baan, zoals doorgroeien, opleidingen en teamuitjes.", v: "Toeslagen en teamuitjes zijn secundaire arbeidsvoorwaarden.", s: "zelfstandig naamwoord (meervoud)" },
+  "toeslag": { u: "Extra geld, bijvoorbeeld voor werken in het weekend of in de avond.", v: "Je krijgt een toeslag voor avondwerk.", s: "zelfstandig naamwoord" },
+  "doorgroeien": { u: "In je werk hoger komen. Een betere functie krijgen.", v: "Bij dit bedrijf kun je doorgroeien.", s: "werkwoord" },
+  "minimumloon": { u: "Het laagste loon dat een baas mag betalen.", v: "In de horeca betaalt het minimumloon.", s: "zelfstandig naamwoord" },
+  "afbellen": { u: "Bellen om te zeggen dat je niet hoeft te komen (of dat iets niet doorgaat).", v: "Ik werd last minute afgebeld: geen werk vandaag.", s: "werkwoord" },
+  "onderscheiden": { u: "Anders zijn dan de rest.", v: "Bedrijven moeten zich onderscheiden van andere bedrijven.", s: "werkwoord" },
+  "aansluiten": { u: "Goed passen bij iets.", v: "De bijbaan sluit aan bij zijn studie.", s: "werkwoord" },
+
+  "drommen": { u: "Grote groepen mensen. Heel veel mensen samen.", v: "Drommen mensen wachten voor het museum.", s: "zelfstandig naamwoord (meervoud)" },
+  "merendeel": { u: "De grootste groep. Meer dan de helft.", v: "Het merendeel van de jongeren heeft een bijbaan.", s: "zelfstandig naamwoord" },
+  "mijden": { u: "Ergens niet komen. Wegblijven van iets.", v: "Hij mijdt de drukteke plaatsen in de stad.", s: "werkwoord" },
+  "respondent": { u: "Iemand die antwoordt op een vragenlijst.", v: "Er deden 2000 respondenten mee aan het onderzoek.", s: "zelfstandig naamwoord" },
+  "opvallend": { u: "Iets trekt je aandacht. Bijzonder of vreemd.", v: "De conclusie van het onderzoek is opvallend.", s: "bijvoeglijk naamwoord" },
+  "weerhouden": { u: "Iets zorgt dat je iets toch niet doet. Tegenhouden.", v: "De drukte weerhoudt ze er niet van te gaan.", s: "werkwoord" },
+  "om de haverklap": { u: "Steeds maar weer. De ene na de andere keer.", v: "Hij kijkt om de haverklap op zijn telefoon.", s: "bijwoord" },
+  "geluidsoverlast": { u: "Te veel lawaai van anderen om je heen.", v: "In de stad heb je veel geluidsoverlast.", s: "zelfstandig naamwoord" },
+  "ergernis": { u: "Iets wat je stoort of boos maakt.", v: "Zelfie-toeristen zijn een grote ergernis.", s: "zelfstandig naamwoord" },
+  "ver te zoeken": { u: "Bijna niet te vinden. Heel ver weg.", v: "Op vakantie is genieten soms ver te zoeken.", s: "uitdrukking" },
+  "waarde": { u: "Hoe belangrijk of bijzonder iets is.", v: "Het oude gebouw heeft een culturele waarde.", s: "zelfstandig naamwoord" },
+  "met name": { u: "Juist. Vooral.", v: "Jongeren delen met name veel foto's.", s: "bijwoord" },
+  "storen aan": { u: "Ergens last van hebben. Het doet je iets.", v: "We storen ons aan de geluidsoverlast.", s: "werkwoord" },
+  "asociaal": { u: "Niet rekening houden met andere mensen.", v: "Asociaal rijgedrag is gevaarlijk.", s: "bijvoeglijk naamwoord" },
+
+  "voorbijkomen": { u: "Langskomen, zodat je het even ziet of hoort.", v: "Elke dag komen er veel berichten voorbij.", s: "werkwoord" },
+  "nepnieuws": { u: "Nieuws dat niet waar is. Nep-nieuws.", v: "Op sociale media staat veel nepnieuws.", s: "zelfstandig naamwoord" },
+  "bericht": { u: "Een stukje nieuws of informatie.", v: "Dit bericht op WhatsApp is niet echt.", s: "zelfstandig naamwoord" },
+  "twijfelen": { u: "Niet zeker weten of iets waar is.", v: "Ik twijfel of dit bericht echt is.", s: "werkwoord" },
+  "terugzien": { u: "Iets ergens anders ook zien. Terugvinden.", v: "Je kunt het bericht op meerdere sites terugzien.", s: "werkwoord" },
+  "nieuwsgierig": { u: "Je wilt graag dingen weten en ontdekken.", v: "Blijf nieuwsgierig: stel veel vragen.", s: "bijvoeglijk naamwoord" },
+  "kritisch": { u: "Niet meteen geloven. Goed nadenken over iets.", v: "Blijf kritisch bij nieuws op sociale media.", s: "bijvoeglijk naamwoord" }
+};
+
+var TEKSTEN = [
+  {
+    id: "solliciteren",
+    titel: "Solliciteren bij de supermarkt",
+    onderwerp: "Werk",
+    niveaubadge: "2F",
+    origineel: [
+      "Vacature: [[vakkenvuller]] gezocht!",
+      "Supermarkt De Boer zoekt een [[vakkenvuller]] voor zaterdag. Werken in een winkel? Lees snel verder.",
+      "Wat ga je doen? Je zet producten op de juiste plek in de [[schappen]]. Je [[controleren|controleert]] of producten nog [[vers]] zijn. Ook help je klanten die iets zoeken.",
+      "Wat vragen wij? Je bent [[minimaal]] vijftien jaar. Je bent vriendelijk en werkt netjes. [[ervaring|Ervaring]] is niet nodig: je krijgt een [[training]] van twee uur.",
+      "Wat krijg jij? Je [[verdienen|verdient]] € 4,00 per uur. Je krijgt [[korting]] op boodschappen en een gratis lunch. [[bovendien|Bovendien]] werk je in een [[gezellig]] team.",
+      "Hoe [[solliciteren|solliciteer]] je? Stuur vóór 1 november een kort bericht via de website. [[vermelden|Vermeld]] je naam, leeftijd en school. Wie vragen heeft, kan de winkel bellen."
+    ].join("\n"),
+    eenvoudig: [
+      "[[vacature|Vacature]] van supermarkt De Boer",
+      "De supermarkt zoekt een [[vakkenvuller]] voor de zaterdag. Wil jij in een winkel werken? Lees verder.",
+      "Wat doe je? Je zet producten in de [[schappen]]. Je kijkt of het nog [[vers]] is. Je helpt klanten.",
+      "Wat vragen wij? Je bent 15 jaar of ouder ([[minimaal]] 15). Je bent vriendelijk. Je hebt geen [[ervaring]] nodig. Je krijgt eerst een [[training]] van twee uur.",
+      "Wat krijg jij? Je krijgt € 4,00 per uur. Je krijgt [[korting]] op boodschappen. Je krijgt een gratis lunch. Het team is [[gezellig]].",
+      "Wat nu? Stuur een bericht vóór 1 november. [[vermelden|Schrijf]] je naam, leeftijd en school in het bericht. Vragen? Bel de winkel."
+    ].join("\n"),
+    woorden: ["solliciteren","vacature","vakkenvuller","schappen","controleren","vers","minimaal","ervaring","training","verdienen","korting","bovendien","gezellig","vermelden"],
+    vragen: [
+      {
+        v: "Waarom staat deze vacature op de website van de supermarkt?",
+        opties: ["Om mensen te helpen met boodschappen doen","Om te vertellen dat je kunt [[solliciteren|solliciteren]] voor een baan","Om te klagen over het werk"],
+        goed: 1,
+        waarom: "Een vacature is een tekst om werkzoekenden te laten weten dat er een baan is. Dat is het doel van de schrijver."
+      },
+      {
+        v: "Wat is de belangrijkste boodschap van de tekst?",
+        opties: ["De supermarkt zoekt een [[vakkenvuller]] en vertelt hoe je kunt [[solliciteren|solliciteren]]","De supermarkt verkoopt [[vers]] brood","Werken is altijd [[gezellig]]"],
+        goed: 0,
+        waarom: "De hoofdgedachte staat in de eerste zin en komt in de hele tekst terug: functie, eisen, beloning en hoe je solliciteert."
+      },
+      {
+        v: "Hoe oud moet je [[minimaal]] zijn voor deze baan?",
+        opties: ["Veertien jaar","Vijftien jaar","Zestien jaar"],
+        goed: 1,
+        waarom: "In de tekst staat: 'Je bent minimaal vijftien jaar.' Minimaal betekent: niet jonger dan."
+      },
+      {
+        v: "Waarom is het geen probleem als je nog nooit in een winkel hebt gewerkt?",
+        opties: ["Omdat het werk niet moeilijk is","Omdat je een [[training]] van twee uur krijgt","Omdat je geen [[ervaring]] nodig hebt in het leven"],
+        goed: 1,
+        waarom: "In de tekst staat: '[[ervaring|Ervaring]] is niet nodig: je krijgt een training van twee uur.' De training lost het gebrek aan ervaring op."
+      },
+      {
+        v: "Wat betekent [[bovendien]] in de zin 'Bovendien werk je in een gezellig team'?",
+        opties: ["Helaas","Ook, daarnaast","Misschien"],
+        goed: 1,
+        waarom: "[[bovendien|Bovendien]] betekent: er komt nog iets positiefs bij. Eerst het geld en de korting, en óók nog een gezellig team."
+      }
+    ]
+  },
+  {
+    id: "stage",
+    titel: "Tips voor je eerste stagedag",
+    onderwerp: "Stage",
+    niveaubadge: "2F",
+    origineel: [
+      "Volgende week begin je aan je [[stage]]. [[spannend|Spannend]]! Met deze tips maak je een goede [[indruk]] op je eerste dag.",
+      "Wees [[eerder]] aanwezig. Kom tien minuten voor de starttijd binnen. Zo laat je zien dat je je werk [[serieus]] neemt.",
+      "[[vragen stellen|Stel vragen]]. Wees niet bang om iets te vragen. Je bent er om te leren. Wie vragen stelt, leert sneller.",
+      "[[aanbieden|Bied]] je hulp aan. [[wachten|Wacht]] niet tot iemand je een [[opdracht]] geeft. Vraag zelf: 'Kan ik u helpen?' Zo laat je zien dat je [[gemotiveerd]] bent.",
+      "[[bedenken|Bedenk]]: iedereen is ooit begonnen. Je [[stagebegeleider]] weet dat je nog veel moet leren. [[fouten|Fouten]] maken is [[normaal]]. Belangrijk is dat je ervan leert."
+    ].join("\n"),
+    eenvoudig: [
+      "Volgende week begin je met je [[stage]]. Leuk, maar ook [[spannend]]!",
+      "Tip 1: kom 10 minuten [[eerder]]. Dan zie je dat je het werk [[serieus]] neemt. Je maakt een goede [[indruk]].",
+      "Tip 2: [[vragen stellen|Stel vragen]]. Snap je iets niet? Vraag het. Zo leer je snel.",
+      "Tip 3: [[aanbieden|Bied]] je hulp aan. Zeg: 'Kan ik u helpen?' Dan zie je dat je [[gemotiveerd]] bent.",
+      "Tip 4: [[wachten|wacht]] niet tot iemand je een [[opdracht]] geeft.",
+      "Tip 5: [[fouten]] maken is [[normaal]]. Je bent er om te leren. Je [[stagebegeleider]] helpt je."
+    ].join("\n"),
+    woorden: ["stage","spannend","indruk","eerder","serieus","vragen stellen","aanbieden","opdracht","gemotiveerd","bedenken","stagebegeleider","normaal","fouten","wachten"],
+    vragen: [
+      {
+        v: "Wat is de hoofdgedachte van deze tekst?",
+        opties: ["[[stage|Stage]] is altijd leuk","Met een paar eenvoudige tips maak je een goede start op je [[stage]]","Je [[stagebegeleider]] beslist alles"],
+        goed: 1,
+        waarom: "Elke tip gaat over hoe je goed begint: op tijd zijn, vragen stellen, hulp aanbieden. Dat is samen de hoofdgedachte."
+      },
+      {
+        v: "Waarom moet je tien minuten [[eerder]] komen?",
+        opties: ["Omdat je anders de bus mist","Omdat je dan laat zien dat je je werk [[serieus]] neemt","Omdat je dan eerst koffie kunt drinken"],
+        goed: 1,
+        waarom: "In de tekst staat dat je zo laat zien dat je het werk serieus neemt. Dat maakt een goede eerste indruk."
+      },
+      {
+        v: "Wat betekent [[gemotiveerd]]?",
+        opties: ["Je wilt het echt doen en je doet je best","Je bent moe van het werk","Je weet alles al"],
+        goed: 0,
+        waarom: "Iemand die zelf hulp aanbiedt en vragen stelt, laat zien die gemotiveerd is: die heeft zin om te leren en te werken."
+      },
+      {
+        v: "Waarom is het volgens de tekst [[normaal]] om [[fouten]] te maken?",
+        opties: ["Omdat niemand zijn best doet","Omdat je er bent om te leren en iedereen ooit begint","Omdat je [[stagebegeleider]] je werk wel overdoet"],
+        goed: 1,
+        waarom: "In de tekst staat: 'iedereen is ooit begonnen' en 'je bent er om te leren'. Fouten horen dus bij het begin."
+      },
+      {
+        v: "Wat is de bedoeling van de schrijver van deze tekst?",
+        opties: ["Leerlingen laten zien hoe ze een goede eerste stagedag maken","Stagebedrijven waarschuwen voor lastige leerlingen","Vertellen hoe zijn eigen stage was"],
+        goed: 0,
+        waarom: "De tekst geeft tips aan leerlingen die bijna op stage gaan. Dat is het schrijversdoel."
+      }
+    ]
+  },
+  {
+    id: "geld",
+    titel: "Houd je geld bij met drie stappen",
+    onderwerp: "Geld",
+    niveaubadge: "2F",
+    origineel: [
+      "Veel [[tieners]] [[uitgeven|geven]] hun geld te snel [[uitgeven|uit]]. [[halverwege|Halverwege]] de maand is hun [[portemonnee]] al leeg. Met drie [[stappen]] houd jij je geld langer bij.",
+      "Stap 1: schrijf op wat je [[uitgeven|uitgeeft]]. [[noteren|Noteer]] elke dag wat je koopt, ook kleine dingen. Een energydrank van € 2,00 [[lijken|lijkt]] weinig. Maar per maand is dat € 60,00. Dat is [[schrikken|schrikken]], toch?",
+      "Stap 2: maak een plan. [[verdelen|Verdeel]] je geld in drie delen: [[sparen]], boodschappen en vrije tijd. Zo weet je altijd hoeveel je mag uitgeven.",
+      "Stap 3: [[wachten|wacht]] een dag. Wil je iets kopen dat je niet [[nodig]] hebt? Wacht vierentwintig uur. Vaak vind je het de volgende dag minder mooi. Dan [[besparen|bespaar]] je geld, zonder [[moeite]]. En dat geld kun je [[overhouden|overhouden]] voor iets dat je echt wilt."
+    ].join("\n"),
+    eenvoudig: [
+      "Veel [[tieners]] [[uitgeven|geven]] hun geld te snel [[uitgeven|uit]]. [[halverwege|Halverwege]] de maand is je [[portemonnee]] leeg. Met 3 [[stappen]] houd je je geld langer.",
+      "Stap 1: [[noteren|Noteer]] wat je koopt. Elke dag. Ook kleine dingen. Klein geld samen is veel geld! Dat is [[schrikken|schrikken]], toch?",
+      "Stap 2: maak een plan. [[verdelen|Verdeel]] je geld in 3 delen: [[sparen]], boodschappen en leuke dingen.",
+      "Stap 3: wil je iets kopen dat je niet [[nodig]] hebt? Wacht 1 dag. De dag erna wil je het misschien niet meer. Dan [[besparen|bespaar]] je geld zonder [[moeite]]. Je [[overhouden|houd]] geld [[overhouden|over]]!"
+    ].join("\n"),
+    woorden: ["stappen","tieners","uitgeven","halverwege","portemonnee","noteren","lijken","schrikken","verdelen","sparen","nodig","besparen","moeite","overhouden"],
+    vragen: [
+      {
+        v: "Wat is de hoofdgedachte van de tekst?",
+        opties: ["Energydrank is duur","Veel [[tieners]] geven te snel geld uit, maar met drie [[stappen]] kun je dat voorkomen","[[sparen|Sparen]] is altijd beter dan kopen"],
+        goed: 1,
+        waarom: "De eerste zin noemt het probleem (te snel geld uitgeven), daarna geeft de tekst drie oplossingen. Dat is de hoofdgedachte."
+      },
+      {
+        v: "Waarom noemt de schrijver de energydrank van € 2,00?",
+        opties: ["Omdat energydrank ongezond is","Omdat kleine bedragen samen per maand veel geld worden","Omdat je beter water kunt kopen"],
+        goed: 1,
+        waarom: "De tekst zegt: € 2,00 lijkt weinig, maar per maand is het € 60,00. Klein geld wordt groot geld."
+      },
+      {
+        v: "Wat betekent [[besparen]]?",
+        opties: ["Minder uitgeven, zodat je geld [[overhouden|overhoud]]","Geld lenen bij de bank","Iets duurders kopen"],
+        goed: 0,
+        waarom: "[[besparen|Besparen]] betekent: zorgen dat je minder uitgeeft. Zo blijft er geld over."
+      },
+      {
+        v: "In hoeveel delen [[verdelen|verdeel]] je je geld in stap 2?",
+        opties: ["Twee delen","Drie delen","Vier delen"],
+        goed: 1,
+        waarom: "In de tekst staan drie delen: [[sparen]], boodschappen en vrije tijd."
+      },
+      {
+        v: "Waarom moet je vierentwintig uur [[wachten]] als je iets wilt kopen dat je niet [[nodig]] hebt?",
+        opties: ["Omdat winkels dan [[korting]] geven","Omdat je de volgende dag vaak minder wilt kopen","Omdat geld dan vanzelf groeit"],
+        goed: 1,
+        waarom: "In de tekst staat: 'Vaak vind je het de volgende dag minder mooi.' Daardoor koop je het niet en [[besparen|bespaar]] je geld."
+      }
+    ]
+  },
+  {
+    id: "gehoorschade",
+    titel: "Steeds jonger gehoorschade",
+    onderwerp: "Muziek en gezondheid",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2021, tijdvak 1",
+    origineel: [
+      "Steeds vaker krijgen jongeren [[gehoorschade]]. Dat blijkt uit onderzoek onder jongeren tussen 12 en 25 jaar.",
+      "Wie te hard naar muziek luistert, [[beschadiging|beschadigt]] zijn oren. De [[beschadiging]] bouwt zich langzaam [[opbouwen|op]]. Je merkt er niets van: gehoorschade kun je niet [[vergelijken]] met een wond, want het doet geen pijn.",
+      "Rapper Idaly weet er alles van. Hij hoort dag en nacht een [[gesuis]] in zijn oren. 'Hier kan ik niets aan doen', zegt hij. Artsen beamen het: [[gehoorschade]] is niet te genezen.",
+      "Waarom luisteren jongeren zo hard? Hard geluid vinden zij [[stoer]]. En met muziek wil je een heel feest [[bereiken]]: iedereen moet het horen.",
+      "Er is een duidelijk [[verband]] tussen hard geluid en slechthorendheid, zeggen onderzoekers. Zij doen nu [[vervolgonderzoek]] naar oordopjes. [[afsluitend|Afsluitend]] geven zij een paar tips. Zet een [[volumebegrenzer]] op je telefoon: maximaal 85 [[decibel]]. En neem een [[oorpauze]] als je lang [[achter elkaar]] naar muziek hebt geluisterd."
+    ].join("\n"),
+    eenvoudig: [
+      "Steeds meer jongeren krijgen [[gehoorschade]]. Dat is schade aan je oren. Dat blijkt uit onderzoek.",
+      "Te harde muziek [[beschadiging|beschadigt]] je oren. De [[beschadiging]] [[opbouwen|bouwt]] langzaam [[opbouwen|op]]. Het doet geen pijn. Daarom merk je het niet.",
+      "Rapper Idaly hoort altijd een [[gesuis]] in zijn oren. Dat is [[gehoorschade]]. Het gaat nooit meer weg.",
+      "Waarom luisteren jongeren zo hard? Hard geluid is [[stoer]]. Met hard geluid [[bereiken|bereik]] je iedereen op het feest.",
+      "Tips: zet een [[volumebegrenzer]] op je telefoon. Dat is maximaal 85 [[decibel]]. Neem ook een [[oorpauze]]. [[achter elkaar|Niet te lang achter elkaar]] luisteren!"
+    ].join("\n"),
+    woorden: ["gehoorschade","verband","vervolgonderzoek","gesuis","beschadiging","vergelijken","opbouwen","stoer","bereiken","volumebegrenzer","decibel","afsluitend","achter elkaar","oorpauze"],
+    vragen: [
+      {
+        v: "Wat staat in de eerste alinea?",
+        opties: ["De uitslag van een onderzoek","Een verhaal over een rapper","Een advertentie voor oordopjes"],
+        goed: 0,
+        waarom: "De inleiding begint met de uitslag van onderzoek: steeds meer jongeren hebben [[gehoorschade]]."
+      },
+      {
+        v: "Waarom staat rapper Idaly in de tekst?",
+        opties: ["Hij laat zien dat ook jongeren [[gehoorschade]] kunnen krijgen","Hij verkoopt [[oorpauze]]s","Hij maakt muziek zonder geluid"],
+        goed: 0,
+        waarom: "Idaly hoort een [[gesuis]] in zijn oren. Zijn verhaal is een voorbeeld van [[gehoorschade]] bij een jongere."
+      },
+      {
+        v: "Welke titel geeft de hoofdgedachte van de tekst het beste?",
+        opties: ["Steeds jonger [[gehoorschade]]","Idaly maakt nieuwe muziek","Muziek is altijd leuk"],
+        goed: 0,
+        waarom: "De tekst gaat over jongeren met [[gehoorschade]]: steeds jongere mensen krijgen het. Dat is de hoofdgedachte."
+      },
+      {
+        v: "Wat staat in de laatste alinea?",
+        opties: ["Aanwijzingen om [[gehoorschade]] te voorkomen","Nieuws over een [[volumebegrenzer]] van Idaly","Een [[vervolgonderzoek]] bij ouderen"],
+        goed: 0,
+        waarom: "In de laatste alinea staan tips, zoals de [[volumebegrenzer]] en een [[oorpauze]]. Daarmee voorkom je [[gehoorschade]]."
+      },
+      {
+        v: "In welke rubriek van een krant of site past deze tekst het beste?",
+        opties: ["Cultuur","Sport","Wetenschap"],
+        goed: 2,
+        waarom: "De tekst gaat over onderzoek en gezondheid. Verslagen van onderzoek horen bij de rubriek Wetenschap."
+      }
+    ]
+  },
+  {
+    id: "bijbaan",
+    titel: "Jongeren zien bijbaantje niet meer zitten",
+    onderwerp: "Werk",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2021, tijdvak 1",
+    origineel: [
+      "Steeds minder jongeren willen een [[bijbaantje]] in de horeca of een winkel. Dat blijkt uit onderzoek van de vakbond. Opvallend: er zijn meer [[vacature]]s dan ooit.",
+      "Waarom niet? Jongeren zijn [[kieskeurig]] geworden. Ze willen een baan die [[aansluiten|aansluit]] bij hun studie of hobby. Dat is voor hen belangrijker dan alleen geld.",
+      "Ook [[eisen stellen|stellen ze eisen]]. Ze willen niet [[gebonden]] zijn aan een vast [[rooster]] en zelf hun uren bepalen. Vaste avonden [[tegenstaan|staan]] hen [[tegenstaan|tegen]].",
+      "Werkgevers proberen zich te [[onderscheiden]] met extra's. Zo betaalt één bedrijf het scooterrijbewijs van jonge medewerkers. Ook [[secundaire arbeidsvoorwaarden]] zijn belangrijk: kun je [[doorgroeien]] naar een betere functie? Krijg je een [[toeslag]] voor avondwerk?",
+      "Het salaris moet kloppen: niet onder het [[minimumloon]]. Is dat niet zo, dan is de jonge [[jobhopper]] snel vertrokken. En op het laatste moment een dienst [[afbellen|afbellen]]? Ook dat gebeurt steeds vaker."
+    ].join("\n"),
+    eenvoudig: [
+      "Steeds minder jongeren willen een [[bijbaantje]] in de horeca of een winkel. Dat zegt de vakbond. Er zijn wel veel [[vacature]]s.",
+      "Waarom? Jongeren zijn [[kieskeurig]]. Ze zoeken een baan die [[aansluiten|past]] bij hun studie of hobby. Dat is belangrijker dan geld.",
+      "Ze [[eisen stellen|stellen eisen]]. Ze willen geen vast [[rooster]]. Ze willen zelf hun uren bepalen. Ze willen niet [[gebonden]] zijn.",
+      "Bedrijven proberen zich te [[onderscheiden]]. Eén bedrijf betaalt je scooterrijbewijs. [[secundaire arbeidsvoorwaarden|Extra dingen naast je loon]] zijn ook belangrijk: kun je [[doorgroeien]]? Krijg je een [[toeslag]]?",
+      "Je loon mag niet onder het [[minimumloon]] zijn. Anders ga je weg. De jonge [[jobhopper]] zoekt snel een andere baan."
+    ].join("\n"),
+    woorden: ["bijbaantje","kieskeurig","tegenstaan","jobhopper","vacature","eisen stellen","gebonden","rooster","secundaire arbeidsvoorwaarden","toeslag","doorgroeien","minimumloon","afbellen","onderscheiden","aansluiten"],
+    vragen: [
+      {
+        v: "Waarom noemt de tekst jongeren [[kieskeurig]]?",
+        opties: ["Omdat er zoveel [[vacature]]s zijn dat ze kunnen kiezen","Omdat ze geen geld willen","Omdat ze te jong zijn om te werken"],
+        goed: 0,
+        waarom: "Er zijn meer vacatures dan ooit. Jongeren kunnen dus kiezen wat ze willen. [[kieskeurig]] betekent: precies weten wat je wilt."
+      },
+      {
+        v: "Wat is voor jongeren het belangrijkst in een baan?",
+        opties: ["Een baan die [[aansluiten|aansluit]] bij hun studie of hobby","Alleen een hoog loon","Werken met veel vrienden"],
+        goed: 0,
+        waarom: "In de tekst staat dat een baan die aansluit bij studie of hobby belangrijker is dan alleen geld."
+      },
+      {
+        v: "Waarom betaalt één bedrijf het scooterrijbewijs van jonge medewerkers?",
+        opties: ["Om zich te [[onderscheiden]] van andere werkgevers","Omdat jongeren geen fiets hebben","Omdat het rijbewijs niets kost"],
+        goed: 0,
+        waarom: "Met zo'n extra proberen bedrijven jongeren te trekken. Ze maken zich anders dan andere werkgevers."
+      },
+      {
+        v: "Welk tussenkopje past het beste boven de alinea over de wensen van jongeren?",
+        opties: ["Belangrijke factoren","Diverse werkgevers","Het [[minimumloon]]"],
+        goed: 0,
+        waarom: "In die alinea staat wat jongeren belangrijk vinden: geen vast [[rooster]], [[doorgroeien]] en een [[toeslag]]. Dat zijn factoren."
+      },
+      {
+        v: "Wat willen jongeren als het om werktijden gaat?",
+        opties: ["Zelf hun uren indelen","Altijd vaste avonden","Zo veel mogelijk uren"],
+        goed: 0,
+        waarom: "Jongeren willen niet [[gebonden]] zijn aan een vast [[rooster]]. Ze willen zelf hun uren indelen."
+      }
+    ]
+  },
+  {
+    id: "vakantie",
+    titel: "Genieten op vakantie? We ergeren ons kapot!",
+    onderwerp: "Vakantie",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2021, tijdvak 1",
+    origineel: [
+      "Genieten op vakantie? Veel Nederlanders [[storen aan|storen zich]] aan andere toeristen. [[opvallend|Opvallend]] is dat het [[merendeel]] van de [[respondent]]en juist de drukke plekken [[mijden|mijdt]].",
+      "Wat is de grootste [[ergernis]]? Zelffotografen: toeristen die [[om de haverklap]] foto's van zichzelf maken. Dit vinden vakantiegangers het ergst. Door al die mensen liggen de mooie plekken vol met [[drommen]].",
+      "Ook [[geluidsoverlast]] op de camping staat in de top drie, en [[asociaal]] gedrag bij het zwembad. Echte rust is in de zomer [[ver te zoeken]], [[met name]] in populaire steden.",
+      "Voor reisbureaus heeft het onderzoek [[waarde]]: zij zoeken nu rustige plekken voor hun gasten.",
+      "Toch [[weerhouden|houdt]] niets de Nederlanders [[weerhouden|terug]]: volgend jaar gaan ze gewoon weer op vakantie."
+    ].join("\n"),
+    eenvoudig: [
+      "Vakantie is niet altijd leuk. Veel mensen [[storen aan|storen zich]] aan andere toeristen. Dat blijkt uit onderzoek. Het [[merendeel]] (de meeste mensen) [[mijden|mijdt]] drukke plekken.",
+      "Wat is het ergst? Toeristen die [[om de haverklap]] foto's van zichzelf maken. Dit vinden vakantiegangers heel erg.",
+      "Ook [[geluidsoverlast]] (te veel lawaai) is vervelend. En [[asociaal]] gedrag. Rust is in de zomer [[ver te zoeken]] (bijna nergens te vinden), [[met name]] in drukke steden.",
+      "Het onderzoek heeft [[waarde]] voor reisbureaus. Zij zoeken rustige plekken voor hun gasten.",
+      "Maar volgend jaar gaan we gewoon weer op vakantie. Niets [[weerhouden|houdt]] ons [[weerhouden|terug]]."
+    ].join("\n"),
+    woorden: ["drommen","merendeel","mijden","respondent","opvallend","weerhouden","om de haverklap","geluidsoverlast","ergernis","ver te zoeken","waarde","met name","storen aan","asociaal"],
+    vragen: [
+      {
+        v: "Waarom is de uitslag van het onderzoek [[opvallend]]?",
+        opties: ["Toeristen [[mijden]] toeristen, maar zijn er zelf een","Niemand gaat ooit op vakantie","Vakantiegangers houden van [[drommen]]"],
+        goed: 0,
+        waarom: "Opvallend is dat het [[merendeel]] van de [[respondent]]en zich ergert aan andere toeristen. Zelf zijn ze ook toerist."
+      },
+      {
+        v: "Waarnaar verwijst het woordje 'Dit' in de zin 'Dit vinden vakantiegangers het ergst'?",
+        opties: ["Naar toeristen die [[om de haverklap]] foto's van zichzelf maken","Naar [[geluidsoverlast]] op de camping","Naar het weer in de zomer"],
+        goed: 0,
+        waarom: "'Dit' verwijst naar de zin hiervóór: toeristen die de hele tijd zelffoto's maken. Dat is de grootste [[ergernis]]."
+      },
+      {
+        v: "Waarom gaan jongeren van 18 tot 24 jaar juist wél naar bekende plekken?",
+        opties: ["Om te vertellen dat ze er geweest zijn","Om [[asociaal]] te doen","Om [[drommen]] mensen te [[mijden]]"],
+        goed: 0,
+        waarom: "In de tekst staat dat deze jongeren kunnen zeggen: ik ben er geweest. Dat is voor hen de [[waarde]] van zo'n plek."
+      },
+      {
+        v: "Wat vertelt de titel 'Genieten op vakantie? We ergeren ons kapot!' over de tekst?",
+        opties: ["De conclusie van het onderzoek","Een advertentie voor een reis","Een waarschuwing voor zonneschijn"],
+        goed: 0,
+        waarom: "De titel geeft de conclusie: op vakantie [[storen aan|storen we ons]] aan anderen. Dat is wat het onderzoek laat zien."
+      },
+      {
+        v: "Wat betekent [[om de haverklap]]?",
+        opties: ["De hele tijd, steeds weer","Eén keer per jaar","Heel even"],
+        goed: 0,
+        waarom: "[[om de haverklap|Om de haverklap]] betekent: steeds weer, aan de lopende band."
+      }
+    ]
+  },
+  {
+    id: "nepnieuws",
+    titel: "Echt nieuws of nepnieuws?",
+    onderwerp: "Nieuws",
+    niveaubadge: "2F",
+    bron: "naar advertentie Rijksoverheid · examen vmbo-bb 2021",
+    origineel: [
+      "Elke dag zien honderden berichten aan je [[voorbijkomen]] op je telefoon. Is dat allemaal echt nieuws? Nee. Er is ook [[nepnieuws]].",
+      "[[nepnieuws|Nepnieuws]] lijkt echt, maar het is niet waar. Hoe herken je het? [[twijfelen|Twijfel]] bij elk [[bericht]].",
+      "Wees [[kritisch]]: controleer het bericht. Staat de bron erbij? Kun je de bron niet [[terugzien|terugvinden]]? Deel het bericht dan niet.",
+      "[[nieuwsgierig|Nieuwsgierig]] zijn is goed. Maar check altijd je bron. Dan herken jij [[nepnieuws]]."
+    ].join("\n"),
+    eenvoudig: [
+      "Elke dag zien berichten aan je [[voorbijkomen]] op je telefoon. Is alles echt? Nee. Er is ook [[nepnieuws]].",
+      "[[nepnieuws|Nepnieuws]] lijkt echt nieuws. Maar het is niet waar.",
+      "[[twijfelen|Twijfel]] bij elk [[bericht]]. Kijk: waar komt het vandaan? Wees [[kritisch]].",
+      "[[nieuwsgierig|Nieuwsgierig]] is goed. Maar controleer altijd. Kun je de bron niet [[terugzien|terugvinden]]? Deel het niet."
+    ].join("\n"),
+    woorden: ["voorbijkomen","nepnieuws","bericht","twijfelen","terugzien","nieuwsgierig","kritisch"],
+    vragen: [
+      {
+        v: "Wat is het doel van deze advertentie van de Rijksoverheid?",
+        opties: ["Mensen leren om [[kritisch]] te zijn bij nieuws","Een krant verkopen","Mensen laten lachen"],
+        goed: 0,
+        waarom: "De advertentie wil dat je [[twijfelen|twijfelt]] en controleert of een [[bericht]] echt is."
+      },
+      {
+        v: "Welke tip geeft de tekst?",
+        opties: ["Controleer waar het [[bericht]] vandaan komt","Deel alles zo snel mogelijk","Geloof alles op internet"],
+        goed: 0,
+        waarom: "In de tekst staat dat je de bron moet controleren. Kun je de bron niet [[terugzien|terugvinden]]? Deel het bericht dan niet."
+      },
+      {
+        v: "Voor wie is deze advertentie bedoeld?",
+        opties: ["Voor iedereen die berichten ziet [[voorbijkomen]]","Alleen voor leerlingen","Alleen voor journalisten"],
+        goed: 0,
+        waarom: "Iedereen ziet berichten [[voorbijkomen]] op zijn telefoon. Daarom is de advertentie voor alle mensen bedoeld."
+      }
+    ]
+  }
+];
+
+/* ---------- SCHRIJFVAARDIGHEID: opdrachten (examenformaat 2F) ---------- */
+var SCHRIJF = [
+  {
+    id: "gemeente",
+    titel: "E-mail aan de gemeente",
+    soort: "Verzoek · e-mail",
+    minWoorden: 60,
+    situatie: "In jouw buurt is geen plek om buiten te sporten. Veel jongeren willen graag een sportplek in het park, bijvoorbeeld een klein veld voor voetbal of een skatebaan. Schrijf een e-mail aan de gemeente.",
+    taak: [
+      "Zeg waarom je schrijft (een verzoek).",
+      "Leg uit wat je wilt: een sportplek in het park.",
+      "Geef twee redenen waarom de gemeente dit moet doen.",
+      "Eindig met een vraag en een nette groet."
+    ],
+    woordweb: ["buurt", "gemeente", "verzoek", "sportplek", "skatebaan", "jongeren", "gezond", "samen sporten", "buiten", "park", "gratis", "veilig"],
+    starters: [
+      "Geachte mevrouw, meneer,",
+      "Ik schrijf u omdat ik een verzoek heb.",
+      "In onze buurt is geen plek om buiten te sporten.",
+      "Daarom wil ik graag vragen of er een sportplek in het park kan komen.",
+      "Veel jongeren in deze buurt willen graag buiten sporten.",
+      "Sporten is goed voor je gezondheid.",
+      "Ik hoop dat u hier iets aan kunt doen.",
+      "Alvast bedankt voor uw antwoord.",
+      "Met vriendelijke groet,"
+    ],
+    checklist: [
+      "Mijn e-mail heeft een nette aanhef (Geachte mevrouw, meneer).",
+      "Ik noem alle vier de punten uit de opdracht.",
+      "Mijn tekst heeft minstens 60 woorden.",
+      "Ik eindig met een groet en mijn naam.",
+      "Ik heb gecontroleerd: hoofdletters, punten en komma's.",
+      "Ik gebruik korte, duidelijke zinnen (niet te lang)."
+    ],
+    voorbeeld: "Geachte mevrouw, meneer,\n\nIk schrijf u omdat ik een verzoek heb. In onze buurt is geen plek om buiten te sporten. Daarom wil ik graag vragen of er een sportplek in het park kan komen.\n\nVeel jongeren in deze buurt willen graag buiten sporten. Sporten is goed voor je gezondheid en het is gratis. Nu moeten we altijd naar de sporthal toe, en dat is ver weg.\n\nIk hoop dat u hier iets aan kunt doen. Alvast bedankt voor uw antwoord.\n\nMet vriendelijke groet,\nSamir (15 jaar)"
+  },
+  {
+    id: "sollicitatie",
+    titel: "Solliciteren bij De Boer",
+    soort: "Sollicitatie · kort bericht",
+    minWoorden: 50,
+    situatie: "Je hebt de vacature van supermarkt De Boer gelezen (tekst 1: 'Solliciteren bij de supermarkt'). Je wilt die baan graag. Schrijf een kort bericht waarin je solliciteert.",
+    taak: [
+      "Vertel wie je bent: naam, leeftijd en school.",
+      "Vertel waarom je bij De Boer wilt werken.",
+      "Noem twee dingen waarom jij geschikt bent voor dit werk.",
+      "Eindig met een nette slotzin en je naam."
+    ],
+    woordweb: ["solliciteren", "vacature", "geschikt", "vriendelijk", "op tijd", "zaterdag", "klanten helpen", "netjes werken", "geen ervaring", "snel leren"],
+    starters: [
+      "Hallo,",
+      "Ik heb jullie vacature gelezen en ik wil graag solliciteren.",
+      "Ik ben ... jaar en ik zit op het vmbo.",
+      "Ik wil bij De Boer werken omdat ik graag met mensen praat.",
+      "Ik ben geschikt voor dit werk omdat ik vriendelijk ben.",
+      "Ik ben altijd op tijd en ik werk netjes.",
+      "Ik kan elke zaterdag werken.",
+      "Ik hoor graag van jullie.",
+      "Met vriendelijke groet,"
+    ],
+    checklist: [
+      "Mijn bericht heeft een nette aanhef (Hallo of Geachte).",
+      "Ik noem mijn naam, leeftijd en school.",
+      "Ik noem twee redenen waarom ik geschikt ben.",
+      "Mijn tekst heeft minstens 50 woorden.",
+      "Ik eindig met een slotzin en mijn naam.",
+      "Ik heb gecontroleerd: hoofdletters, punten en komma's."
+    ],
+    voorbeeld: "Hallo,\n\nIk heb jullie vacature gelezen en ik wil graag solliciteren. Ik ben 15 jaar en ik zit op het vmbo in klas 3.\n\nIk wil bij De Boer werken omdat ik graag met mensen praat. Ik ben geschikt voor dit werk omdat ik vriendelijk ben en goed kan luisteren. Ik ben altijd op tijd en ik werk netjes. Ervaring heb ik nog niet, maar ik leer snel.\n\nIk kan elke zaterdag werken. Ik hoor graag van jullie.\n\nMet vriendelijke groet,\nAmina"
+  },
+  {
+    id: "schooldj",
+    titel: "Word jij onze school-dj?",
+    soort: "E-mail · naar examen 2021",
+    minWoorden: 75,
+    situatie: "Op de website van je school staat een oproep: 'Word jij onze school-dj?' Voor het schoolfeest zoeken jullie een dj die goed met muziek en een publiek om kan gaan. Je reageert op deze oproep. Schrijf een e-mail aan de heer Lagendijk. De aanhef 'Geachte heer Lagendijk,' staat op het examen al klaar — schrijf je hele e-mail, ook de afsluiting en je naam.",
+    taak: [
+      "Vertel dat je reageert op de oproep voor het schoolfeest.",
+      "Vertel welke muziek je wilt draaien en waarom die past bij het schoolfeest.",
+      "Vertel of je ervaring hebt met het draaien van muziek.",
+      "Vertel welke muziekapparatuur je al hebt of nog nodig hebt.",
+      "Eindig met een nette afsluiting en je naam."
+    ],
+    woordweb: ["schoolfeest","dj","muziek","sfeer","muzieknummer","draaien","muziekapparatuur","dansvloer","enthousiast","geschikt","muziektrends","waardebon"],
+    starters: [
+      "Geachte heer Lagendijk,",
+      "Ik heb uw oproep gelezen en ik wil graag reageren.",
+      "Ik wil graag de dj zijn op het schoolfeest.",
+      "Ik luister elke dag naar muziek en ik weet wat leerlingen leuk vinden.",
+      "Ik wil vooral ... draaien, want dat past bij de sfeer van het feest.",
+      "Ik heb al ervaring met draaien: ik deed de muziek op het feest van mijn voetbalclub.",
+      "Voor het draaien van muziek heb ik een laptop en een mengpaneel nodig.",
+      "Ik hoop dat u mij kiest.",
+      "Met vriendelijke groet,"
+    ],
+    checklist: [
+      "Mijn e-mail begint met 'Geachte heer Lagendijk,'",
+      "Ik vertel dat ik reageer op de oproep.",
+      "Ik schrijf welke muziek ik wil draaien en waarom die past bij het schoolfeest.",
+      "Ik vertel over mijn ervaring met het draaien van muziek.",
+      "Ik noem welke muziekapparatuur ik heb of nog nodig heb.",
+      "Mijn e-mail eindigt met een nette groet en mijn naam.",
+      "Mijn tekst heeft minstens 75 woorden."
+    ],
+    voorbeeld: "Geachte heer Lagendijk,\n\nIk heb uw oproep gelezen en ik wil graag reageren. Ik wil de dj zijn op het schoolfeest.\n\nIk wil vooral hiphop en Nederlandse muziek draaien. Die muziek past bij de sfeer van het feest, omdat bijna alle leerlingen deze nummers kennen. Dan komt iedereen op de dansvloer.\n\nIk heb al ervaring met draaien: ik deed de muziek op het feest van mijn voetbalclub. Een laptop en speakers heb ik zelf. Een mengpaneel heb ik nog nodig.\n\nIk hoop dat u mij kiest.\n\nMet vriendelijke groet,\nJayden Bakker"
+  }
+];
+
+/* ---------- opslag (alleen op dit toestel) ---------- */
+function store(k, d) {
+  try { var v = localStorage.getItem("em2f_" + k); return v ? JSON.parse(v) : d; }
+  catch (e) { return d; }
+}
+function set(k, v) { try { localStorage.setItem("em2f_" + k, JSON.stringify(v)); } catch (e) {} }
+function geleerd() { return store("geleerd", []); }
+function addGeleerd(w) {
+  var g = geleerd();
+  if (g.indexOf(w) === -1) { g.push(w); set("geleerd", g); }
+}
+function gelezen() { return store("gelezen", []); }
+function addGelezen(id) {
+  var g = gelezen();
+  if (g.indexOf(id) === -1) { g.push(id); set("gelezen", g); }
+}
+function scores() { return store("scores", {}); }
+function schrijfOpslag() { return store("schrijf", {}); }
+function alleWoorden() {
+  var alle = [];
+  TEKSTEN.forEach(function (t) { alle = alle.concat(t.woorden); });
+  return alle;
+}
+
+/* ---------- streak ---------- */
+function dagString(d) {
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function touchStreak() {
+  var nu = new Date();
+  var vandaag = dagString(nu);
+  var gisteren = new Date(nu.getTime() - 86400000);
+  var st = store("streak", { last: "", count: 0 });
+  if (st.last === vandaag) return;
+  st.count = (st.last === dagString(gisteren)) ? st.count + 1 : 1;
+  st.last = vandaag;
+  set("streak", st);
+}
+function updateStreakBadge() {
+  var st = store("streak", { last: "", count: 0 });
+  document.getElementById("streakBadge").textContent = st.count + (st.count === 1 ? " dag" : " dagen");
+}
+
+/* ---------- voorlezen (Web Speech API, gratis, ingebouwd) ---------- */
+function leesVoor(tekst) {
+  if (!("speechSynthesis" in window)) { alert("Voorlezen werkt niet in deze browser."); return; }
+  var u = new SpeechSynthesisUtterance(tekst);
+  u.lang = "nl-NL";
+  u.rate = 0.95;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+function plainText(zin) {
+  return zin.replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1");
+}
+function zinMetMarkersNaarHtml(zin) {
+  var esc = zin.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return esc.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function (m, w, disp) {
+    var naam = w;
+    var show = disp || w;
+    var klasse = geleerd().indexOf(naam) !== -1 ? "w geleerd" : "w";
+    return '<span class="' + klasse + '" data-woord="' + naam.replace(/"/g, "&quot;") + '">' + show + "</span>";
+  });
+}
+function tekstNaarHtml(t, laag) {
+  return t[laag].split("\n").filter(function (p) { return p.trim() !== ""; })
+    .map(function (p, i) { return (i === 0 ? "<h2>" : "<p>") + zinMetMarkersNaarHtml(p) + (i === 0 ? "</h2>" : "</p>"); })
+    .join("");
+}
+
+/* ---------- toast ---------- */
+var toastTimer = null;
+function toast(msg) {
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { el.style.display = "none"; }, 2200);
+}
+
+/* ---------- navigatie & state ---------- */
+var view = "home";
+var cur = { tekstId: null, laag: "origineel" };
+var quiz = { tekstId: null, i: 0, goed: 0, gekozen: null };
+var trainer = { mode: null, scope: "alle", pool: [], i: 0, goed: 0, flipped: false, gekozen: null, opties: [], gevraagd: null };
+var sw = { id: null, stap: 1, woorden: [], starters: [], tekst: "", checks: [], toonVoorbeeld: false, toonJouwTekst: false };
+
+function ga(naar) {
+  view = naar;
+  render();
+  window.scrollTo(0, 0);
+}
+function leesKaart() {
+  return TEKSTEN.find(function (t) { return t.id === cur.tekstId; }) || null;
+}
+function openTekst(id, laag) {
+  cur.tekstId = id;
+  cur.laag = laag || "origineel";
+  addGelezen(id);
+  view = "lezer";
+  render();
+  window.scrollTo(0, 0);
+}
+function startQuiz(id) {
+  quiz = { tekstId: id, i: 0, goed: 0, gekozen: null };
+  view = "quiz";
+  render();
+  window.scrollTo(0, 0);
+}
+function shuffle(a) {
+  var arr = a.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+function startTrainer(mode, scope) {
+  var pool = [];
+  if (scope === "alle") { pool = shuffle(alleWoorden()); }
+  else {
+    var t = TEKSTEN.find(function (x) { return x.id === scope; });
+    pool = t ? shuffle(t.woorden) : shuffle(alleWoorden());
+  }
+  trainer = { mode: mode, scope: scope, pool: pool, i: 0, goed: 0, flipped: false, gekozen: null, opties: [], gevraagd: null };
+  if (mode === "invul") maakInvulVraag();
+  view = "trainer";
+  render();
+  window.scrollTo(0, 0);
+}
+function maakInvulVraag() {
+  if (trainer.i >= trainer.pool.length) { trainer.opties = []; return; }
+  var w = trainer.pool[trainer.i];
+  var af = trainer.pool.filter(function (x) { return x !== w; });
+  var distr = shuffle(af).slice(0, 3);
+  trainer.opties = shuffle([w].concat(distr));
+  trainer.gevraagd = w;
+}
+
+/* ---------- schrijfvaardigheid ---------- */
+function swOpdracht() {
+  return SCHRIJF.find(function (o) { return o.id === sw.id; }) || null;
+}
+function openSchrijf(id) {
+  sw = { id: id, stap: 1, woorden: [], starters: [], tekst: "", checks: [], toonVoorbeeld: false, toonJouwTekst: false };
+  var opgeslagen = schrijfOpslag()[id];
+  if (opgeslagen && opgeslagen.tekst) { sw.tekst = opgeslagen.tekst; }
+  view = "schrijf";
+  render();
+  window.scrollTo(0, 0);
+}
+function swStap(n) {
+  var o = swOpdracht();
+  if (!o) return;
+  if (n === 4 && !sw.tekst) {
+    sw.tekst = sw.starters.join("\n") + (sw.starters.length ? "\n" : "");
+  }
+  if (n === 4 && sw.tekst) { /* bewaren wat de leerling getypt heeft */ }
+  var opgeslagen = schrijfOpslag();
+  opgeslagen[sw.id] = { tekst: sw.tekst, afgerond: opgeslagen[sw.id] ? opgeslagen[sw.id].afgerond : false };
+  set("schrijf", opgeslagen);
+  sw.stap = n;
+  sw.toonVoorbeeld = false;
+  sw.toonJouwTekst = false;
+  render();
+  window.scrollTo(0, 0);
+}
+function swBewaarTekst() {
+  var opgeslagen = schrijfOpslag();
+  var rec = opgeslagen[sw.id] || { afgerond: false };
+  rec.tekst = sw.tekst;
+  opgeslagen[sw.id] = rec;
+  set("schrijf", opgeslagen);
+  touchStreak();
+}
+function swRondAf() {
+  swBewaarTekst();
+  var opgeslagen = schrijfOpslag();
+  opgeslagen[sw.id].afgerond = true;
+  set("schrijf", opgeslagen);
+  touchStreak();
+  toast("Opdracht afgerond. Goed gedaan.");
+  sw.stap = 5;
+  sw.toonJouwTekst = true;
+  render();
+}
+function aantalWoorden(t) {
+  if (!t || !t.trim()) return 0;
+  return t.trim().split(/\s+/).filter(Boolean).length;
+}
+
+/* ---------- woorden-popup ---------- */
+function openWoord(w) {
+  var info = WOORDEN[w];
+  if (!info) return;
+  var isGeleerd = geleerd().indexOf(w) !== -1;
+  var sheet = document.getElementById("sheet");
+  var back = document.getElementById("sheetBack");
+  sheet.innerHTML =
+    '<h3>' + w + '</h3>' +
+    '<div class="soort">' + info.s + '</div>' +
+    '<div class="uitleg-regel">' + info.u + '</div>' +
+    '<div class="voorbeeld">' + info.v + '</div>' +
+    '<div class="sheetknoppen">' +
+    '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">Voorlezen</button>' +
+    '<button class="btn btn-green btn-small" data-act="woord-geleerd" data-w="' + w + '">' + (isGeleerd ? "In je lijst" : "Geleerd") + '</button>' +
+    '<button class="btn btn-outline btn-small" data-act="woord-close">Sluiten</button>' +
+    '</div>';
+  sheet.hidden = false;
+  back.hidden = false;
+}
+function sluitWoord() {
+  document.getElementById("sheet").hidden = true;
+  document.getElementById("sheetBack").hidden = true;
+  if (view === "lezer") render();
+}
+
+/* ---------- views ---------- */
+function render() {
+  var app = document.getElementById("app");
+  var html = "";
+  if (view === "home") html = viewHome();
+  else if (view === "teksten") html = viewTeksten();
+  else if (view === "lezer") html = viewLezer();
+  else if (view === "quiz") html = viewQuiz();
+  else if (view === "woordjes") html = viewWoordjes();
+  else if (view === "trainer") html = viewTrainer();
+  else if (view === "schrijven") html = viewSchrijven();
+  else if (view === "schrijf") html = viewSchrijf();
+  else if (view === "voortgang") html = viewVoortgang();
+  app.innerHTML = html;
+
+  var navMap = { home: "home", teksten: "teksten", lezer: "teksten", quiz: "teksten", woordjes: "woordjes", trainer: "woordjes", schrijven: "schrijven", schrijf: "schrijven", voortgang: "voortgang" };
+  var buttons = document.querySelectorAll("#nav button");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.toggle("actief", buttons[i].getAttribute("data-nav") === navMap[view]);
+  }
+  updateStreakBadge();
+}
+
+function viewHome() {
+  var g = geleerd().length;
+  var st = store("streak", { count: 0 });
+  var swk = schrijfOpslag();
+  var swKlaar = SCHRIJF.filter(function (o) { return swk[o.id] && swk[o.id].afgerond; }).length;
+  return '' +
+    '<div class="card hero">' +
+    '<div class="label-boven">Examen Nederlands · 2F</div>' +
+    '<h1>Oefenen op jouw tempo</h1>' +
+    '<p class="sub">Korte sessies: een tekst lezen, woordjes doen of een schrijfopdracht maken. Alles blijft op dit toestel.</p>' +
+    '<div class="stats">' +
+    '<div class="stat"><b>' + st.count + '</b><small>dagen streak</small></div>' +
+    '<div class="stat"><b>' + g + '</b><small>woorden geleerd</small></div>' +
+    '<div class="stat"><b>' + swKlaar + '/' + SCHRIJF.length + '</b><small>schrijfopdrachten</small></div>' +
+    '</div>' +
+    '<button class="btn btn-primary" data-act="open-eerste-tekst">Tekst lezen</button>' +
+    '<button class="btn btn-accent" data-act="start-flash-alle">Woordjes oefenen (5 min)</button>' +
+    '<button class="btn btn-outline" data-act="open-schrijf-eerste">Schrijfopdracht maken</button>' +
+    '<details class="hoe"><summary>Hoe werkt ExamenMaatje?</summary><ol>' +
+    '<li><b>Lees een tekst</b> in twee versies: Eenvoudig en 2F-examen. Tik op een gemarkeerd woord voor uitleg.</li>' +
+    '<li><b>Doe de examenvragen</b> in echte examenstijl, met uitleg waarom iets goed of fout is.</li>' +
+    '<li><b>Maak een schrijfopdracht</b> in vijf stappen, net als op het examen: van woordweb tot zelfcheck.</li>' +
+    '<li><b>Oefen je woordjes</b> elke dag vijf minuten. Kleine sessies, groot effect.</li>' +
+    '</ol></details>' +
+    '</div>';
+}
+
+function viewTeksten() {
+  var sc = scores();
+  var g = gelezen();
+  var kaarten = TEKSTEN.map(function (t) {
+    var badge = "";
+    if (sc[t.id]) badge = '<span class="badge">Vragen: ' + sc[t.id] + '</span>';
+    else if (g.indexOf(t.id) !== -1) badge = '<span class="badge badge-blauw">Gelezen</span>';
+    else badge = '<span class="badge badge-blauw">Nieuw</span>';
+    return '<div class="card tekstcard" data-act="open-tekst" data-id="' + t.id + '">' +
+      '<h3>' + t.titel + '</h3>' +
+      '<div class="meta">' + t.onderwerp + ' · niveau ' + t.niveaubadge + ' · ' + t.woorden.length + ' woorden · ' + t.vragen.length + ' vragen ' + badge + '</div>' +
+      '</div>';
+  }).join("");
+  return '<div class="card">' +
+    '<div class="label-boven">Leesvaardigheid</div>' +
+    '<h2>Teksten in examenstijl</h2>' +
+    '<p class="meta">Elke tekst heeft twee versies: <b>Eenvoudig</b> en <b>2F-examen</b> (zoals op het echte examen). Begin waar jij wil.</p>' +
+    '</div>' + kaarten;
+}
+
+function viewLezer() {
+  var t = leesKaart();
+  if (!t) return viewTeksten();
+  var g = geleerd();
+  var woordjesRij = t.woorden.map(function (w) {
+    var klasse = g.indexOf(w) !== -1 ? "w geleerd" : "w";
+    return '<span class="' + klasse + '" data-woord="' + w + '">' + w + '</span>';
+  }).join(" · ");
+  return '<button class="terug" data-act="naar-teksten">← Alle teksten</button>' +
+    '<div class="card">' +
+    '<div class="meta">' + t.onderwerp + ' · niveau ' + t.niveaubadge + (t.bron ? ' · ' + t.bron : '') + '</div>' +
+    '<div class="laagtabs">' +
+    '<button data-act="laag" data-laag="eenvoudig" class="' + (cur.laag === "eenvoudig" ? "actief" : "") + '">Eenvoudig</button>' +
+    '<button data-act="laag" data-laag="origineel" class="' + (cur.laag === "origineel" ? "actief" : "") + '">2F-examen</button>' +
+    '</div>' +
+    '<button class="btn btn-soft btn-small" data-act="lees-voor">Voorlezen</button>' +
+    '<div class="tekst">' + tekstNaarHtml(t, cur.laag) + '</div>' +
+    '<div class="waarom"><b>Tip:</b> tik op een gemarkeerd woord voor uitleg. Woorden in deze tekst: ' + woordjesRij + '</div>' +
+    '<button class="btn btn-primary" data-act="start-quiz" data-id="' + t.id + '">Naar de examenvragen (' + t.vragen.length + ')</button>' +
+    '</div>';
+}
+
+function viewQuiz() {
+  var t = TEKSTEN.find(function (x) { return x.id === quiz.tekstId; });
+  if (!t) return viewTeksten();
+  if (quiz.i >= t.vragen.length) {
+    var pct = Math.round(100 * quiz.goed / t.vragen.length);
+    var tekst = pct >= 80 ? "Top. Je bent klaar voor dit examenonderdeel." : pct >= 50 ? "Goed bezig. Oefen de woordjes en probeer opnieuw." : "Lees de tekst nog één keer rustig en probeer daarna opnieuw. Je kunt dit.";
+    return '<button class="terug" data-act="open-tekst" data-id="' + t.id + '">← Naar de tekst</button>' +
+      '<div class="card" style="text-align:center">' +
+      '<div class="label-boven">Resultaat · ' + t.titel + '</div>' +
+      '<div class="score-groot">' + quiz.goed + ' / ' + t.vragen.length + '</div>' +
+      '<div class="pbalk"><div style="width:' + pct + '%"></div></div>' +
+      '<p>' + tekst + '</p>' +
+      '<button class="btn btn-primary" data-act="start-quiz" data-id="' + t.id + '">Opnieuw</button>' +
+      '<button class="btn btn-green" data-act="start-flash-tekst" data-id="' + t.id + '">Woordjes van deze tekst</button>' +
+      '<button class="btn btn-soft" data-act="naar-teksten">Alle teksten</button>' +
+      '</div>';
+  }
+  var vraag = t.vragen[quiz.i];
+  var html = '<button class="terug" data-act="open-tekst" data-id="' + t.id + '">← Naar de tekst</button>' +
+    '<div class="card">' +
+    '<div class="meta">Vraag ' + (quiz.i + 1) + ' van ' + t.vragen.length + ' · ' + t.titel + '</div>' +
+    '<div class="vraag"><h3>' + zinMetMarkersNaarHtml(vraag.v) + '</h3>';
+  for (var i = 0; i < vraag.opties.length; i++) {
+    var cls = "optie";
+    var dis = quiz.gekozen !== null ? " disabled" : "";
+    if (quiz.gekozen !== null) {
+      if (i === vraag.goed) cls += " goed";
+      else if (i === quiz.gekozen) cls += " fout";
+    }
+    html += '<button class="' + cls + '"' + dis + ' data-act="qz-antwoord" data-i="' + i + '">' + zinMetMarkersNaarHtml(vraag.opties[i]) + '</button>';
+  }
+  if (quiz.gekozen !== null) {
+    html += '<div class="waarom"><b>Waarom?</b> ' + zinMetMarkersNaarHtml(vraag.waarom) + '</div>';
+    var laatste = quiz.i === t.vragen.length - 1;
+    html += '<button class="btn btn-primary" data-act="qz-verder">' + (laatste ? "Bekijk je score" : "Volgende vraag") + '</button>';
+  }
+  html += '</div></div>';
+  return html;
+}
+
+function viewWoordjes() {
+  var opties = TEKSTEN.map(function (t) {
+    return '<button class="btn btn-soft" data-act="start-flash-tekst" data-id="' + t.id + '">' + t.titel + '</button>';
+  }).join("");
+  return '<div class="card">' +
+    '<div class="label-boven">Woordenschat</div>' +
+    '<h2>Woordjes oefenen</h2>' +
+    '<p class="meta">Twee manieren: <b>flashcards</b> (woord + uitleg) of een <b>invuloefening</b> (kies het goede woord in de zin).</p>' +
+    '<button class="btn btn-green" data-act="start-flash-alle">Alle woorden — flashcards</button>' +
+    '<button class="btn btn-accent" data-act="start-invul-alle">Alle woorden — invuloefening</button>' +
+    '</div>' +
+    '<div class="card"><h3>Woordjes per tekst</h3>' + opties + '</div>';
+}
+
+function viewTrainer() {
+  if (trainer.pool.length === 0) {
+    return '<div class="card"><h2>Klaar</h2><p>Je hebt alle woordjes in deze ronde gezien.</p>' +
+      '<button class="btn btn-primary" data-act="nog-een-ronde">Nog een keer</button></div>';
+  }
+  if (trainer.i >= trainer.pool.length) {
+    var pct = trainer.pool.length ? Math.round(100 * trainer.goed / trainer.pool.length) : 100;
+    return '<div class="card" style="text-align:center">' +
+      '<div class="label-boven">Ronde voltooid</div>' +
+      '<div class="score-groot">' + trainer.goed + ' / ' + trainer.pool.length + '</div>' +
+      '<div class="pbalk"><div style="width:' + pct + '%"></div></div>' +
+      '<p class="meta">Elke dag een rondje = sterke woordenschat voor het examen.</p>' +
+      '<button class="btn btn-primary" data-act="nog-een-ronde">Nog een ronde</button>' +
+      '<button class="btn btn-soft" data-act="naar-woordjes">Terug naar woordjes</button>' +
+      '</div>';
+  }
+  var w = trainer.pool[trainer.i];
+  var info = WOORDEN[w];
+  var g = geleerd().length;
+  var voortgangRegel = '<div class="meta" style="text-align:center;margin-bottom:10px">Woord ' + (trainer.i + 1) + ' van ' + trainer.pool.length + ' · geleerd: ' + g + ' van ' + alleWoorden().length + '</div>';
+
+  if (trainer.mode === "flash") {
+    var binnen = trainer.flipped ?
+      '<div class="flash">' +
+      '<div class="groot">' + w + '</div>' +
+      '<div class="uitleg">' + info.u + '</div>' +
+      '<div class="vb">' + info.v + '</div>' +
+      '</div>' :
+      '<div class="flash" style="cursor:pointer" data-act="flip">' +
+      '<div class="groot">' + w + '</div>' +
+      '<div class="uitleg" style="opacity:.7">Tik op de kaart voor de uitleg</div>' +
+      '</div>';
+    return '<button class="terug" data-act="naar-woordjes">← Woordjes</button>' + voortgangRegel + binnen +
+      (trainer.flipped ?
+        '<button class="btn btn-green" data-act="flash-wist">Wist ik het</button>' +
+        '<button class="btn btn-outline" data-act="flash-nog">Nog niet</button>' :
+        '<button class="btn btn-soft btn-small" data-act="woord-luister" data-w="' + w + '">Voorlezen</button>');
+  }
+
+  /* invulmodus */
+  var zin = info.v;
+  function maakRe(p) { return new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g, "\\" + "$" + "&"), "i"); }
+  function probeer(p) { var z = zin.replace(maakRe(p), "___"); return z === zin ? null : z; }
+  var vervang = probeer(w) || probeer(w.split(" ")[0]) || probeer(w.split(" ")[w.split(" ").length - 1]) || ("___ " + zin);
+  var optiesHtml = trainer.opties.map(function (o, idx) {
+    var cls = "optie";
+    var dis = trainer.gekozen !== null ? " disabled" : "";
+    if (trainer.gekozen !== null) {
+      if (o === trainer.gevraagd) cls += " goed";
+      else if (idx === trainer.gekozen) cls += " fout";
+    }
+    return '<button class="' + cls + '"' + dis + ' data-act="invul-antwoord" data-i="' + idx + '">' + o + '</button>';
+  }).join("");
+  var feedback = "";
+  if (trainer.gekozen !== null) {
+    var ok = trainer.opties[trainer.gekozen] === trainer.gevraagd;
+    feedback = '<div class="waarom">' + (ok ? "<b>Goed.</b>" : "<b>Niet goed.</b> Het goede antwoord is <b>" + trainer.gevraagd + "</b>.") +
+      ' ' + info.u + '<br>' + info.v + '</div>' +
+      '<button class="btn btn-primary" data-act="invul-verder">Volgende</button>';
+  }
+  return '<button class="terug" data-act="naar-woordjes">← Woordjes</button>' + voortgangRegel +
+    '<div class="invulzin">' + vervang.replace(/___/g, '<span class="blank">?</span>') + '</div>' +
+    optiesHtml + feedback;
+}
+
+function viewSchrijven() {
+  var swk = schrijfOpslag();
+  var kaarten = SCHRIJF.map(function (o) {
+    var rec = swk[o.id];
+    var badge = rec && rec.afgerond ? '<span class="badge">Afgerond</span>' : (rec && rec.tekst ? '<span class="badge badge-blauw">Bezig</span>' : '<span class="badge badge-blauw">Nieuw</span>');
+    return '<div class="card tekstcard" data-act="sw-open" data-id="' + o.id + '">' +
+      '<h3>' + o.titel + '</h3>' +
+      '<div class="meta">' + o.soort + ' · min. ' + o.minWoorden + ' woorden ' + badge + '</div>' +
+      '</div>';
+  }).join("");
+  return '<div class="card">' +
+    '<div class="label-boven">Schrijfvaardigheid</div>' +
+    '<h2>Schrijfopdrachten</h2>' +
+    '<p class="meta">Oefen het echte examenformaat: een e-mail of bericht met aanhef, duidelijke punten en een nette groet. Je bouwt je tekst op in vijf stappen en checkt jezelf met de exameneisen.</p>' +
+    '</div>' + kaarten +
+    '<div class="card"><p class="meta">Je tekst blijft op dit toestel en wordt automatisch bewaard. Je kunt later altijd verdergaan.</p></div>';
+}
+
+function viewSchrijf() {
+  var o = swOpdracht();
+  if (!o) return viewSchrijven();
+  var opgeslagen = schrijfOpslag()[o.id] || {};
+  var afgerond = opgeslagen.afgerond || false;
+
+  var stappen = ["Situatie", "Woordweb", "Zinnen bouwen", "Schrijven", "Zelfcheck"];
+  var balk = '<div class="stapbalk">' + stappen.map(function (s, i) {
+    return '<span class="' + (i < sw.stap ? "aan" : "") + '"></span>';
+  }).join("") + '</div>';
+  var kop = '<button class="terug" data-act="naar-schrijven">← Schrijfopdrachten</button>' +
+    '<div class="card">' +
+    '<div class="label-boven">' + o.soort + '</div>' +
+    '<h2>' + o.titel + '</h2>' +
+    balk;
+
+  /* ---- stap 1: situatie ---- */
+  if (sw.stap === 1) {
+    var taakLijst = '<ol style="margin:8px 0 14px;padding-left:20px">' + o.taak.map(function (p) { return "<li>" + p + "</li>"; }).join("") + '</ol>';
+    return kop + '<p>' + o.situatie + '</p>' +
+      '<div class="waarom"><b>Dit moet in je tekst staan (exameneisen):</b></div>' + taakLijst +
+      '<p class="meta">Minimum: ' + o.minWoorden + ' woorden. Neem de tijd — je kunt later verdergaan.</p>' +
+      '<button class="btn btn-primary" data-act="sw-stap" data-n="2">Volgende: woordweb</button>' +
+      '</div>';
+  }
+
+  /* ---- stap 2: woordweb ---- */
+  if (sw.stap === 2) {
+    var chips = o.woordweb.map(function (w) {
+      var aan = sw.woorden.indexOf(w) !== -1;
+      return '<span class="chip ' + (aan ? "chip-aan" : "") + '" data-act="sw-woord" data-w="' + w + '">' + w + '</span>';
+    }).join("");
+    return kop + '<div class="stapnr"><b>2</b><span><b>Woordweb</b> — tik op woorden die je wilt gebruiken</span></div>' +
+      '<p class="meta">Kies woorden die bij jouw tekst passen. Ze verschijnen in je notities bij het schrijven.</p>' +
+      chips +
+      '<div style="height:10px"></div>' +
+      '<button class="btn btn-soft" data-act="sw-stap" data-n="1">Vorige</button>' +
+      '<button class="btn btn-primary" data-act="sw-stap" data-n="3">Volgende: zinnen bouwen</button>' +
+      '</div>';
+  }
+
+  /* ---- stap 3: starters ---- */
+  if (sw.stap === 3) {
+    var schips = o.starters.map(function (s) {
+      var aan = sw.starters.indexOf(s) !== -1;
+      return '<span class="chip ' + (aan ? "chip-aan" : "") + '" data-act="sw-starter" data-s="' + s.replace(/"/g, "&quot;") + '">' + s + '</span>';
+    }).join("");
+    var notitie = (sw.starters.length ? sw.starters.join("\n") + "\n" : "") + (sw.woorden.length ? "\nWoorden die ik ga gebruiken: " + sw.woorden.join(", ") : "");
+    return kop + '<div class="stapnr"><b>3</b><span><b>Zinnen bouwen</b> — tik op startzinnen</span></div>' +
+      '<p class="meta">Dit zijn zinnen zoals op het examen. Tik ze aan: ze komen klaar te staan in de schrijftekst.</p>' +
+      schips +
+      (notitie.trim() ? '<div class="label-boven" style="margin-top:12px">Mijn notities</div><div class="startersnotitie">' + notitie + '</div>' : '') +
+      '<button class="btn btn-soft" data-act="sw-stap" data-n="2">Vorige</button>' +
+      '<button class="btn btn-primary" data-act="sw-stap" data-n="4">Volgende: schrijven</button>' +
+      '</div>';
+  }
+
+  /* ---- stap 4: schrijven ---- */
+  if (sw.stap === 4) {
+    var n = aantalWoorden(sw.tekst);
+    var volgend = "";
+    if (afgerond) {
+      volgend = '<button class="btn btn-green" data-act="sw-stap" data-n="5">Naar de zelfcheck</button>';
+    } else {
+      volgend = '<button class="btn btn-primary" data-act="sw-stap" data-n="5" ' + (n < o.minWoorden ? "disabled" : "") + '>Volgende: zelfcheck</button>';
+    }
+    return kop + '<div class="stapnr"><b>4</b><span><b>Schrijven</b> — jouw tekst</span></div>' +
+      '<p class="meta">Schrijf je e-mail of bericht hieronder. Gebruik je notities hierboven. De tekst wordt bewaard op dit toestel.</p>' +
+      '<textarea id="swTekst" placeholder="Beste ...">' + (sw.tekst ? sw.tekst.replace(/</g, "&lt;") : "") + '</textarea>' +
+      '<div class="meta" id="woordteller" style="text-align:right;margin-top:6px">' + n + ' woorden (min. ' + o.minWoorden + ')</div>' +
+      '<button class="btn btn-soft" data-act="sw-stap" data-n="3">Vorige</button>' +
+      volgend +
+      '</div>';
+  }
+
+  /* ---- stap 5: zelfcheck ---- */
+  var checks = o.checklist.map(function (c, i) {
+    var aan = sw.checks.indexOf(i) !== -1;
+    return '<button class="checkitem ' + (aan ? "aan" : "") + '" data-act="sw-check" data-i="' + i + '"><span class="checkbox"></span><span>' + c + '</span></button>';
+  }).join("");
+  var n2 = aantalWoorden(sw.tekst);
+  var allesAan = sw.checks.length === o.checklist.length && n2 >= o.minWoorden;
+  var jouwTekst = sw.toonJouwTekst || afgerond;
+  var onder = "";
+  if (jouwTekst) {
+    onder += '<div class="label-boven" style="margin-top:14px">Jouw tekst</div><div class="voorbeeldtekst">' + (sw.tekst ? sw.tekst.replace(/</g, "&lt;") : "— nog leeg —") + '</div>';
+  }
+  if (sw.toonVoorbeeld || afgerond) {
+    onder += '<div class="label-boven" style="margin-top:14px">Voorbeeld van een goed antwoord</div><div class="voorbeeldtekst">' + o.voorbeeld + '</div>' +
+      '<p class="meta" style="margin-top:8px">Vergelijk: wat doet het voorbeeld goed? Wat kun jij de volgende keer verbeteren?</p>';
+  }
+  var knoppen = '';
+  if (!afgerond) {
+    knoppen = '<button class="btn btn-green" data-act="sw-rondaf" ' + (allesAan ? "" : "disabled") + '>Alles gecheckt: afronden</button>' +
+      '<div class="sheetknoppen" style="margin-top:4px">' +
+      '<button class="btn btn-soft btn-small" data-act="sw-voorbeeld">Voorbeeld bekijken</button>' +
+      '<button class="btn btn-soft btn-small" data-act="sw-mijntekst">Mijn tekst bekijken</button>' +
+      '</div>';
+  } else {
+    knoppen = '<p class="badge" style="display:inline-block;margin-bottom:12px">Afgerond</p>' +
+      '<div class="sheetknoppen">' +
+      '<button class="btn btn-soft btn-small" data-act="sw-voorbeeld">Voorbeeld</button>' +
+      '<button class="btn btn-soft btn-small" data-act="sw-mijntekst">Mijn tekst</button>' +
+      '<button class="btn btn-outline btn-small" data-act="sw-opnieuw">Opnieuw beginnen</button>' +
+      '</div>';
+  }
+  return kop + '<div class="stapnr"><b>5</b><span><b>Zelfcheck</b> — controleer je tekst met de exameneisen</span></div>' +
+      '<p class="meta">Tik elk punt aan dat klopt voor jouw tekst (' + n2 + ' woorden, min. ' + o.minWoorden + ').</p>' +
+      checks + knoppen + onder +
+      '<button class="btn btn-soft" data-act="sw-stap" data-n="4">Vorige: schrijven</button>' +
+      '</div>';
+}
+
+function viewVoortgang() {
+  var g = geleerd();
+  var totaal = alleWoorden().length;
+  var pct = Math.round(100 * g.length / totaal);
+  var st = store("streak", { count: 0 });
+  var sc = scores();
+  var swk = schrijfOpslag();
+  var scHtml = TEKSTEN.map(function (t) {
+    var status = sc[t.id] ? "Vragen: <b>" + sc[t.id] + "</b>" : (gelezen().indexOf(t.id) !== -1 ? "Gelezen, vragen nog open" : "Nog niet begonnen");
+    return '<div class="card"><h3>' + t.titel + '</h3><div class="meta">' + status + ' · ' + t.woorden.length + ' woorden</div></div>';
+  }).join("");
+  var swHtml = SCHRIJF.map(function (o) {
+    var rec = swk[o.id];
+    var status = rec && rec.afgerond ? "Afgerond" : (rec && rec.tekst ? "Bezig (" + aantalWoorden(rec.tekst) + " woorden)" : "Nog niet begonnen");
+    return '<div class="card"><h3>' + o.titel + '</h3><div class="meta">' + o.soort + ' · ' + status + '</div></div>';
+  }).join("");
+  var motivatie = pct >= 80 ? "Bijna alle woorden onder de knie." : pct >= 40 ? "Goed bezig. Elke dag een klein stukje." : "Begin vandaag: vijf minuten woordjes maakt al verschil.";
+  return '<div class="card">' +
+    '<div class="label-boven">Voortgang</div>' +
+    '<div class="stats">' +
+    '<div class="stat"><b>' + st.count + '</b><small>dagen streak</small></div>' +
+    '<div class="stat"><b>' + g.length + '/' + totaal + '</b><small>woorden geleerd</small></div>' +
+    '</div>' +
+    '<div class="pbalk"><div style="width:' + pct + '%"></div></div>' +
+    '<p class="meta">' + motivatie + '</p>' +
+    '</div>' +
+    '<div class="card"><h3 style="font-size:16px;margin:0 0 8px">Schrijfopdrachten</h3>' + swHtml.replace(/class="card"/g, 'class="card" style="margin-bottom:8px;padding:12px 14px"') + '</div>' +
+    scHtml +
+    '<div class="card">' +
+    '<button class="btn btn-outline" data-act="reset">Alles wissen</button>' +
+    '<p class="meta">Je voortgang en teksten staan alleen op dit toestel. Alles wissen kan niet terug gedraaid worden.</p>' +
+    '</div>';
+}
+
+/* ---------- events ---------- */
+document.getElementById("app").addEventListener("click", function (e) {
+  var woordEl = e.target.closest("[data-woord]");
+  if (woordEl && !woordEl.hasAttribute("data-act")) { openWoord(woordEl.getAttribute("data-woord")); return; }
+
+  var el = e.target.closest("[data-act]");
+  if (!el) return;
+  var act = el.getAttribute("data-act");
+  var id = el.getAttribute("data-id");
+
+  if (act === "open-tekst") openTekst(id);
+  else if (act === "open-eerste-tekst") {
+    var nogNiet = TEKSTEN.filter(function (t) { return gelezen().indexOf(t.id) === -1; });
+    openTekst(nogNiet.length ? nogNiet[0].id : TEKSTEN[0].id);
+  }
+  else if (act === "open-schrijf-eerste") {
+    var swk = schrijfOpslag();
+    var openstaand = SCHRIJF.filter(function (o) { return !(swk[o.id] && swk[o.id].afgerond); });
+    openSchrijf(openstaand.length ? openstaand[0].id : SCHRIJF[0].id);
+  }
+  else if (act === "laag") { cur.laag = el.getAttribute("data-laag"); render(); }
+  else if (act === "lees-voor") {
+    var lt = leesKaart();
+    if (lt) leesVoor(plainText(lt[cur.laag]));
+  }
+  else if (act === "start-quiz") startQuiz(id);
+  else if (act === "naar-teksten") ga("teksten");
+  else if (act === "naar-woordjes") ga("woordjes");
+  else if (act === "naar-schrijven") ga("schrijven");
+  else if (act === "naar-voortgang") ga("voortgang");
+  else if (act === "start-flash-alle") startTrainer("flash", "alle");
+  else if (act === "start-flash-tekst") startTrainer("flash", id);
+  else if (act === "start-invul-alle") startTrainer("invul", "alle");
+  else if (act === "flip") { trainer.flipped = true; render(); }
+  else if (act === "flash-wist") {
+    addGeleerd(trainer.pool[trainer.i]);
+    touchStreak();
+    trainer.i++; trainer.flipped = false;
+    toast("Woord geleerd");
+    render();
+  }
+  else if (act === "flash-nog") { touchStreak(); trainer.i++; trainer.flipped = false; render(); }
+  else if (act === "invul-antwoord") {
+    if (trainer.gekozen === null) {
+      trainer.gekozen = parseInt(el.getAttribute("data-i"), 10);
+      if (trainer.opties[trainer.gekozen] === trainer.gevraagd) { trainer.goed++; addGeleerd(trainer.gevraagd); }
+      touchStreak();
+      render();
+    }
+  }
+  else if (act === "invul-verder") { trainer.i++; trainer.gekozen = null; maakInvulVraag(); render(); }
+  else if (act === "nog-een-ronde") startTrainer(trainer.mode, trainer.scope);
+  else if (act === "qz-antwoord") {
+    if (quiz.gekozen === null) {
+      quiz.gekozen = parseInt(el.getAttribute("data-i"), 10);
+      var qt = TEKSTEN.find(function (x) { return x.id === quiz.tekstId; });
+      if (quiz.gekozen === qt.vragen[quiz.i].goed) { quiz.goed++; touchStreak(); }
+      render();
+    }
+  }
+  else if (act === "qz-verder") {
+    var t2 = TEKSTEN.find(function (x) { return x.id === quiz.tekstId; });
+    if (quiz.i === t2.vragen.length - 1) {
+      var sc = scores();
+      sc[quiz.tekstId] = quiz.goed + "/" + t2.vragen.length;
+      set("scores", sc);
+    }
+    quiz.i++;
+    quiz.gekozen = null;
+    render();
+    window.scrollTo(0, 0);
+  }
+  /* --- schrijfvaardigheid --- */
+  else if (act === "sw-open") openSchrijf(id);
+  else if (act === "sw-stap") swStap(parseInt(el.getAttribute("data-n"), 10));
+  else if (act === "sw-woord") {
+    var w = el.getAttribute("data-w");
+    var pos = sw.woorden.indexOf(w);
+    if (pos === -1) { sw.woorden.push(w); } else { sw.woorden.splice(pos, 1); }
+    render();
+  }
+  else if (act === "sw-starter") {
+    var s = el.getAttribute("data-s");
+    var pos2 = sw.starters.indexOf(s);
+    if (pos2 === -1) { sw.starters.push(s); } else { sw.starters.splice(pos2, 1); }
+    render();
+  }
+  else if (act === "sw-check") {
+    var ci = parseInt(el.getAttribute("data-i"), 10);
+    var pos3 = sw.checks.indexOf(ci);
+    if (pos3 === -1) { sw.checks.push(ci); } else { sw.checks.splice(pos3, 1); }
+    render();
+  }
+  else if (act === "sw-rondaf") swRondAf();
+  else if (act === "sw-voorbeeld") { sw.toonVoorbeeld = true; render(); }
+  else if (act === "sw-mijntekst") { sw.toonJouwTekst = true; render(); }
+  else if (act === "sw-opnieuw") {
+    sw.tekst = ""; sw.checks = []; sw.starters = []; sw.woorden = []; sw.stap = 1; sw.toonVoorbeeld = false; sw.toonJouwTekst = false;
+    var swk2 = schrijfOpslag();
+    if (swk2[sw.id]) { swk2[sw.id] = { tekst: "", afgerond: false }; set("schrijf", swk2); }
+    render();
+  }
+  else if (act === "reset") {
+    if (confirm("Alles wissen? Je woorden, scores, schrijfteksten en streak verdwijnen van dit toestel.")) {
+      ["geleerd", "gelezen", "scores", "streak", "schrijf"].forEach(function (k) { try { localStorage.removeItem("em2f_" + k); } catch (e) {} });
+      render();
+    }
+  }
+});
+
+/* live woordenteller + bewaren tijdens het typen */
+document.getElementById("app").addEventListener("input", function (e) {
+  if (e.target && e.target.id === "swTekst") {
+    sw.tekst = e.target.value;
+    var n = aantalWoorden(sw.tekst);
+    var teller = document.getElementById("woordteller");
+    if (teller) { teller.textContent = n + " woorden (min. " + (swOpdracht() ? swOpdracht().minWoorden : 0) + ")"; }
+  }
+});
+document.getElementById("app").addEventListener("blur", function (e) {
+  if (e.target && e.target.id === "swTekst" && view === "schrijf") { swBewaarTekst(); }
+}, true);
+
+document.getElementById("sheetBack").addEventListener("click", sluitWoord);
+
+document.getElementById("sheet").addEventListener("click", function (e) {
+  var el = e.target.closest("[data-act]");
+  if (!el) return;
+  var act = el.getAttribute("data-act");
+  var w = el.getAttribute("data-w");
+  if (act === "woord-luister") {
+    var info = WOORDEN[w];
+    leesVoor(w + ". " + (info ? info.u : ""));
+  } else if (act === "woord-geleerd") {
+    addGeleerd(w);
+    touchStreak();
+    toast("Toegevoegd aan je woordjes");
+    sluitWoord();
+  } else if (act === "woord-close") {
+    sluitWoord();
+  }
+});
+
+document.querySelectorAll("#nav button").forEach(function (b) {
+  b.addEventListener("click", function () { ga(b.getAttribute("data-nav")); });
+});
+
+/* ---------- start ---------- */
+touchStreak();
+render();
+</script>
+</body>
+</html>
