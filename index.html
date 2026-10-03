@@ -194,9 +194,12 @@
    Eén bestand, geen server, geen accounts (AVG-proof).
 
    CONTENT AANPASSEN:
-   - WOORDEN      : woordenbank (u = uitleg, v = voorbeeldzin, s = woordsoort)
+   - WOORDEN      : woordenbank (u = uitleg, v = voorbeeldzin, s = woordsoort,
+                    optioneel t = "en" voor Engelse woorden: voorlezen met Engelse stem)
    - TEKSTEN      : teksten + vragen; markeer moeilijke woorden met [[woord]]
                     of [[woord|andere schrijfwijze]], bv. [[verdienen|verdient]]
+                    Engelse teksten krijgen taal: "en" en niveaubadge: "A2";
+                    vragen zijn (net als op het examen) in het Nederlands
    - SCHRIJF      : schrijfopdrachten (e-mail/bericht, examenformaat 2F)
    ============================================================ */
 
@@ -301,7 +304,118 @@ var WOORDEN = {
   "twijfelen": { u: "Niet zeker weten of iets waar is.", v: "Ik twijfel of dit bericht echt is.", s: "werkwoord" },
   "terugzien": { u: "Iets ergens anders ook zien. Terugvinden.", v: "Je kunt het bericht op meerdere sites terugzien.", s: "werkwoord" },
   "nieuwsgierig": { u: "Je wilt graag dingen weten en ontdekken.", v: "Blijf nieuwsgierig: stel veel vragen.", s: "bijvoeglijk naamwoord" },
-  "kritisch": { u: "Niet meteen geloven. Goed nadenken over iets.", v: "Blijf kritisch bij nieuws op sociale media.", s: "bijvoeglijk naamwoord" }
+  "kritisch": { u: "Niet meteen geloven. Goed nadenken over iets.", v: "Blijf kritisch bij nieuws op sociale media.", s: "bijvoeglijk naamwoord" },
+  "stulpje": { u: "Een klein, leuk huis.", v: "Zijn ouders kochten een stulpje in Frankrijk.", s: "zelfstandig naamwoord" },
+  "emigreren": { u: "Naar een ander land verhuizen om daar te gaan wonen.", v: "Het gezin emigreerde naar Frankrijk.", s: "werkwoord" },
+  "avontuur": { u: "Iets spannends en nieuws dat je meemaakt.", v: "Emigreren vond hij eerst een avontuur.", s: "zelfstandig naamwoord" },
+  "in eerste instantie": { u: "In het begin, eerst.", v: "In eerste instantie wist hij niet wat hij ervan moest vinden.", s: "uitdrukking" },
+  "bonjouren": { u: "Naar iedereen gedag zeggen, heel vrolijk.", v: "Hij stond lekker naar iedereen te bonjouren.", s: "werkwoord" },
+  "de teugels aanhalen": { u: "Strenger worden; minder toestaan.", v: "Door corona werden de teugels in Frankrijk aangetrokken.", s: "uitdrukking" },
+  "intern": { u: "Blijven slapen op school en niet naar huis gaan.", v: "Ik zou vijf dagen intern moeten op school.", s: "bijwoord" },
+  "het naar je zin hebben": { u: "Je je prettig voelen op een plek.", v: "Op zijn werk heeft Roan het naar zijn zin.", s: "uitdrukking" },
+  "ergens in zitten": { u: "Je zorgen maken over iemand of iets.", v: "Over mij hoef je niet in te zitten, hoor.", s: "uitdrukking" },
+  "verhuren": { u: "Iets voor een tijdje aan iemand geven, tegen betaling.", v: "Benjamin verhuurt kippen via zijn bedrijf.", s: "werkwoord" },
+  "uitproberen": { u: "Eerst even testen of je iets leuk vindt.", v: "Je kunt de kippen een paar maanden uitproberen.", s: "werkwoord" },
+  "bevrucht": { u: "Een ei waarin een kuiken kan groeien.", v: "Schelling levert ook bevruchte eieren.", s: "bijvoeglijk naamwoord" },
+  "broedmachine": { u: "Een apparaat dat eieren warm houdt, zodat kuikens uitkomen.", v: "In de broedmachine komen de kuikentjes uit het ei.", s: "zelfstandig naamwoord" },
+  "dementeren": { u: "Steeds meer dingen vergeten door ouderdom (dementie).", v: "Demente ouderen worden blij van kuikentjes.", s: "werkwoord" },
+  "opleven": { u: "Blijer en actiever worden.", v: "De ouderen opleven als ze de kuikens zien.", s: "werkwoord" },
+  "scharrelen": { u: "Vrij rondlopen en krabbelen, zoals kippen doen.", v: "De kippen scharrelen in de tuin.", s: "werkwoord" },
+  "overlast": { u: "Geluid of gedrag waar anderen last van hebben.", v: "Van kippen heb je weinig overlast.", s: "zelfstandig naamwoord" },
+  "apporteren": { u: "Iets in je bek terugbrengen (van een hond).", v: "Je wilt niet dat een hond een kip apporteert.", s: "werkwoord" },
+  "verzorging": { u: "Het zorgen voor een mens of dier.", v: "De verzorging van kippen is veel werk.", s: "zelfstandig naamwoord" },
+  "bio-industrie": { u: "Boerderijen waar heel veel dieren op een kleine ruimte worden gehouden.", v: "De kippen zijn een alternatief voor de bio-industrie.", s: "zelfstandig naamwoord" },
+  "bereid zijn": { u: "Ergens voor openstaan; het willen doen.", v: "De vraag is of mensen bereid zijn ervoor te betalen.", s: "uitdrukking" },
+  "hype": { u: "Iets dat ineens heel populair is, vaak tijdelijk.", v: "De Pokémonhype is springlevend.", s: "zelfstandig naamwoord" },
+  "een vlucht nemen": { u: "Heel snel groter of populairder worden.", v: "De hobby heeft echt een vlucht genomen.", s: "uitdrukking" },
+  "verzamelaar": { u: "Iemand die dingen verzamelt, zoals kaarten.", v: "Voor verzamelaars zijn de prijzen erg hoog.", s: "zelfstandig naamwoord" },
+  "veilingsite": { u: "Een website waar je door te bieden dingen koopt en verkoopt.", v: "De box gaat op veilingsites voor 2000 euro rond.", s: "zelfstandig naamwoord" },
+  "tienvoudige": { u: "Tien keer zoveel.", v: "De kaarten zijn nu het tienvoudige waard.", s: "zelfstandig naamwoord" },
+  "sullig": { u: "Niet bijzonder; een beetje armelijk.", v: "5000 euro voor vijf sullige kaartjes.", s: "bijvoeglijk naamwoord" },
+  "gokken": { u: "Geld riskeren in de hoop dat je wint.", v: "Kinderen gaan gokken met Pokémonkaarten.", s: "werkwoord" },
+  "kraslot": { u: "Een kaartje waar je een laag af krast om te zien of je prijs hebt.", v: "Een pakje kopen is als een kraslot.", s: "zelfstandig naamwoord" },
+  "verwachtingen bijstellen": { u: "Je verwachtingen realistischer maken.", v: "Ouders moeten de verwachtingen van hun kind bijstellen.", s: "uitdrukking" },
+  "hoogtepunt": { u: "Het populairste of drukste punt.", v: "De hype is over zijn hoogtepunt heen.", s: "zelfstandig naamwoord" },
+  "zuinig zijn op": { u: "Goed voor iets zorgen; het mooi houden.", v: "Wees zuinig op je Pokémonkaarten.", s: "uitdrukking" },
+  "watersafari": { u: "Een tocht op het water om dieren te bekijken.", v: "Ga mee op watersafari.", s: "zelfstandig naamwoord" },
+  "boswachter": { u: "Iemand die voor het bos zorgt en het beheert.", v: "Ga op pad met de boswachter.", s: "zelfstandig naamwoord" },
+  "spoorzoeken": { u: "Uitzoeken welke dieren er zijn geweest, via sporen zoals voetafdrukken.", v: "Leer spoorzoeken in het bos.", s: "werkwoord" },
+  "donateur": { u: "Iemand die elke maand geld geeft aan een organisatie.", v: "De advertentie is niet alleen voor donateurs bedoeld.", s: "zelfstandig naamwoord" },
+  "aan het eind van zijn Latijn zijn": { u: "Bijna kapot zijn; niet meer goed werken.", v: "Mijn oude telefoon is aan het eind van zijn Latijn.", s: "uitdrukking" },
+  "gehecht zijn aan": { u: "Iemand of iets niet willen missen.", v: "Je bent gehecht aan je huidige telefoon.", s: "uitdrukking" },
+  "EHBO": { u: "Eerste hulp bij ongelukken; hier: snelle hulp om iets te redden.", v: "Wij geven EHBO-tips voor je telefoon.", s: "afkorting" },
+  "versleten": { u: "Zo vaak gebruikt dat het niet meer goed werkt.", v: "Na twee jaar is de batterij versleten.", s: "bijvoeglijk naamwoord" },
+  "traag": { u: "Langzaam.", v: "Je telefoon wordt traag als het geheugen vol zit.", s: "bijvoeglijk naamwoord" },
+  "fabrieksinstellingen": { u: "De instellingen zoals toen het apparaat nieuw was.", v: "Zet de fabrieksinstellingen van je telefoon terug.", s: "zelfstandig naamwoord" },
+  "blootstellen aan": { u: "Iets in contact brengen met iets gevaarlijks.", v: "Stel je telefoon niet bloot aan hitte.", s: "werkwoord" },
+  "slijtage": { u: "Stukje voor stukje slechter worden door gebruik.", v: "Vermijd slijtage van de batterij.", s: "zelfstandig naamwoord" },
+  "funest": { u: "Heel erg slecht; rampzalig.", v: "Vocht in je scherm kan funest zijn.", s: "bijvoeglijk naamwoord" },
+  "gecertificeerd": { u: "Officieel gecontroleerd en goedgekeurd.", v: "Gebruik alleen een gecertificeerde oplader.", s: "bijvoeglijk naamwoord" },
+  "alarmbellen gaan rinkelen": { u: "Beseffen dat er iets mis is; wantrouwen.", v: "Bij een goedkope oplader moeten je alarmbellen gaan rinkelen.", s: "uitdrukking" },
+  "pionier": { u: "De eerste die iets nieuws doet.", v: "Anette is een pionier met het eerste tiny house in Zeist.", s: "zelfstandig naamwoord" },
+  "waterwingebied": { u: "Een gebied waar drinkwater uit de grond wordt gehaald.", v: "Het tiny house staat in het waterwingebied van Zeist.", s: "zelfstandig naamwoord" },
+  "braakliggend": { u: "Ongebruikt en leeg (van een terrein).", v: "Het huisje staat op een braakliggend terrein.", s: "bijvoeglijk naamwoord" },
+  "noeste uren arbeid": { u: "Vele uren hard werken.", v: "Er zitten vele noeste uren arbeid in het huisje.", s: "uitdrukking" },
+  "achter het net vissen": { u: "Net te laat zijn en het mislopen.", v: "Ze leek achter het net te vissen bij het tiny house.", s: "uitdrukking" },
+  "ingenieus": { u: "Heel slim bedacht.", v: "De bergruimte in het huisje is ingenieus gemaakt.", s: "bijvoeglijk naamwoord" },
+  "inschattingsfout": { u: "Een verkeerde inschatting gemaakt.", v: "Het mislukte project was een inschattingsfout van de gemeente.", s: "zelfstandig naamwoord" },
+  "verleren": { u: "Iets dat je kon, vergeten doordat je het niet meer doet.", v: "Kun je een taal verleren?", s: "werkwoord" },
+  "met pijn en moeite": { u: "Met heel veel moeite.", v: "Met pijn en moeite leerde hij Franse woordjes.", s: "uitdrukking" },
+  "met je mond vol tanden staan": { u: "Niet weten wat je moet zeggen.", v: "Je staat met je mond vol tanden bij de Franse bakker.", s: "uitdrukking" },
+  "taalkundige": { u: "Iemand die talen bestudeert en onderzoekt.", v: "Een Amerikaanse taalkundige vroeg zich dit af.", s: "zelfstandig naamwoord" },
+  "activeren": { u: "Actief maken of oproepen, bijvoorbeeld in je brein.", v: "Je activeert het netwerk in je hersenen.", s: "werkwoord" },
+  "vingervlugheid": { u: "De snelheid en het gemak waarmee je iets doet.", v: "Je verleert vooral de vingervlugheid.", s: "zelfstandig naamwoord" },
+  "voorwaarde": { u: "Iets dat nodig is om iets te bereiken.", v: "De taal goed leren is een voorwaarde.", s: "zelfstandig naamwoord" },
+  "hardnekkig": { u: "Iets dat maar niet weggaat, ook al klopt het niet.", v: "Het is een hardnekkige mythe.", s: "bijvoeglijk naamwoord" },
+  "mythe": { u: "Een verhaal dat veel mensen geloven, maar dat niet waar is.", v: "Dat kinderen makkelijker leren, is een mythe.", s: "zelfstandig naamwoord" },
+  "weerbaar": { u: "Sterk genoeg om voor jezelf op te komen.", v: "Sport maakt je weerbaarder.", s: "bijvoeglijk naamwoord" },
+  "verbroedert": { u: "Mensen dichter bij elkaar brengen.", v: "Samen sporten verbroedert.", s: "werkwoord" },
+  "ontroert": { u: "Je geraakt raken, bijna laten huilen van gevoel.", v: "Sport ontroert mensen.", s: "werkwoord" },
+  "je grenzen verleggen": { u: "Meer doen dan je eerst voor mogelijk hield.", v: "Sport verlegt je grenzen.", s: "uitdrukking" },
+
+  /* Engelse woorden - examen Engels vmbo-bb 2023, tijdvak 1 (u = Nederlandse uitleg, v = Engelse voorbeeldzin, t = taal voor voorlezen) */
+  "urban farm": { u: "Een boerderij in de stad. Mensen uit de buurt verbouwen daar samen groente en fruit.", v: "The urban farm grows vegetables for the local community.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "robbed": { u: "Bestolen. Iemand nam stiekem iets mee.", v: "The farm was robbed twice.", s: "werkwoord (Engels)", t: "en" },
+  "spades": { u: "Scheppen, om mee te graven.", v: "Thieves stole spades and other gardening gear.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "theft": { u: "Diefstal.", v: "It was the theft of crates full of vegetables.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "disheartening": { u: "Ontmoedigend. Je wordt er somber van.", v: "The theft was disheartening for the farmer.", s: "bijvoeglijk naamwoord (Engels)", t: "en" },
+  "evidence": { u: "Bewijs.", v: "He did not have enough evidence for the police.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "donated": { u: "Gegeven als gift, gedoneerd.", v: "People in the community donated more than 2000 dollars.", s: "werkwoord (Engels)", t: "en" },
+  "generosity": { u: "Gulheid: heel veel geven.", v: "Thank you for your generosity.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "flamingo": { u: "Flamingo: een roze vogel met lange dunne poten.", v: "The flamingo eats with its head upside down.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "beak": { u: "Snavel (van een vogel).", v: "The flamingo filters food with its beak.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "suck in": { u: "Opzuigen: water of lucht naar binnen trekken.", v: "Flamingos suck in water and then filter it.", s: "werkwoord (Engels)", t: "en" },
+  "filter": { u: "Filteren: eten uit het water halen.", v: "Lamellae filter the water for food.", s: "werkwoord (Engels)", t: "en" },
+  "expelled": { u: "Naar buiten geduwd, eruit gestuurd.", v: "Water and mud are expelled out of the sides of the beak.", s: "werkwoord (Engels)", t: "en" },
+  "pellets": { u: "Voerkorrels: kleine brokjes dierenvoer.", v: "The pellets are full of nutrients.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "pigments": { u: "Kleurstoffen. Ze geven iets zijn kleur.", v: "Pigments give the shrimps their colour.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "flying car": { u: "Vliegende auto: een auto die kan opstijgen en vliegen.", v: "A flying car can take off without a runway.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "runway": { u: "Start- en landingsbaan (voor vliegtuigen).", v: "Flying cars don't use a runway.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "take off": { u: "Opstijgen.", v: "The flying car can take off straight up.", s: "werkwoord (Engels)", t: "en" },
+  "challenge": { u: "Uitdaging, moeilijk probleem.", v: "Safety is a big challenge for flying cars.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "backup": { u: "Reserve, extra (voor als er iets kapotgaat).", v: "A backup motor helps when one motor fails.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "fail": { u: "Uitvallen, kapotgaan.", v: "A motor can fail during the flight.", s: "werkwoord (Engels)", t: "en" },
+  "traffic jam": { u: "File.", v: "Flying cars might help against a traffic jam.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "went missing": { u: "Raakte kwijt, verdween.", v: "Their dog Lola went missing three years ago.", s: "werkwoord (Engels)", t: "en" },
+  "reunited": { u: "Weer samen, herenigd.", v: "The couple was reunited with their dog.", s: "werkwoord (Engels)", t: "en" },
+  "desperately": { u: "Vertwijfeld, met alle macht.", v: "They tried desperately to find Lola.", s: "bijwoord (Engels)", t: "en" },
+  "escape": { u: "Ontsnappen, wegrennen.", v: "Dogs can escape from a garden.", s: "werkwoord (Engels)", t: "en" },
+  "shelter": { u: "Asiel, opvang (dierenasiel).", v: "They brought Lola to the shelter.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "microchipped": { u: "Gechipt: met een chip onder de huid, zodat de eigenaar te vinden is.", v: "Lucky Lola had been microchipped.", s: "werkwoord (Engels)", t: "en" },
+  "wagging": { u: "Kwispelen (met je staart).", v: "Her tail started wagging.", s: "werkwoord (Engels)", t: "en" },
+  "peak hour": { u: "Spitsuur.", v: "The koala caused chaos in the morning peak hour.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "pile-up": { u: "Kettingbotsing: veel auto's botsen tegen elkaar.", v: "The koala caused a five-car pile-up.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "scoop up": { u: "Snel oppakken.", v: "One motorist managed to scoop up the koala.", s: "werkwoord (Engels)", t: "en" },
+  "rescue": { u: "Redding, redden.", v: "An animal rescue team arrived quickly.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "cheeky": { u: "Brutaal, stouterd.", v: "The cheeky koala went to the steering wheel.", s: "bijvoeglijk naamwoord (Engels)", t: "en" },
+  "scratch": { u: "Kras, krab.", v: "The koala left a deep scratch on the dashboard.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "speedcubing": { u: "Een Rubik's kubus zo snel mogelijk oplossen.", v: "Atharva started with speedcubing in 2017.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "world record": { u: "Wereldrecord.", v: "He reached a new world record.", s: "zelfstandig naamwoord (Engels)", t: "en" },
+  "meditating": { u: "Meditatie doen: stil zitten en rustig nadenken.", v: "He spent time meditating before the attempt.", s: "werkwoord (Engels)", t: "en" },
+  "visualizing": { u: "Je iets voorstellen, zien in je hoofd.", v: "He was visualizing the world record attempt.", s: "werkwoord (Engels)", t: "en" },
+  "supportive": { u: "Steungevend: er altijd voor iemand zijn.", v: "His parents were always supportive.", s: "bijvoeglijk naamwoord (Engels)", t: "en" },
+  "cheer": { u: "Aanmoedigen, juichen (voor iemand).", v: "His family would cheer him at practice.", s: "werkwoord (Engels)", t: "en" },
+  "meanwhile": { u: "Ondertussen, in de tussentijd.", v: "Meanwhile, he is training for his next goal.", s: "bijwoord (Engels)", t: "en" }
 };
 
 var TEKSTEN = [
@@ -666,6 +780,698 @@ var TEKSTEN = [
         waarom: "Iedereen ziet berichten [[voorbijkomen]] op zijn telefoon. Daarom is de advertentie voor alle mensen bedoeld."
       }
     ]
+  },
+  {
+    id: "ikvertrek",
+    titel: "Ik vertrek",
+    onderwerp: "Emigratie en werk",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Zijn ouders kochten een [[stulpje]] in Frankrijk, zo was te zien in het tv-programma 'Ik Vertrek'. Maar Roan (17) is inmiddels alweer terug in zijn geboorteplaats. Hij wordt liever automonteur in Nederland.",
+      "Hij kon op een mooie Franse heuvel zitten, met uitzicht op zijn eigen zwembad. Maar dat is niets voor Roan. In plaats daarvan staat hij in een garage om olie te verversen, met smerige handen en een overall aan.",
+      "'Dat wij gingen [[emigreren]] kwam niet als een verrassing', blikt Roan terug. '[[in eerste instantie|In eerste instantie]] wist ik niet goed wat ik ervan moest vinden. Ik dacht: ach, het is wel een [[avontuur]]. Maar het heeft voor mij nooit echt een kans gehad. Of ik zat thuis, of ik zat op school.'",
+      "Op zijn eerste Franse schooldag sprak hij de taal niet, kende niemand en had een cameraploeg achter zich aan. 'Dat boeide mij niet. Ik stond gewoon lekker naar iedereen te [[bonjouren]].'",
+      "Al snel werden in Frankrijk vanwege corona de teugels verder [[de teugels aanhalen|aangetrokken]] en zat Roan steeds vaker thuis. 'Wil ik dit nog wel? Als ik doorging met school, zou ik vijf dagen [[intern]] moeten. Toen heb ik mijn opa en oma gebeld of ik bij hen kon komen wonen. Dat vonden ze goed.'",
+      "Daarna pas heb ik het aan mijn ouders verteld. Zij vinden dat je moet gaan voor je dromen. Roan werkt nu vier dagen per week als monteur, één dag zit hij op school. Op beide plekken heeft hij [[het naar je zin hebben|het naar zijn zin]]. 'Over mij hoef je niet [[ergens in zitten|in te zitten]], hoor', lacht hij. 'Een kantoorbaan is niets voor mij. Ik wil gewoon monteur worden.'"
+    ].join("\n"),
+    eenvoudig: [
+      "Roan (17) ging met zijn ouders naar Frankrijk. Dat was te zien op tv, in het programma 'Ik Vertrek'. Maar nu is hij terug in Nederland. Hij wil automonteur worden.",
+      "In Frankrijk had hij een huis met een zwembad op een heuvel. Mooi, maar niet leuk voor Roan. Hij werkt liever in de garage.",
+      "'Ik wist dat we gingen [[emigreren]]', zegt Roan. '[[in eerste instantie|In het begin]] vond ik het een avontuur. Maar ik zat alleen thuis of op school.'",
+      "Op school sprak hij geen Frans en kende niemand. Maar dat vond Roan niet erg. Hij zei gewoon gedag tegen iedereen.",
+      "Door corona zat hij steeds vaker thuis. 'Op school in Frankrijk moest ik vijf dagen [[intern]] blijven slapen. Dat wilde ik niet. Ik belde mijn opa en oma: mag ik bij jullie wonen? Dat mocht.'",
+      "Nu werkt hij vier dagen in de garage. Hij heeft [[het naar je zin hebben|het naar zijn zin]]. '[[ergens in zitten|Maak je geen zorgen]] om mij', lacht hij. 'Ik word monteur.'"
+    ].join("\n"),
+    woorden: ["stulpje","emigreren","in eerste instantie","avontuur","bonjouren","de teugels aanhalen","intern","het naar je zin hebben","ergens in zitten"],
+    vragen: [
+      {
+        v: "In alinea 2 staat: 'Maar dat is niets voor Roan.' Wat is niets voor Roan?",
+        opties: ["Automonteur in Frankrijk worden","Een avontuurlijk leven leiden","Rustig leven in Frankrijk","School volgen vanuit huis"],
+        goed: 2,
+        waarom: "Roan kon op een heuvel zitten met zwembad en luie dagen. Maar dat is niets voor hem: hij wil werken als monteur."
+      },
+      {
+        v: "'Dat wij gingen [[emigreren]] kwam niet als een verrassing.' Wat bedoelt Roan?",
+        opties: ["Hij schrok ervan dat zijn ouders wilden verhuizen","Hij had al verwacht dat zijn ouders wilden verhuizen","Hij vond het vervelend dat zijn ouders wilden verhuizen"],
+        goed: 1,
+        waarom: "Geen verrassing betekent: hij zag het aankomen. Hij verwachtte het al."
+      },
+      {
+        v: "Hoe reageerden Roans ouders toen hij zei dat hij terug wilde naar Nederland?",
+        opties: ["Ze probeerden hem over te halen om te blijven","Ze steunden zijn beslissing om terug te gaan","Ze voelden zich schuldig","Ze waren juist blij dat hij terugging"],
+        goed: 1,
+        waarom: "In de tekst staat dat ze er voor staan dat je voor je dromen moet gaan. Ze vonden dat hij ervoor moest gaan."
+      },
+      {
+        v: "Hoe kijkt Roan naar zijn toekomst?",
+        opties: ["Hij is bezorgd over zijn toekomst","Hij maakt zich geen zorgen over zijn toekomst","Hij weet precies hoe zijn toekomst eruitziet"],
+        goed: 1,
+        waarom: "'Komt allemaal goed, ik zie het wel', zegt Roan. En: 'Over mij hoef je niet [[ergens in zitten|in te zitten]].' Hij maakt zich dus geen zorgen."
+      },
+      {
+        v: "Wat is het belangrijkste doel van deze tekst?",
+        opties: ["De lezer amuseren met grappige gebeurtenissen uit het programma","De lezer informeren hoe het met Roan gaat na het programma 'Ik Vertrek'","De lezer waarschuwen dat meedoen aan zo'n programma niet leuk is"],
+        goed: 1,
+        waarom: "De tekst vertelt wat Roan na het programma doet en waarom hij terugkwam. Dat is informeren."
+      }
+    ]
+  },
+  {
+    id: "kippen",
+    titel: "Benjamin verhuurt kippen",
+    onderwerp: "Dieren en ondernemen",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Kippen houden in de tuin, dat doe je niet zomaar. Via het bedrijf van Benjamin Schelling (33) kunnen mensen kippen eerst een paar maanden [[uitproberen]]. 'In 95 procent van de gevallen krijgen we ze niet meer terug.'",
+      "Met zijn bedrijf [[verhuren|verhuurt]] Schelling aan huis alles wat nodig is: de kippenren, een handleiding en het voer. De nieuwe eigenaren kunnen twee of drie maanden proberen hoe het bevalt. Via de app kunnen ze vragen stellen.",
+      "Schelling levert ook [[bevrucht]]e eieren en een [[broedmachine]], zodat je overal je eigen kuiken ter wereld kan brengen. 'Het is geweldig om te zien hoe [[dementeren|demente]] ouderen [[opleven]] als de kuikentjes uitkomen.'",
+      "Kippen zijn volgens hem de leukste huisdieren. 'Ze eten uit je hand en de kuikentjes liggen in je nek te slapen.' Ze zijn ook handig: kippen eten bijna alles. 'Daar maken ze een ei van. Een kip is het enige huisdier dat je ontbijt maakt.'",
+      "Kan iedereen kippen houden? De kippen moeten kunnen [[scharrelen]]: de tuin moet wel een beetje groen zijn. 'Ik wil geen kip in een betonnen tuin.' Voor [[overlast]] hoef je niet bang te zijn: alleen als er gevaar is of een ei is gelegd, maakt een kip lawaai.",
+      "Wel is de [[verzorging]] veel werk. 'Een kip poept ieder kwartier. Na een week zit heel je tuin onder de ontlasting. Je moet er wel wat voor doen.' Verder zijn de kippen een alternatief voor de [[bio-industrie]]. 'De vraag is of mensen [[bereid zijn|bereid]] zijn om ervoor te betalen.' Drie kippen huren kost voor twee maanden 299 euro."
+    ].join("\n"),
+    eenvoudig: [
+      "Kippen in je tuin? Dat doe je niet zomaar. Bij het bedrijf van Benjamin kun je kippen een paar maanden [[uitproberen]]. Meestal wil niemand ze daarna nog teruggeven.",
+      "Benjamin [[verhuren|verhuurt]] alles: de ren, de handleiding en het voer. Twee of drie maanden mag je proberen. Vragen? Die stel je via de app.",
+      "Hij levert ook [[bevrucht]]e eieren en een [[broedmachine]]. Zo zie je overal een kuiken uitkomen. Ouderen met dementie worden er blij van: ze [[opleven|worden blijer]].",
+      "Kippen zijn leuke huisdieren. Ze eten uit je hand. En ze eten bijna alles, ook etensresten. Daar maken ze eieren van.",
+      "Kippen [[scharrelen]] graag in de tuin. Je tuin moet dus een beetje groen zijn. Voor lawaai ([[overlast]]) hoef je niet bang te zijn.",
+      "Het is wel veel werk. Een kip poept heel vaak! Je tuin wordt vies. Drie kippen huren: 299 euro voor twee maanden."
+    ].join("\n"),
+    woorden: ["verhuren","uitproberen","bevrucht","broedmachine","dementeren","opleven","scharrelen","overlast","apporteren","verzorging","bio-industrie","bereid zijn"],
+    vragen: [
+      {
+        v: "De titel is 'Benjamin verhuurt kippen'. In welke alinea wordt het best uitgelegd hoe het huren werkt?",
+        opties: ["Alinea 1","Alinea 2","Alinea 3","Alinea 4"],
+        goed: 1,
+        waarom: "In alinea 2 staat wat Schelling levert (ren, handleiding, voer) en hoe lang je kunt proberen. Dat is het huren."
+      },
+      {
+        v: "Waarom zegt Schelling dat hij 95 procent van de kippen niet terugkrijgt?",
+        opties: ["Omdat de kippen vaak ziek worden","Omdat de mensen de kippen willen houden","Omdat het te duur is om ze op te halen"],
+        goed: 1,
+        waarom: "De mensen zijn blij met de kippen en willen ze niet meer missen. Alleen als het echt mislukt, haalt Schelling ze op."
+      },
+      {
+        v: "'Ik denk dat dat namelijk wel beter kan.' Wat bedoelt Benjamin?",
+        opties: ["Mensen moeten beter weten hoe eieren gemaakt worden","Meer mensen moeten zelf kippen gaan houden","Kippen in de [[bio-industrie]] moeten beter behandeld worden"],
+        goed: 2,
+        waarom: "De zin ervoor gaat over de bio-industrie. Die kan beter, vindt Benjamin. Maar mensen moeten er wel voor willen betalen."
+      },
+      {
+        v: "Wat is het belangrijkste doel van de tekst?",
+        opties: ["De lezer informatie geven over het huren van kippen","De lezer leren hoe je kippen moet verzorgen","De lezer overhalen om zelf kippen te gaan houden"],
+        goed: 0,
+        waarom: "De tekst legt uit hoe het huren werkt: wat je krijgt, hoe lang het duurt en wat het kost. Dat is informeren."
+      },
+      {
+        v: "Wat betekent [[apporteren]] in de zin 'Je wilt niet dat je hond een kip apporteert'?",
+        opties: ["De kip wegjaagt","De kip in zijn bek terugbrengt","Op de kip past"],
+        goed: 1,
+        waarom: "[[apporteren|Apporteren]] is iets in je bek terugbrengen, zoals een hond dat met een stok doet. Met een kip is dat dus niet de bedoeling."
+      }
+    ]
+  },
+  {
+    id: "pokemon",
+    titel: "Pokémonkaarten zijn goud waard",
+    onderwerp: "Geld en hobby",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Pokémonkaarten. Misschien heb je ze nog thuis liggen. De verzamelkaarten zijn razend populair en worden nu soms voor duizenden euro's geruild en verkocht. In Aalten zit een echte Pokémonwinkel en ook daar merken ze dat de [[hype]] springlevend is.",
+      "'We merken dat de hobby echt [[een vlucht nemen|een vlucht]] heeft [[een vlucht nemen|genomen]]', zegt eigenaar Kevin Wevers. In 2015 begon hij met een webshop. Een half jaar geleden kwam de winkel erbij.",
+      "In de winkel worden pakjes, sets en boxen verkocht. 'De losse pakjes kosten vijf euro, maar grotere sets verkopen we voor tweehonderd of zelfs vierhonderd euro.' Op dit moment is het voor [[verzamelaar]]s een moeilijke tijd. 'De prijzen zijn heel hoog. Een box van 110 euro gaat nu op [[veilingsite]]s rond voor 2000 of 3000 euro.'",
+      "In zijn privécollectie zitten ook waardevolle kaarten. 'Twee jaar geleden waren die misschien 500 euro waard, maar dat is nu gegroeid naar het [[tienvoudige]]. Dus praat je over 5000 euro voor vijf [[sullig]]e kaartjes.'",
+      "De kaarten zijn geliefd bij kinderen. Maar waar het vroeger om verzamelen en ruilen ging, kijkt iedereen nu naar de waarde. Expert Harry Hol waarschuwt: 'Kinderen horen alleen maar: er is een kans om geld te verdienen. Het vervelende is dat het [[gokken]] wordt. Kinderen kopen kaarten als een [[kraslot]].'",
+      "Hol adviseert ouders om te praten met hun kind en de [[verwachtingen bijstellen|verwachtingen bij te stellen]]. 'De kans dat het jouw kind overkomt, is heel klein.'",
+      "Wevers denkt dat de hype over zijn [[hoogtepunt]] heen is. 'Er zal altijd een groep blijven die de kaarten spaart.' Zijn advies: gooi oude kaarten niet weg. 'Wees er [[zuinig zijn op|zuinig op]]. Je weet niet wat het gaat doen.'"
+    ].join("\n"),
+    eenvoudig: [
+      "Pokémonkaarten zijn heel populair. Soms kosten ze duizenden euro's. In Aalten is een echte Pokémonwinkel.",
+      "Eigenaar Kevin: 'De hobby is heel snel populair geworden. Ik begon in 2015 met een webshop. Nu hebben we ook een winkel.'",
+      "Pakjes kosten 5 euro. Grote sets kosten 200 of 400 euro. Voor [[verzamelaar]]s is het duur: een box kost nu 2000 of 3000 euro op een [[veilingsite]].",
+      "Sommige kaarten zijn nu [[tienvoudige|tien keer zoveel]] waard als twee jaar geleden.",
+      "Kinderen kopen kaarten om geld te verdienen. Dat is als [[gokken]], zegt expert Harry Hol. Je koopt een pakje als een [[kraslot]]: hopen dat je wint.",
+      "Ouders moeten met hun kind praten en de [[verwachtingen bijstellen|verwachtingen realistischer maken]]. De kans op veel geld is heel klein.",
+      "Gooi oude kaarten niet weg, zegt Kevin. Wees er [[zuinig zijn op|zuinig op]]."
+    ].join("\n"),
+    woorden: ["hype","een vlucht nemen","verzamelaar","veilingsite","tienvoudige","sullig","gokken","kraslot","verwachtingen bijstellen","hoogtepunt","zuinig zijn op"],
+    vragen: [
+      {
+        v: "'De hobby heeft echt een vlucht genomen.' Wat bedoelt eigenaar Wevers?",
+        opties: ["De hobby is erg verrassend","Het gaat om een tijdelijke hobby","De hobby is tijdloos","De hobby is snel populair geworden"],
+        goed: 3,
+        waarom: "[[een vlucht nemen|Een vlucht nemen]] betekent: heel snel groter worden. De hobby is dus snel populair geworden."
+      },
+      {
+        v: "Waarom is het voor verzamelaars een moeilijke tijd?",
+        opties: ["Kaarten zijn alleen nog in sets te koop","De prijzen van de kaarten zijn enorm gestegen","Bijzondere kaarten zijn moeilijker te vinden"],
+        goed: 1,
+        waarom: "In de tekst staat: 'De prijzen zijn heel hoog.' Een box die eerst 110 euro kostte, kost nu 2000 of 3000 euro."
+      },
+      {
+        v: "De alinea's van expert Harry Hol gaan over het gevaar van de kaarten. Welk tussenkopje past daar het beste?",
+        opties: ["Gevaar achter de kaart","Verzamelen en ruilen","De waarde van de kaart"],
+        goed: 0,
+        waarom: "Die alinea's waarschuwen: kinderen gaan [[gokken]] met de kaarten. 'Gevaar achter de kaart' past dus het beste."
+      },
+      {
+        v: "Op welke andere manier wordt de tekst afgesloten?",
+        opties: ["Er wordt een samenvatting gegeven","Er wordt een toekomstverwachting gegeven","Er wordt een waarschuwing gegeven"],
+        goed: 1,
+        waarom: "Wevers verwacht dat de hype voorbij is, maar dat er altijd verzamelaars blijven. Dat is een blik op de toekomst."
+      },
+      {
+        v: "Wat betekent 'Wees er [[zuinig zijn op|zuinig op]]'?",
+        opties: ["Verkoop ze snel","Goed voor ze zorgen en ze houden","Bewaar ze in een kluis"],
+        goed: 1,
+        waarom: "[[zuinig zijn op|Zuinig zijn op]] betekent: iets mooi houden en goed voor iets zorgen. Niet weggooien dus."
+      }
+    ]
+  },
+  {
+    id: "zomerweken",
+    titel: "Kijk je ogen uit in de zomervakantie",
+    onderwerp: "Natuur en vakantie",
+    niveaubadge: "2F",
+    bron: "naar advertentie Natuurmonumenten · examen vmbo-bb 2023",
+    origineel: [
+      "Kijk je ogen uit in de zomervakantie!",
+      "OERRR — Wilde Zomer Weken",
+      "Deze zomer hoef je je geen dag te vervelen! Ga mee op [[watersafari]], ga op pad met de [[boswachter]], bekijk water- en kriebelbeestjes van dichtbij of leer [[spoorzoeken]] in het bos.",
+      "Voor kinderen van 4 t/m 12 jaar. Kijk op de website van Natuurmonumenten: wildezomerweken."
+    ].join("\n"),
+    eenvoudig: [
+      "Verveel je je in de zomer? Ga naar buiten!",
+      "Met de Wilde Zomer Weken van OERRR is er elke dag iets te doen.",
+      "Ga mee op [[watersafari]]. Ga mee met de [[boswachter]]. Kijk naar kleine beestjes. Of leer [[spoorzoeken]]: je zoekt welke sporen dieren achterlaten.",
+      "Voor kinderen van 4 tot 12 jaar. Kijk op de website van Natuurmonumenten."
+    ].join("\n"),
+    woorden: ["watersafari","boswachter","spoorzoeken","donateur"],
+    vragen: [
+      {
+        v: "Voor wie is deze advertentie vooral bedoeld?",
+        opties: ["Voor [[donateur]]s van Natuurmonumenten","Voor kinderen die op avontuur willen in het bos","Voor mensen die zich snel vervelen","Voor ouders van kinderen in de basisschoolleeftijd"],
+        goed: 1,
+        waarom: "De tekst noemt activiteiten voor kinderen van 4 tot 12 jaar: watersafari, op pad met de boswachter. Avontuur in de natuur."
+      },
+      {
+        v: "Wat is het belangrijkste doel van deze advertentie?",
+        opties: ["Informeren welke beestjes er in de natuur leven","Overhalen om in de vakantie te gaan wandelen in een bos","Overtuigen om mee te doen aan een activiteit van OERRR"],
+        goed: 2,
+        waarom: "De advertentie zegt: ga mee op watersafari, ga op pad met de boswachter. Natuurmonumenten wil dat kinderen meedoen."
+      },
+      {
+        v: "Wat betekent 'Kijk je ogen uit'?",
+        opties: ["Er is heel veel moois te zien","Je moet oppassen met je ogen","Het is te druk in het bos"],
+        goed: 0,
+        waarom: "'Kijk je ogen uit' is een uitdrukking: er is zoveel moois te zien, dat je niet weet waar je moet kijken."
+      }
+    ]
+  },
+  {
+    id: "telefoon",
+    titel: "Telefoon bijna dood? Met deze tips gaat hij nog jaren mee",
+    onderwerp: "Telefoon en milieu",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2022, tijdvak 1",
+    origineel: [
+      "Het is een bekend gevoel: een trouwe telefoon die [[aan het eind van zijn Latijn zijn|aan het eind van zijn Latijn]] is. We doen zo'n twee à drie jaar met onze telefoons, blijkt uit onderzoek. Maar wat als je [[gehecht zijn aan|gehecht bent]] aan je huidige telefoon en geen geld wilt uitgeven aan een duurder toestel? Wij belden drie experts voor [[EHBO]]-tips.",
+      "Tip 1. Koop een nieuwe batterij. 'Na twee jaar lukt het telefoons vaak niet meer om hun beste prestatie te halen', zegt reparateur Hoogendam. 'Dan is de batterij [[versleten]].' De oplossing: laat je batterij vervangen bij een reparatiezaak. 'Daarna doe je er weer twee jaar mee.'",
+      "Tip 2. Laad anders op. Volgens Mariken Stolk kun je veel langer met je batterij doen. 'Houd je batterijniveau tussen de 40 en 80 procent. Leg je telefoon niet voor het slapen aan de lader. Huidige accu's raken overbelast als je ze altijd maximaal oplaadt.'",
+      "Tip 3. Grote schoonmaak (digitaal). Verwijder apps die je weinig gebruikt. Hoe voller het geheugen, hoe [[traag]]er je telefoon wordt. Wat het best werkt: zet de [[fabrieksinstellingen]] terug.",
+      "Tip 4. Maak de microfoon en de oplaadpoort schoon met een droge tandenborstel. 'Houd je telefoon net zo schoon als jezelf.' Tip 5. Vermijd extreme temperaturen: [[blootstellen aan|stel]] je telefoon niet bloot aan hitte of kou. Zo voorkom je [[slijtage]].",
+      "Tip 6. Laat scheuren repareren. 'Zo kan er vocht in het scherm komen. Dat kan [[funest]] zijn. Als je een snee in je arm hebt, laat je die toch ook verbinden?' Tip 7. Gebruik geen goedkope oplader. 'Goedkope opladers missen soms de chip die de veiligheid reguleert. Gebruik alleen [[gecertificeerd]]e opladers. Als er alleen for iPhone op staat, moeten je [[alarmbellen gaan rinkelen|alarmbellen gaan rinkelen]].'"
+    ].join("\n"),
+    eenvoudig: [
+      "Je telefoon is oud en bijna kapot. Maar je wilt geen nieuwe kopen. Deze tips helpen.",
+      "Tip 1: koop een nieuwe batterij. Na twee jaar is de batterij vaak [[versleten]]. Een nieuwe batterij kost 40 tot 50 euro. Dan doe je weer twee jaar met je telefoon.",
+      "Tip 2: laad anders op. Houd de batterij tussen 40 en 80 procent. Leg hem niet 's nachts aan de lader.",
+      "Tip 3: grote schoonmaak. Verwijder apps die je niet gebruikt, want je telefoon wordt anders [[traag]]. Of zet de [[fabrieksinstellingen]] terug.",
+      "Tip 4: maak de microfoon en de oplaadpoort schoon met een tandenborstel. Tip 5: laat je telefoon niet in de hete zon liggen.",
+      "Tip 6: laat een kapot scherm maken. Vocht kan [[funest]] zijn: heel erg slecht voor je telefoon. Tip 7: gebruik alleen [[gecertificeerd]]e opladers. Anders moeten je [[alarmbellen gaan rinkelen]]."
+    ].join("\n"),
+    woorden: ["aan het eind van zijn Latijn zijn","gehecht zijn aan","EHBO","versleten","traag","fabrieksinstellingen","blootstellen aan","slijtage","funest","gecertificeerd","alarmbellen gaan rinkelen"],
+    vragen: [
+      {
+        v: "Welk kopje hoort boven de alinea van Tip 1 (de batterij)?",
+        opties: ["Gebruik alleen originele accesoires","Installeer minder apps","Koop een nieuwe batterij","Voorkom energiepieken"],
+        goed: 2,
+        waarom: "In die alinea staat dat de batterij [[versleten]] is en dat je hem moet laten vervangen. 'Koop een nieuwe batterij' past dus het beste."
+      },
+      {
+        v: "Tip 2 (anders opladen) sluit aan op Tip 1. Hoe?",
+        opties: ["Tip 2 beschrijft de oorzaak van het probleem uit Tip 1","Tip 2 zegt wat er gebeurt als je het probleem niet oplost","Tip 2 geeft een andere oplossing voor hetzelfde probleem"],
+        goed: 2,
+        waarom: "Tip 1 zegt: koop een nieuwe batterij. Stolk zegt: je kunt je oude batterij veel langer gebruiken als je anders oplaadt. Dat is een andere oplossing."
+      },
+      {
+        v: "Wat is de mening van Maarten Depypere (Tip 5)?",
+        opties: ["Een smartphone moet makkelijk te repareren zijn","Je moet je telefoon nooit ergens laten liggen","Een kapotte smartphone moet je meteen laten maken"],
+        goed: 0,
+        waarom: "Depypere is groot voorstander van beter repareerbare telefoons. Hij vindt dat telefoons makkelijk te repareren moeten zijn."
+      },
+      {
+        v: "Wat betekent 'Dat kan [[funest]] zijn'?",
+        opties: ["Dat is heel erg slecht","Dat is gratis te maken","Dat duurt heel lang"],
+        goed: 0,
+        waarom: "[[funest|Funest]] betekent: rampzalig, helemaal kapot. Vocht in je scherm is dus heel erg slecht."
+      },
+      {
+        v: "Wat is het belangrijkste doel van deze tekst?",
+        opties: ["Informeren dat je langer met je telefoon kunt doen dan je denkt","Overtuigen om langer met je telefoon te doen","Uitleggen hoe je langer met je telefoon kunt doen"],
+        goed: 2,
+        waarom: "De tekst geeft zeven concrete tips. Hij legt uit hóé je langer met je telefoon kunt doen."
+      }
+    ]
+  },
+  {
+    id: "tinyhouse",
+    titel: "Anette (24) woont in een piepklein huisje",
+    onderwerp: "Wonen",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2022, tijdvak 1",
+    origineel: [
+      "Anette Peerboom (24) is een [[pionier]]: ze woont in het eerste tiny house in het [[waterwingebied]] van Zeist. Binnen het maximum van 25 vierkante meter wist ze haar huis super-efficiënt vorm te geven. 'Eigenlijk is het helemaal niet veel kleiner dan waar ik eerst woonde.'",
+      "Vorige week streek ze met huis en al neer op het [[braakliggend]]e terrein. 'Samen met mijn vader en mijn vriend heb ik het gebouwd, helemaal zelf.'",
+      "Waarom een tiny house? 'Ik betaalde 900 euro per maand voor een piepklein appartement. Niet meer normaal. En met een hypotheek van 60.000 euro kon ik in mijn eentje niets kopen. Een plekje voor mezelf was onmogelijk te vinden.' In haar zoektocht stuitte ze op tiny houses: kleine, vaak zelfvoorzienende woningen.",
+      "Ze leek door de grote belangstelling [[achter het net vissen|achter het net te vissen]], tot ze opeens een mail van de gemeente kreeg: of ze nog interesse had. 'Ik heb meteen mijn pa gebeld: Kunnen we beginnen? Doen!'",
+      "Klein maar fijn. 'Ik heb al heel veel spullen weggedaan. Meubels, vier verhuisdozen kleding. Nu heb ik zelfs nog twee kasten over.' De bergruimte is [[ingenieus]] ingepast: de trap biedt een schat aan opbergruimte. 'Wie onder de 30 kan zeggen dat zijn hypotheek is afbetaald?', zegt Anette gelukkig.",
+      "Dat er eerst tachtig belangstellenden waren en er toch niets van de grond kwam, noemt ze een [[inschattingsfout]] van de gemeente. 'Mensen vinden een tiny house een romantische gedachte, zonder te weten wat het betekent. En je moet met serieuze bouwtekeningen komen.'"
+    ].join("\n"),
+    eenvoudig: [
+      "Anette (24) woont in een heel klein huis: een tiny house van 25 vierkante meter. Ze is de eerste in Zeist. 'Eigenlijk is het niet veel kleiner dan mijn vorige huis.'",
+      "Ze heeft het huis zelf gebouwd, samen met haar vader en haar vriend. Het huis staat op een leeg terrein.",
+      "Waarom een tiny house? Een appartement was te duur: 900 euro per maand. En een hypotheek was te klein om iets te kopen. Een huis voor haarzelf was bijna onmogelijk.",
+      "Ze was bijna te laat, want er waren veel belangstellenden. Maar de gemeente mailde: heb je nog interesse? Meteen getekend!",
+      "Ze heeft veel spullen weggedaan. De opbergruimte is [[ingenieus|heel slim]] gemaakt: in de trap zit ruimte. 'Wie onder de 30 heeft zijn hypotheek al afbetaald?', zegt ze blij.",
+      "Eerst wilden veel mensen een tiny house. Maar ze wisten niet hoeveel werk het is. En je moet goede tekeningen hebben."
+    ].join("\n"),
+    woorden: ["pionier","waterwingebied","braakliggend","noeste uren arbeid","achter het net vissen","ingenieus","inschattingsfout"],
+    vragen: [
+      {
+        v: "'Vele [[noeste uren arbeid]] zitten er in het huisje.' Wat wordt met deze zin bedoeld?",
+        opties: ["Anette heeft het huisje slim ingericht","Er is hard gewerkt aan het bouwen van het huisje","Het was lastig om het huisje te vervoeren"],
+        goed: 1,
+        waarom: "[[noeste uren arbeid|Noeste uren arbeid]] betekent: vele uren hard werken. Anette bouwde het huisje helemaal zelf."
+      },
+      {
+        v: "Welke uitspraak klopt er NIET volgens de tekst?",
+        opties: ["Anette kreeg te weinig hypotheek om iets te kopen","De huur van een appartement was te hoog","De woningen waren te klein voor Anette"],
+        goed: 2,
+        waarom: "Anette vond de woningen niet te klein: ze woonde altijd al in kleine huizen en kiest zelf een tiny house. De problemen waren de hoge huur en haar te lage hypotheek."
+      },
+      {
+        v: "Aan het eind zegt Anette: 'Dat hoop ik echt.' Waarnaar verwijst 'Dat'?",
+        opties: ["Dat ze langer op deze plek mag blijven","Dat ze nog meer buren krijgt","Dat ze vast werk krijgt aangeboden"],
+        goed: 0,
+        waarom: "De zin ervoor gaat over haar contract van vier jaar: de kans dat het verlengd wordt. Dat hoopt ze echt."
+      },
+      {
+        v: "Wat betekent [[achter het net vissen]]?",
+        opties: ["Te laat zijn en het mislopen","Een huis vinden via internet","Vissen in een vijver"],
+        goed: 0,
+        waarom: "[[achter het net vissen|Achter het net vissen]] is een uitdrukking: net te laat zijn, terwijl anderen de plek wel kregen."
+      },
+      {
+        v: "Wat is een [[pionier]]?",
+        opties: ["Iemand die als eerste iets nieuws doet","Iemand die graag in de natuur woont","Iemand die huizen bouwt"],
+        goed: 0,
+        waarom: "Anette woont in het eerste tiny house van het gebied. De eerste die iets nieuws doet, is een [[pionier|pionier]]."
+      }
+    ]
+  },
+  {
+    id: "taalverleren",
+    titel: "Kun je een taal verleren?",
+    onderwerp: "Taal en leren",
+    niveaubadge: "2F",
+    bron: "naar examen vmbo-bb 2022, tijdvak 1",
+    origineel: [
+      "Heb je [[met pijn en moeite]] op school Franse of Duitse woordjes geleerd, sta je jaren later [[met je mond vol tanden staan|met je mond vol tanden]] bij de Franse bakker. Kun je een vreemde taal echt [[verleren]]?",
+      "Begin jaren tachtig vroeg de Amerikaanse [[taalkundige]] Richard Lambert zich af of het wel nuttig was dat studenten verplicht een vreemde taal leerden. Als ze die daarna niet meer gebruiken, vergeten ze haar toch?",
+      "'Taal zit in je hersenen als een informatiesysteem van klanken, woorden en taalregels', zegt hoogleraar Monika Schmid. 'Die vormen samen een netwerk. Als je een nieuwe taal leert, sla je alles op in datzelfde netwerk.'",
+      "Daarom duikt er soms opeens een Nederlands woord op in je Engelse zin: je [[activeren|activeert]] het netwerk en kiest een woord uit de verkeerde taal. Wat je vooral moet leren: kiezen welke woorden je activeert.",
+      "Als je een taal eenmaal goed beheerst, is de kennis stabiel. Wat je vooral verleert, is de [[vingervlugheid]] waarmee je de taal oproept. 'Mensen die op school een vreemde taal leerden, kunnen die misschien niet meer spreken, maar ze kunnen vaak nog wel wat verstaan of lezen.'",
+      "Vergelijk het met een auto die lang niet heeft gereden: de motor werkt nog prima, maar de accu is leeg. Dat opladen kost moeite, waardoor het lijkt of je de taal kwijt bent. Wel is het een [[voorwaarde]] dat je de taal eerst goed geleerd hebt.",
+      "Op welke leeftijd je een taal leert, maakt niet uit. Belangrijker is wanneer je ophoudt de taal te gebruiken: kinderen die emigreerden en hun moedertaal daarna nooit meer spraken, vergaten die volledig.",
+      "Overigens is het een [[hardnekkig]]e [[mythe]] dat kinderen een nieuwe taal makkelijker leren dan volwassenen. Kinderen hebben alleen gunstigere omstandigheden: ze gaan naar school en leren de hele dag."
+    ].join("\n"),
+    eenvoudig: [
+      "Heb je op school [[met pijn en moeite|met veel moeite]] een vreemde taal geleerd? En nu weet je niets meer? Kun je een taal [[verleren]]?",
+      "Een [[taalkundige]] vroeg zich dit al af in de jaren tachtig. Is het niet zonde om een taal te leren, als je hem later toch vergeet?",
+      "Hoogleraar Monika Schmid zegt: taal zit in je hersenen als een netwerk van woorden en regels. Een nieuwe taal komt in hetzelfde netwerk.",
+      "Daarom zeg je soms een Nederlands woord als je Engels praat. Je [[activeren|activeert]] dan het verkeerde woord.",
+      "De kennis blijft. Maar het ophalen wordt langzamer. Je verleert vooral de [[vingervlugheid]]: de snelheid.",
+      "Vergelijk het met een auto: de motor werkt nog, maar de accu is leeg. Je moet hem weer opladen. Dat kost moeite.",
+      "Belangrijk is dus: blijf de taal gebruiken. Gebruik je een taal nooit meer? Dan vergeet je hem volledig.",
+      "Kinderen leren niet makkelijker dan volwassenen. Dat is een [[mythe]]. Kinderen hebben alleen meer tijd en meer kans om te oefenen."
+    ].join("\n"),
+    woorden: ["verleren","met pijn en moeite","met je mond vol tanden staan","taalkundige","activeren","vingervlugheid","voorwaarde","hardnekkig","mythe"],
+    vragen: [
+      {
+        v: "Wat betekent 'je staat [[met je mond vol tanden staan|met je mond vol tanden]]'?",
+        opties: ["Je praat te veel","Je weet niet wat je moet zeggen","Je bent moe"],
+        goed: 1,
+        waarom: "De uitdrukking betekent: je kunt niets zeggen, je weet het niet meer. Zo voel je je bij de Franse bakker als je je Frans vergeten bent."
+      },
+      {
+        v: "Wat verleer je vooral, volgens hoogleraar Schmid?",
+        opties: ["De kennis van de taal","De snelheid waarmee je de taal oproept","De regels van de taal"],
+        goed: 1,
+        waarom: "Schmid zegt: 'Wat je vooral verleert, is de [[vingervlugheid]].' De kennis zit er nog, maar het ophalen gaat langzaam."
+      },
+      {
+        v: "In alinea 7 staat: '...vergaten die wel degelijk volledig.' Waarnaar verwijst 'die'?",
+        opties: ["Het taalverlies","De kinderen die emigreerden","Hun moedertaal"],
+        goed: 2,
+        waarom: "De zin ervoor gaat over kinderen die hun moedertaal daarna nooit meer spraken. Die taal (de moedertaal) vergaten ze volledig."
+      },
+      {
+        v: "Wat wordt bedoeld met een [[hardnekkig]]e [[mythe]]?",
+        opties: ["Er is veel onderzoek gedaan naar deze vraag","Het is steeds opnieuw bewezen","Veel mensen geloven het, maar het is niet waar"],
+        goed: 2,
+        waarom: "Een [[mythe]] is een verhaal dat veel mensen geloven, maar dat niet klopt. Schmid zegt: kinderen leren niet makkelijker, ze hebben alleen meer kans om te oefenen."
+      },
+      {
+        v: "Wat is het doel van deze tekst?",
+        opties: ["De lezer amuseren","De lezer informeren of je een taal kunt verleren","De lezer overtuigen dat je een taal kunt verleren"],
+        goed: 1,
+        waarom: "De tekst beantwoordt de vraag uit de titel, met uitleg van een deskundige. Dat is informeren."
+      }
+    ]
+  },
+  {
+    id: "sportadvertentie",
+    titel: "Voel je fitter! Sport doet iets met je",
+    onderwerp: "Sport",
+    niveaubadge: "2F",
+    bron: "naar advertentie NOC*NSF · examen vmbo-bb 2022",
+    origineel: [
+      "Sport: het maakt je gelukkiger, fitter, [[weerbaar]]er en vrijer. Sport daagt je uit, [[verbroedert]] en [[ontroert]].",
+      "Sport geeft je vriendschap, leert je winnen, verliezen en altijd te vergeven. Sport laat je bewegen, [[je grenzen verleggen|verlegt je grenzen]], laat je stralen en geeft je energie.",
+      "Sport... in steeds meer nieuwe vormen; bij je club, in het park of langs de zee. Want energie maakt energie!",
+      "Dus kom op, blijf bewegen. Denk nu niet morgen, dat dacht je gisteren... Echt, sport doet iets met je!"
+    ].join("\n"),
+    eenvoudig: [
+      "Sport maakt je blijer, fitter en sterker ([[weerbaar]]).",
+      "Sport brengt mensen samen ([[verbroedert]]) en kan je geraakt maken ([[ontroert|ontroert]]).",
+      "Met sport leer je winnen en verliezen. En je leert dat je meer kunt dan je dacht: sport [[je grenzen verleggen|verlegt je grenzen]].",
+      "Je kunt overal sporten: bij je club, in het park of op het strand.",
+      "Dus kom op, blijf bewegen. Sport doet iets met je!"
+    ].join("\n"),
+    woorden: ["weerbaar","verbroedert","ontroert","je grenzen verleggen"],
+    vragen: [
+      {
+        v: "In wat voor campagne past deze advertentie het beste?",
+        opties: ["Een campagne voor meer aandacht voor elkaar","Een campagne om sportverenigingen te steunen","Een campagne om mensen te overtuigen gezond te leven"],
+        goed: 2,
+        waarom: "De advertentie benadrukt dat sport je fitter en gezonder maakt en dat je moet blijven bewegen. Dat past bij een campagne voor gezond leven."
+      },
+      {
+        v: "Voor wie is deze advertentie vooral bedoeld?",
+        opties: ["Voor mensen die informatie zoeken over sportverenigingen","Voor mensen die willen weten welke sport het beste bij hen past","Voor mensen die overgehaald moeten worden om te gaan of te blijven sporten"],
+        goed: 2,
+        waarom: "De tekst probeert mensen te pakken die twijfelen: 'Denk nu niet morgen, dat dacht je gisteren.' Het doel is overhalen om te sporten."
+      },
+      {
+        v: "Wat betekent 'Sport [[je grenzen verleggen|verlegt je grenzen]]'?",
+        opties: ["Je doet meer dan je eerst voor mogelijk hield","Je moet verder reizen voor je sport","Er zijn nieuwe regels gekomen"],
+        goed: 0,
+        waarom: "[[je grenzen verleggen|Je grenzen verleggen]] betekent: je ontdekt dat je meer kunt dan je dacht."
+      }
+    ]
+  },
+
+  /* Engelse teksten - examen Engels vmbo-bb 2023, tijdvak 1 */
+  {
+    id: "urbanfarm",
+    titel: "Auckland urban farm robbed twice",
+    onderwerp: "Engels · Boerderij",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "An [[urban farm]] in Auckland was [[robbed]] twice. The first time, thieves took [[spades]], gloves and other gardening gear, and also 500 dollars in cash.",
+      "Three weeks later the farm was robbed again. Now crates full of vegetables were stolen. Farmer Brinsdon-Hall found that [[disheartening]]. 'The vegetables are grown for the local community,' he said. 'It is not my food. It is grown with love for the people who support us.'",
+      "He did not report the second [[theft]] to the police. He felt he did not have enough [[evidence]].",
+      "But the community helped. On a webpage, people [[donated]] more than 2000 dollars in just two days. Brinsdon-Hall will spend the money on better security for the farm.",
+      "'I feel very thankful to the community,' he said. 'Thank you for your [[generosity]]. It is a sad story, but the support has been amazing.'"
+    ].join("\n"),
+    eenvoudig: [
+      "A farm in the city of Auckland was [[robbed]] two times.",
+      "The first time, thieves took [[spades]] and money.",
+      "The second time, they took vegetables. The farmer was sad. The vegetables were for people in the neighbourhood.",
+      "People in the city [[donated]] money: more than 2000 dollars in two days.",
+      "With the money, the farm will get better security. The farmer is very thankful."
+    ].join("\n"),
+    woorden: ["urban farm","robbed","spades","theft","disheartening","evidence","donated","generosity"],
+    vragen: [
+      {
+        v: "Wat gaat boer Brinsdon-Hall met het gedoneerde geld doen?",
+        opties: ["De gestolen spullen vervangen","Een website maken voor de boerderij","De boerderij beter beveiligen"],
+        goed: 2,
+        waarom: "In de tekst: 'Brinsdon-Hall will spend the money on better security for the farm.' Security = beveiliging."
+      },
+      {
+        v: "Wat vond de boer het ergst aan de tweede diefstal?",
+        opties: ["Dat er geld was gestolen","Dat groente voor de buurt was gestolen","Dat hij geen bewijs had"],
+        goed: 1,
+        waarom: "In de tekst: 'It is not my food. It is grown with love for the people who support us.' De groente was bedoeld voor de buurt."
+      },
+      {
+        v: "Waarom deed de boer de tweede diefstal niet bij de politie?",
+        opties: ["Omdat de dieven al bekend waren","Omdat hij te weinig bewijs had","Omdat de politie niet wilde komen"],
+        goed: 1,
+        waarom: "In de tekst: 'He felt he did not have enough evidence.' Evidence = bewijs."
+      },
+      {
+        v: "Hoe helpt de buurt de boer na de diefstallen?",
+        opties: ["Mensen doneerden geld via een webpagina","Mensen bewaken de boerderij 's nachts","Mensen brachten nieuwe groente"],
+        goed: 0,
+        waarom: "In de tekst: 'On a webpage, people donated more than 2000 dollars in just two days.'"
+      }
+    ]
+  },
+  {
+    id: "flamingos",
+    titel: "The fascinating way flamingos eat",
+    onderwerp: "Engels · Dierentuin",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "How do [[flamingo|flamingos]] eat with their curved [[beak|beaks]]? The San Diego Zoo made a video with an underwater camera in the flamingo pool.",
+      "The video shows that [[flamingo|flamingos]] eat underwater, with their [[beak]] almost upside down. They [[suck in]] the water around them. Then special plates in the [[beak]] [[filter]] the water for food. Shrimp and other small animals stay in the mouth.",
+      "Water, mud and dirt are [[expelled]] out of the sides of the [[beak]]. The tongue powers this clever system.",
+      "In the zoo, the pool has no real sea animals. The [[flamingo|flamingos]] get special [[pellets]] full of nutrients.",
+      "The food also contains [[pigments]]. Eating them gives the [[flamingo|flamingos]] their pink feathers."
+    ].join("\n"),
+    eenvoudig: [
+      "How does a [[flamingo]] eat? The San Diego Zoo made a video about it.",
+      "The [[flamingo]] eats underwater. Its [[beak]] is almost upside down.",
+      "It [[suck in|sucks in]] water. Then the [[beak]] [[filter|filters]] the food out of the water.",
+      "In the zoo, the [[flamingo]] eats special [[pellets]].",
+      "The food has [[pigments]]. That is why the bird is pink."
+    ].join("\n"),
+    woorden: ["flamingo","beak","suck in","filter","expelled","pellets","pigments"],
+    vragen: [
+      {
+        v: "Welke bewering over flamingo's is juist?",
+        opties: ["Ze gebruiken hun poten om de bodem los te maken","Ze houden hun snavel bijna ondersteboven bij het eten","Ze vissen voedsel met hun tong uit het water"],
+        goed: 1,
+        waarom: "In de tekst: 'flamingos eat underwater, with their beak almost upside down.' Beak = snavel."
+      },
+      {
+        v: "Wat krijgen de flamingo's in de dierentuin te eten?",
+        opties: ["Schelpdieren","Voerkorrels","Waterplanten"],
+        goed: 1,
+        waarom: "In de tekst: 'The flamingos get special pellets full of nutrients.' Pellets = voerkorrels."
+      },
+      {
+        v: "Waarom zit er pigment in het voer van de flamingo's?",
+        opties: ["Zodat ze het eten beter kunnen zien","Zodat hun veren kleur krijgen","Om genoeg voedingsstoffen binnen te krijgen"],
+        goed: 1,
+        waarom: "In de tekst: 'Eating them gives the flamingos their pink feathers.' De pigmenten maken de veren roze."
+      }
+    ]
+  },
+  {
+    id: "flyingcar",
+    titel: "Flying cars",
+    onderwerp: "Engels · Techniek",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Movies about the future often show [[flying car|flying cars]]. Last week, a Japanese company showed its [[flying car]] in action, with a driver inside. The small car, the SD-03, flew around for four minutes, half a metre to two metres above the ground. It is powered by batteries and has eight electric motors.",
+      "Flying cars don't use a [[runway]]. They must [[take off]] and land straight up and down, like a helicopter.",
+      "But there are many [[challenge|challenges]]. Steering a flying car is too complicated for most people. The test flight was kept stable by a computer, and a [[backup]] team stood ready on the ground. What happens when a motor [[fail|fails]]? An accident could hurt not only the people in the car, but also people on the ground.",
+      "Some people believe [[flying car|flying cars]] will help against [[traffic jam|traffic jams]]. But flying cars are very expensive: the price will be between 300,000 and 500,000 dollars. Fans say: the first airplanes had many problems too. With time, big problems can be solved."
+    ].join("\n"),
+    eenvoudig: [
+      "A Japanese company showed a real [[flying car]]. The car flew for four minutes.",
+      "A [[flying car]] does not need a [[runway]]. It can [[take off]] straight up, like a helicopter.",
+      "There are still problems. Steering the car is very difficult. And what if a motor [[fail|fails]]?",
+      "Good news: the car has eight motors. The other motors are a [[backup]].",
+      "A [[flying car]] is very expensive. But fans believe the problems can be solved, like with airplanes."
+    ].join("\n"),
+    woorden: ["flying car","runway","take off","challenge","backup","fail","traffic jam"],
+    vragen: [
+      {
+        v: "Wat is waar over de test met de vliegende auto?",
+        opties: ["De auto had geen start- en landingsbaan nodig","De auto vloog zonder bestuurder aan boord","De auto werkte op benzinemotoren"],
+        goed: 0,
+        waarom: "In de tekst: 'Flying cars don't use a runway. They must take off and land straight up and down.' De testvlucht was met een bestuurder en op batterijen."
+      },
+      {
+        v: "Waarom heeft de auto acht motoren?",
+        opties: ["Om het besturen gemakkelijker te maken","Om reserves te hebben als er één uitvalt","Om sneller te kunnen vliegen"],
+        goed: 1,
+        waarom: "In de tekst staat dat de motoren dienen 'as backups': reserve, voor als er één uitvalt (fails)."
+      },
+      {
+        v: "Hoe reageren fans van de vliegende auto op de nadelen?",
+        opties: ["Door te zeggen dat de problemen van de eerste vliegtuigen ook zijn opgelost","Door te benadrukken dat er meer voordelen zijn","Door uit te leggen dat de problemen met geld op te lossen zijn"],
+        goed: 0,
+        waarom: "In de tekst: 'The first airplanes had many problems too. With time, big problems can be solved.'"
+      }
+    ]
+  },
+  {
+    id: "missingdog",
+    titel: "Missing dog",
+    onderwerp: "Engels · Huisdieren",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Steve and Debra Mejeur from Michigan got a wonderful Christmas surprise. They were [[reunited]] with their black labrador Lola. The dog [[went missing]] more than three years ago. The couple were visiting a friend when Lola somehow [[escape|escaped]] from the fenced garden.",
+      "They looked for her [[desperately]]: they searched for about a month and posted messages on Facebook for two years. But they found nothing. Then, on 3 December, came the message: Lola was found. 'I was in disbelief, because it has been three years,' Debra said. 'But I was relieved that she was finally safe.'",
+      "It turns out that a couple ten miles away had fed Lola for two and a half years. But Lola never let them catch her. Finally they caught her and brought her to the [[shelter]]. Lucky Lola had been [[microchipped]], so the owners were quickly found.",
+      "'It took her a little time to recognise me,' Debra says. 'Then she licked my forehead and her tail started [[wagging]].' Lola still knows her commands. 'It is like she has never been gone.'"
+    ].join("\n"),
+    eenvoudig: [
+      "The dog Lola [[went missing]]. Her owners looked for her for three years.",
+      "A couple ten miles away fed Lola. But Lola always ran away.",
+      "At last, they caught Lola. She was brought to the [[shelter]].",
+      "Lucky Lola was [[microchipped]]. So the owners were found quickly.",
+      "Lola is home again. Her tail is [[wagging]] every day."
+    ].join("\n"),
+    woorden: ["went missing","reunited","desperately","escape","shelter","microchipped","wagging"],
+    vragen: [
+      {
+        v: "Waarom was het vreemd dat Lola uit de tuin van vrienden kon ontsnappen?",
+        opties: ["Omdat er een hek om de tuin stond","Omdat Lola vastgebonden zat","Omdat Lola nog nooit eerder was weggelopen"],
+        goed: 0,
+        waarom: "In de tekst: 'Lola somehow escaped from the fenced garden.' Er stond dus een hek om de tuin."
+      },
+      {
+        v: "Waarom duurde het zo lang voordat Lola terug was bij haar eigenaren?",
+        opties: ["Lola kon niet eerder gevangen worden","Lola was niet geregistreerd","Lola woonde bij een ander echtpaar"],
+        goed: 0,
+        waarom: "In de tekst: 'Lola never let them catch her.' Het echtpaar gaf haar wel eten, maar kon haar niet vangen."
+      },
+      {
+        v: "Wat zei Debra over Lola, nadat ze weer thuis was gekomen?",
+        opties: ["Lola blafte naar Debra","Lola herkende Debra meteen","Lola was volgens Debra helemaal niet veranderd"],
+        goed: 2,
+        waarom: "In de tekst: 'Lola still knows her commands. It is like she has never been gone.' Volgens Debra is Lola zichzelf gebleven."
+      }
+    ]
+  },
+  {
+    id: "koala",
+    titel: "Koala on the motorway",
+    onderwerp: "Engels · Dieren in het verkeer",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "A curious koala caused chaos on an Australian motorway in the morning [[peak hour]]. The little animal walked across the road and caused a five-car [[pile-up]]. The traffic came to a complete stop.",
+      "Lucky for the koala, one driver, Nadia, managed to [[scoop up|scoop it up]] and take it to safety. 'I went to the koala like a bull fighter would do to a bull,' Nadia said. With help from other drivers, she caught the animal.",
+      "But the [[cheeky]] koala wanted more adventure. It walked to the steering wheel and put its nose through the headrest. 'That's too close for comfort,' Nadia said. She kept the koala calm until the animal [[rescue]] team arrived.",
+      "The koala was returned to the wild. But not before leaving a deep [[scratch]] on the dashboard of Nadia's car. No animals or people were injured in the crash."
+    ].join("\n"),
+    eenvoudig: [
+      "A koala walked on a big road in Australia. It was [[peak hour]].",
+      "Five cars crashed into each other: a [[pile-up]]. All the cars stopped.",
+      "A driver, Nadia, [[scoop up|scooped up]] the koala. She took it to a safe place.",
+      "The koala was [[cheeky]]. It walked to the steering wheel of the car.",
+      "The animal [[rescue]] team came. The koala went back to nature.",
+      "The koala left a deep [[scratch]] on the car. Nobody was hurt."
+    ].join("\n"),
+    woorden: ["peak hour","pile-up","scoop up","rescue","cheeky","scratch"],
+    vragen: [
+      {
+        v: "Welke chaos ontstond er doordat de koala op de weg liep?",
+        opties: ["Vijf auto's botsten tegen elkaar","Alle auto's begonnen hard te toeteren","De auto's reden achteruit"],
+        goed: 0,
+        waarom: "In de tekst: 'The little animal caused a five-car pile-up.' Een pile-up is een kettingbotsing."
+      },
+      {
+        v: "Hoe ving Nadia de koala, volgens haarzelf?",
+        opties: ["Zoals een hondentrainer","Zoals een reddingswerker","Zoals een stierenvechter"],
+        goed: 2,
+        waarom: "In de tekst: 'I went to the koala like a bull fighter would do to a bull.'"
+      },
+      {
+        v: "Wat deed Nadia meteen nadat ze het dier gevangen had?",
+        opties: ["Ze liet hem meteen weer ontsnappen","Ze stopte hem in de achterbak van de auto","Ze zette hem in een boom langs de weg"],
+        goed: 1,
+        waarom: "In de tekst: ze ving de koala 'and put it in her boot until an animal rescue team arrived'. Boot = achterbak."
+      },
+      {
+        v: "Wat was een gevolg van de reddingsactie?",
+        opties: ["Nadia's arm raakte gewond","Nadia's auto was beschadigd","Nadia's jas werd verscheurd"],
+        goed: 1,
+        waarom: "In de tekst: 'not before leaving a deep scratch on the dashboard of Nadia's car.' De auto had een diepe kras."
+      }
+    ]
+  },
+  {
+    id: "rubik",
+    titel: "Rubik's cube world record",
+    onderwerp: "Engels · Records",
+    niveaubadge: "A2",
+    taal: "en",
+    bron: "naar examen Engels vmbo-bb 2023, tijdvak 1",
+    origineel: [
+      "Speedcuber Atharva R Bhat is eight years old. The boy from Bangalore, India, solved three Rubik's cubes at the same time, in one minute and 29.97 seconds. With that, he set a new [[world record]].",
+      "Atharva has always loved puzzles. He started with [[speedcubing]] after meeting a famous speedcubing champion. 'My dream to be like him started there,' he says. He also spent time [[meditating]] and [[visualizing]] the world record attempt.",
+      "'The training was never difficult, because I enjoyed it,' Atharva says. 'My parents were always [[supportive]]. My sister and grandparents would [[cheer]] me at my practice.' The eight-year-old hopes his success will inspire other kids. [[meanwhile|Meanwhile]], he is already training for his next goal: the same challenge in less than a minute."
+    ].join("\n"),
+    eenvoudig: [
+      "Atharva is eight years old. He solves Rubik's cubes very fast.",
+      "He solved three cubes at the same time. It took one and a half minutes. That is a new [[world record]].",
+      "Atharva practises a lot. He also sits still and thinks quietly. That is [[meditating]].",
+      "He sees himself winning in his head. That is [[visualizing]].",
+      "His parents are always [[supportive]]. His family comes to [[cheer]] for him.",
+      "[[meanwhile|Meanwhile]], Atharva trains for his next goal: solving the cubes in less than one minute."
+    ].join("\n"),
+    woorden: ["speedcubing","world record","meditating","visualizing","supportive","cheer","meanwhile"],
+    vragen: [
+      {
+        v: "Wat wordt er over Atharva verteld in de eerste alinea?",
+        opties: ["Hij had drie pogingen nodig om een record te halen","Hij loste als snelste drie puzzels tegelijk op","Hij was de jongste speler op drie toernooien"],
+        goed: 1,
+        waarom: "In de tekst: 'he solved three Rubik's cubes at the same time, in one minute and 29.97 seconds.'"
+      },
+      {
+        v: "Wat wordt er over Atharva verteld in de tweede alinea?",
+        opties: ["Hij droomde dat hij zijn idool ontmoette","Hij oefende van het begin af aan veel","Hij zag zijn overwinning al voor zich"],
+        goed: 2,
+        waarom: "In de tekst: 'He also spent time meditating and visualizing the world record attempt.' Visualizing = iets voor je zien."
+      },
+      {
+        v: "Welke bewering is juist volgens de laatste alinea?",
+        opties: ["Atharva geeft nu les aan andere kinderen","Atharva krijgt steun van zijn familie","Atharva vindt zijn record goed genoeg"],
+        goed: 1,
+        waarom: "In de tekst: 'My parents were always supportive. My sister and grandparents would cheer me at my practice.'"
+      }
+    ]
   }
 ];
 
@@ -774,6 +1580,83 @@ var SCHRIJF = [
       "Mijn tekst heeft minstens 75 woorden."
     ],
     voorbeeld: "Geachte heer Lagendijk,\n\nIk heb uw oproep gelezen en ik wil graag reageren. Ik wil de dj zijn op het schoolfeest.\n\nIk wil vooral hiphop en Nederlandse muziek draaien. Die muziek past bij de sfeer van het feest, omdat bijna alle leerlingen deze nummers kennen. Dan komt iedereen op de dansvloer.\n\nIk heb al ervaring met draaien: ik deed de muziek op het feest van mijn voetbalclub. Een laptop en speakers heb ik zelf. Een mengpaneel heb ik nog nodig.\n\nIk hoop dat u mij kiest.\n\nMet vriendelijke groet,\nJayden Bakker"
+  },
+  {
+    id: "brugklaskamp",
+    titel: "Ben jij onze nieuwe begeleider?",
+    soort: "E-mail · naar examen 2023",
+    minWoorden: 75,
+    situatie: "Op de website van je school staat een oproep: 'Ben jij onze nieuwe begeleider?' Voor het brugklaskamp zoeken de docenten bovenbouwleerlingen die de brugklassers begeleiden bij allerlei activiteiten. Het kamp duurt twee dagen. Je organiseert samen met een medebegeleider ook zelf een activiteit voor de leerlingen. Schrijf een e-mail aan de heer Van Kampen, de organisator van het brugklaskamp.",
+    taak: [
+      "Stel jezelf voor (naam en klas).",
+      "Geef aan dat je reageert op de oproep voor begeleider van het brugklaskamp.",
+      "Leg uit waarom het je leuk lijkt om begeleider te zijn.",
+      "Geef twee redenen of voorbeelden waarom jij geschikt bent voor deze rol.",
+      "Noem de activiteit die je wilt organiseren en leg uit waarom die geschikt is voor een brugklaskamp.",
+      "Geef aan dat je hoopt dat jij gekozen wordt."
+    ],
+    woordweb: ["brugklaskamp","begeleider","brugklassers","activiteit","samenwerken","kennismaken","leuk","verantwoordelijk","organiseren","groep","spel","vertrouwen","enthousiast","voorbeeld"],
+    starters: [
+      "Geachte heer Van Kampen,",
+      "Ik ben ... en ik zit in klas 4 op deze school.",
+      "Ik schrijf u omdat ik wil reageren op de oproep voor het brugklaskamp.",
+      "Ik vind het leuk om begeleider te zijn, omdat ik graag met jongere leerlingen werk.",
+      "Ik ben geschikt voor deze rol omdat ik goed kan samenwerken.",
+      "Ook ben ik enthousiast en ik neem verantwoordelijkheid.",
+      "Ik wil graag een kennisspel organiseren, want dan leren de brugklassers elkaar snel kennen.",
+      "Ik hoop dat u mij kiest.",
+      "Met vriendelijke groet,"
+    ],
+    checklist: [
+      "Mijn e-mail begint met een nette aanhef (Geachte heer Van Kampen,).",
+      "Ik stel mezelf voor: naam en klas.",
+      "Ik noem de oproep waarop ik reageer.",
+      "Ik leg uit waarom ik begeleider wil zijn.",
+      "Ik geef twee redenen waarom ik geschikt ben.",
+      "Ik noem een activiteit en leg uit waarom die past bij een brugklaskamp.",
+      "Ik geef aan dat ik hoop dat ik gekozen word, en sluit af met een groet en mijn naam.",
+      "Mijn tekst heeft minstens 75 woorden."
+    ],
+    voorbeeld: "Geachte heer Van Kampen,\n\nIk ben Lisa de Vries en ik zit in klas 4 op deze school. Ik schrijf u omdat ik wil reageren op de oproep voor het brugklaskamp.\n\nIk vind het leuk om begeleider te zijn, omdat ik graag met jongere leerlingen werk. Vorig jaar heb ik geholpen op de sportdag van klas 1. Ik ben geschikt voor deze rol omdat ik goed kan samenwerken en rustig blijf als iets spannend wordt.\n\nIk wil graag een kennisspel organiseren. Daarmee leren de brugklassers elkaar snel kennen, en ze moeten meteen samenwerken.\n\nIk hoop dat u mij kiest.\n\nMet vriendelijke groet,\nLisa de Vries"
+  },
+  {
+    id: "vlog",
+    titel: "Een dag uit het leven van ...",
+    soort: "E-mail · naar examen 2022",
+    minWoorden: 75,
+    situatie: "Op de schoolwebsite staat een oproep voor de rubriek 'Een dag uit het leven van ...'. Een leerling uit 4 vmbo loopt een dag mee met een docent, filmt een aantal momenten en interviewt de docent. Daarvan maak je een vlog van ongeveer vijf minuten. De vlog komt op de schoolwebsite. Jij wilt graag meedoen. Schrijf een e-mail aan de heer Van der Leij.",
+    taak: [
+      "Stel jezelf voor (naam en klas).",
+      "Geef aan dat je reageert op de oproep voor de rubriek 'Een dag uit het leven van ...'.",
+      "Leg uit waarom het je leuk lijkt om mee te doen.",
+      "Geef aan met welke docent je graag een dag wilt meelopen.",
+      "Leg uit waarom je met deze docent wilt meelopen.",
+      "Geef twee redenen of voorbeelden waarom jij geschikt bent voor deze rubriek.",
+      "Geef aan dat je hoopt dat jij gekozen wordt."
+    ],
+    woordweb: ["vlog","docent","meelopen","filmen","interview","vragen","schoolwebsite","nieuwsgierig","interessant","moment","reportage","kijken","leuk","ervaring"],
+    starters: [
+      "Geachte heer Van der Leij,",
+      "Ik ben ... en ik zit in klas 4 vmbo.",
+      "Ik reageer graag op de oproep voor de rubriek 'Een dag uit het leven van ...'.",
+      "Ik vind dit leuk, want ik ben nieuwsgierig hoe een dag van een docent eruitziet.",
+      "Ik loop graag een dag mee met ..., omdat ...",
+      "Ik ben geschikt voor deze rubriek, want ik maak zelf al vlogs op mijn telefoon.",
+      "Ook stel ik gemakkelijk vragen aan mensen.",
+      "Ik hoop dat u mij kiest.",
+      "Met vriendelijke groet,"
+    ],
+    checklist: [
+      "Mijn e-mail begint met een nette aanhef (Geachte heer Van der Leij,).",
+      "Ik stel mezelf voor: naam en klas.",
+      "Ik noem de oproep waarop ik reageer.",
+      "Ik leg uit waarom meedoen mij leuk lijkt.",
+      "Ik noem de docent met wie ik wil meelopen en leg uit waarom.",
+      "Ik geef twee redenen waarom ik geschikt ben.",
+      "Ik geef aan dat ik hoop dat ik gekozen word, en sluit af met een groet en mijn naam.",
+      "Mijn tekst heeft minstens 75 woorden."
+    ],
+    voorbeeld: "Geachte heer Van der Leij,\n\nIk ben Mila Jansen, leerling van klas 4 vmbo. Ik reageer graag op de oproep voor de rubriek 'Een dag uit het leven van ...'.\n\nIk vind dit leuk, want ik ben nieuwsgierig hoe een dag van een docent eruitziet. Ik loop graag een dag mee met de heer Bakker, mijn docent scheikunde, omdat hij altijd verhalen vertelt over zijn proeven.\n\nIk ben geschikt voor deze rubriek, want ik maak zelf al vlogs op mijn telefoon. Ook durf ik gemakkelijk vragen te stellen aan mensen.\n\nIk hoop dat u mij kiest.\n\nMet vriendelijke groet,\nMila Jansen"
   }
 ];
 
@@ -822,33 +1705,43 @@ function updateStreakBadge() {
 
 /* ---------- voorlezen (Web Speech API, gratis, ingebouwd) ---------- */
 var nlStem = null;
-function zoekNlStem() {
+var enStem = null;
+function zoekStemmen() {
   if (!("speechSynthesis" in window)) return;
   var stemmen = speechSynthesis.getVoices() || [];
-  for (var i = 0; i < stemmen.length; i++) {
-    if ((stemmen[i].lang || "").toLowerCase().indexOf("nl") === 0) { nlStem = stemmen[i]; return; }
-  }
   nlStem = null;
+  enStem = null;
+  for (var i = 0; i < stemmen.length; i++) {
+    var l = (stemmen[i].lang || "").toLowerCase();
+    if (l.indexOf("nl") === 0 && !nlStem) nlStem = stemmen[i];
+    else if (l.indexOf("en") === 0 && !enStem) enStem = stemmen[i];
+  }
 }
 if ("speechSynthesis" in window) {
-  zoekNlStem();
-  speechSynthesis.onvoiceschanged = zoekNlStem;
+  zoekStemmen();
+  speechSynthesis.onvoiceschanged = zoekStemmen;
 }
 var actieveUitspraak = null;
 var ttsGestart = false;
-function leesVoor(tekst) {
+function leesVoor(tekst, lang) {
   if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
   if (!tekst) return;
   try {
     speechSynthesis.cancel();
+    var engels = lang === "en";
     var u = new SpeechSynthesisUtterance(tekst);
-    u.lang = "nl-NL";
-    if (nlStem) u.voice = nlStem;
+    u.lang = engels ? "en-GB" : "nl-NL";
+    var stem = engels ? enStem : nlStem;
+    if (stem) u.voice = stem;
     u.rate = 0.95;
     ttsGestart = false;
     u.onstart = function () { ttsGestart = true; };
     u.onerror = function () {
-      toast(nlStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Nederlandse stem gevonden. Voeg een Nederlandse stem toe in de instellingen van je toestel.");
+      if (engels) {
+        toast(enStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Engelse stem gevonden. Voeg een Engelse stem toe in de instellingen van je toestel.");
+      } else {
+        toast(nlStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Nederlandse stem gevonden. Voeg een Nederlandse stem toe in de instellingen van je toestel.");
+      }
     };
     actieveUitspraak = u;
     setTimeout(function () { speechSynthesis.speak(u); }, 60);
@@ -858,6 +1751,28 @@ function leesVoor(tekst) {
       }
     }, 2500);
   } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
+}
+function leesWoordVoor(w) {
+  var info = WOORDEN[w];
+  if (!info) { leesVoor(w, "nl"); return; }
+  if (info.t === "en") {
+    if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
+    try {
+      speechSynthesis.cancel();
+      var u1 = new SpeechSynthesisUtterance(w);
+      u1.lang = "en-GB";
+      if (enStem) u1.voice = enStem;
+      u1.rate = 0.9;
+      var u2 = new SpeechSynthesisUtterance("Betekent: " + info.u);
+      u2.lang = "nl-NL";
+      if (nlStem) u2.voice = nlStem;
+      u2.rate = 0.95;
+      actieveUitspraak = u1;
+      setTimeout(function () { speechSynthesis.speak(u1); speechSynthesis.speak(u2); }, 60);
+    } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
+  } else {
+    leesVoor(w + ". " + info.u, "nl");
+  }
 }
 function plainText(zin) {
   return zin.replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1");
@@ -1090,7 +2005,7 @@ function viewTeksten() {
   return '<div class="card">' +
     '<div class="label-boven">Leesvaardigheid</div>' +
     '<h2>Teksten in examenstijl</h2>' +
-    '<p class="meta">Elke tekst heeft twee versies: <b>Eenvoudig</b> en <b>2F-examen</b> (zoals op het echte examen). Begin waar jij wil.</p>' +
+    '<p class="meta">Elke tekst heeft twee versies: <b>Eenvoudig</b> en <b>2F-examen</b> (Engelse teksten: <b>A2-examen</b>). Begin waar jij wil.</p>' +
     '</div>' + kaarten;
 }
 
@@ -1107,7 +2022,7 @@ function viewLezer() {
     '<div class="meta">' + t.onderwerp + ' · niveau ' + t.niveaubadge + (t.bron ? ' · ' + t.bron : '') + '</div>' +
     '<div class="laagtabs">' +
     '<button data-act="laag" data-laag="eenvoudig" class="' + (cur.laag === "eenvoudig" ? "actief" : "") + '">Eenvoudig</button>' +
-    '<button data-act="laag" data-laag="origineel" class="' + (cur.laag === "origineel" ? "actief" : "") + '">2F-examen</button>' +
+    '<button data-act="laag" data-laag="origineel" class="' + (cur.laag === "origineel" ? "actief" : "") + '">' + (t.taal === "en" ? "A2-examen" : "2F-examen") + '</button>' +
     '</div>' +
     '<button class="btn btn-soft btn-small" data-act="lees-voor">Voorlezen</button>' +
     '<div class="tekst">' + tekstNaarHtml(t, cur.laag) + '</div>' +
@@ -1423,11 +2338,10 @@ document.getElementById("app").addEventListener("click", function (e) {
   else if (act === "laag") { cur.laag = el.getAttribute("data-laag"); render(); }
   else if (act === "lees-voor") {
     var lt = leesKaart();
-    if (lt) leesVoor(plainText(lt[cur.laag]));
+    if (lt) leesVoor(plainText(lt[cur.laag]), lt.taal === "en" ? "en" : "nl");
   }
   else if (act === "woord-luister") {
-    var winfo = WOORDEN[el.getAttribute("data-w")];
-    leesVoor(el.getAttribute("data-w") + ". " + (winfo ? winfo.u : ""));
+    leesWoordVoor(el.getAttribute("data-w"));
   }
   else if (act === "start-quiz") startQuiz(id);
   else if (act === "naar-teksten") ga("teksten");
@@ -1535,8 +2449,7 @@ document.getElementById("sheet").addEventListener("click", function (e) {
   var act = el.getAttribute("data-act");
   var w = el.getAttribute("data-w");
   if (act === "woord-luister") {
-    var info = WOORDEN[w];
-    leesVoor(w + ". " + (info ? info.u : ""));
+    leesWoordVoor(w);
   } else if (act === "woord-geleerd") {
     addGeleerd(w);
     touchStreak();
