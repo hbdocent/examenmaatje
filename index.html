@@ -15,12 +15,28 @@
     font-size: 17px;
     line-height: 1.55;
   }
+  .topwrap { position: sticky; top: 0; z-index: 10; }
   header.top {
     background: #14181f;
     color: #fff;
     padding: 14px 18px;
     display: flex; justify-content: space-between; align-items: center;
-    position: sticky; top: 0; z-index: 10;
+  }
+  .taakbalk {
+    background: #1b2129;
+    padding: 8px 14px;
+    display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap;
+    border-top: 1px solid #2a313d;
+  }
+  .taakbalk label {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .8px; color: #9aa3b2; display: flex; align-items: center; gap: 7px;
+    font-family: inherit; cursor: pointer;
+  }
+  .taakbalk select {
+    font-family: inherit; font-size: 14px; font-weight: 600; color: #14181f;
+    background: #fff; border: 1px solid #d6dae3; border-radius: 8px;
+    padding: 6px 10px; cursor: pointer; max-width: 170px;
   }
   .logo { font-weight: 800; font-size: 18px; letter-spacing: .3px; display: flex; align-items: center; gap: 8px; }
   .logo em { font-style: normal; border: 1px solid rgba(255,255,255,.45); color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 13px; font-weight: 700; letter-spacing: 1px; }
@@ -165,10 +181,31 @@
 </head>
 <body>
 
+<div class="topwrap">
 <header class="top">
   <div class="logo">ExamenMaatje <em>2F</em></div>
   <div class="streak" id="streakBadge">0 dagen</div>
 </header>
+<div class="taakbalk">
+  <label>Leerweg
+    <select id="selLeerweg">
+      <option value="bb">Basis (bb)</option>
+      <option value="kb">Kader (kb)</option>
+    </select>
+  </label>
+  <label>Vak
+    <select id="selVak">
+      <option value="alle">Alle vakken</option>
+      <option value="Nederlands">Nederlands</option>
+      <option value="Engels">Engels</option>
+      <option value="Natuur-scheikunde">Natuur-scheikunde</option>
+      <option value="Wiskunde">Wiskunde</option>
+      <option value="Economie">Economie</option>
+      <option value="Biologie">Biologie</option>
+    </select>
+  </label>
+</div>
+</div>
 
 <main id="app"></main>
 
@@ -193,17 +230,36 @@
    EXAMENMAATJE 2F — NT2-leerlingen klas 3/4 vmbo basis/kader
    Eén bestand, geen server, geen accounts (AVG-proof).
 
-   CONTENT AANPASSEN:
+   CONTENT AANPASSEN (zelf examens invoeren kan!):
+   - INVULSJABLONEN: direct na de openingsregel van WOORDEN en TEKSTEN
+                    staan kant-en-klare sjablonen met uitleg. Kopieer zo'n
+                    sjabloon, vul het in en plak het in de lijst.
    - WOORDEN      : woordenbank (u = uitleg, v = voorbeeldzin, s = woordsoort,
                     optioneel t = "en" voor Engelse woorden: voorlezen met Engelse stem)
    - TEKSTEN      : teksten + vragen; markeer moeilijke woorden met [[woord]]
                     of [[woord|andere schrijfwijze]], bv. [[verdienen|verdient]]
                     Engelse teksten krijgen taal: "en" en niveaubadge: "A2";
                     vragen zijn (net als op het examen) in het Nederlands
-   - SCHRIJF      : schrijfopdrachten (e-mail/bericht, examenformaat 2F)
+                    Optioneel per tekst: leerweg: "bb" of "kb" (default bb) en
+                    vak: "Nederlands", "Engels", "Natuur-scheikunde", "Wiskunde",
+                    "Economie" of "Biologie" (default: Nederlands, behalve bij
+                    taal: "en" => Engels). De taakbalk filtert hierop.
+   - SCHRIJF      : schrijfopdrachten (e-mail/bericht, examenformaat 2F),
+                    zelfde optionele leerweg/vak-velden als TEKSTEN
    ============================================================ */
 
 var WOORDEN = {
+  /* ----------------------------------------------------------------
+     INVULSJABLOON VOOR EEN NIEUW WOORD
+     Kopieer het voorbeeld hieronder, plak het onderaan in deze lijst
+     (met een komma na het vorige woord) en vul het in.
+     ---------------------------------------------------------------- */
+  /* VOORBEELD:
+  "nieuw woord": { u: "Uitleg van het woord in gewone woorden.", v: "Voorbeeldzin met het nieuwe woord er precies zo in.", s: "woordsoort" },
+  Bij een Engels woord komt er één veld bij:
+  "english word": { u: "Nederlandse uitleg.", v: "Example sentence with the english word.", s: "woordsoort (Engels)", t: "en" },
+  Let op: bij de invuloefening zoekt de app het woord terug in de
+  voorbeeldzin v. Zet het woord dus precies zo in de zin. */
   "solliciteren": { u: "Je vraagt of je ergens mag werken.", v: "Ik ga solliciteren bij de supermarkt.", s: "werkwoord" },
   "vacature": { u: "Een tekst waarin staat: we zoeken iemand voor dit werk.", v: "Ik heb een leuke vacature gezien.", s: "zelfstandig naamwoord" },
   "vakkenvuller": { u: "Iemand die de producten in de schappen zet.", v: "De vakkenvuller werkt op zaterdag.", s: "zelfstandig naamwoord" },
@@ -419,6 +475,85 @@ var WOORDEN = {
 };
 
 var TEKSTEN = [
+  /* ================================================================
+     INVULSJABLOON VOOR EEN NIEUWE TEKST (examen invoeren)
+     ----------------------------------------------------------------
+     STAP 1: Kopieer het hele voorbeeldblok hieronder (van de accolade
+              na dit commentaar tot en met de sluit-accolade).
+     STAP 2: Plak het helemaal onderaan in deze lijst: ná de
+              sluit-accolade van de laatste tekst en vóór de regel die
+              de lijst afsluit. Zet een komma achter de sluit-accolade
+              van de vorige tekst.
+     STAP 3: Vul alles in tussen de aanhalingstekens.
+     STAP 4: Woorden die je in de tekst markeert (dubbele blokhakens,
+              zie hieronder) moeten ook in de woordenbank WOORDEN
+              staan. Het sjabloon daarvoor staat bovenaan dit bestand.
+     STAP 5: Sla op en open het bestand in je browser om te testen.
+              Blijft het scherm wit? Dan is ergens een aanhalingsteken
+              of komma weggevallen: vergelijk met een bestaande tekst.
+     ----------------------------------------------------------------
+     UITLEG VAN DE VELDEN:
+     - id          : unieke naam zonder spaties (hiermee bewaart de app
+                     de voortgang van de leerling)
+     - niveaubadge : "2F" voor Nederlands, "A2" voor Engels
+     - taal        : "nl" of "en" ("en" = voorlezen met Engelse stem)
+     - leerweg     : "bb" of "kb" (bepaalt het keuzemenu bovenin de app)
+     - vak         : "Nederlands", "Engels", "Natuur-scheikunde",
+                     "Wiskunde", "Economie" of "Biologie"
+     - bron        : altijd vermelden, bv. "naar examen Engels vmbo-bb
+                     2023, tijdvak 1"
+     - origineel   : de examentekst. Elke alinea of tekstregel = één
+                     regel tussen aanhalingstekens, met een komma ertussen
+                     (behalve na de laatste regel). Moeilijke woorden zet
+                     je tussen dubbele blokhakens: [[woord]]. Staat het
+                     woord anders geschreven in de tekst? Gebruik
+                     [[woord|schrijfwijze zoals het in de tekst staat]].
+     - eenvoudig   : dezelfde inhoud in makkelijke, korte zinnen
+     - woorden     : de woorden die bij deze tekst horen, precies zo
+                     geschreven als tussen de blokhakens
+     - vragen      : de examenvragen in het Nederlands (net als op het
+                     echte examen). Bij goed zet je het nummer van het
+                     goede antwoord: 0 = eerste antwoord, 1 = tweede,
+                     2 = derde. De officiële antwoorden staan in het
+                     correctievoorschrift; zet een stukje uitleg bij waarom.
+     ================================================================ */
+  /* VOORBEELD:
+  {
+    id: "nieuwe-tekst",
+    titel: "Titel van de tekst",
+    onderwerp: "Vak · Onderwerp",
+    niveaubadge: "2F",
+    taal: "nl",
+    leerweg: "bb",
+    vak: "Nederlands",
+    bron: "naar examen ... vmbo-bb ..., tijdvak ...",
+    origineel: [
+      "Hier komt de eerste regel van de examentekst.",
+      "Moeilijke woorden zet je tussen dubbele blokhakens: het was heel [[woord]].",
+      "Staat het woord anders in de tekst? Gebruik: het [[woord|woordje]] staat er anders.",
+      "Dit is de laatste regel van de tekst."
+    ].join("\n"),
+    eenvoudig: [
+      "Hier staat dezelfde tekst in makkelijke woorden.",
+      "Ook hier kun je woorden markeren met [[woord]]."
+    ].join("\n"),
+    woorden: ["voorbeeld", "woord"],
+    vragen: [
+      {
+        v: "Wat is de juiste bewering volgens de tekst?",
+        opties: ["eerste antwoord", "tweede antwoord", "derde antwoord"],
+        goed: 0,
+        waarom: "In de tekst staat: 'hier een stukje uit de tekst'. Daarom is het eerste antwoord goed."
+      },
+      {
+        v: "Nog een examenvraag?",
+        opties: ["eerste antwoord", "tweede antwoord", "derde antwoord"],
+        goed: 1,
+        waarom: "Het correctievoorschrift geeft dit antwoord, met deze uitleg."
+      }
+    ]
+  },
+  ------------------------------------------------------------------ */
   {
     id: "solliciteren",
     titel: "Solliciteren bij de supermarkt",
@@ -1809,6 +1944,57 @@ var quiz = { tekstId: null, i: 0, goed: 0, gekozen: null };
 var trainer = { mode: null, scope: "alle", pool: [], i: 0, goed: 0, flipped: false, gekozen: null, opties: [], gevraagd: null };
 var sw = { id: null, stap: 1, woorden: [], starters: [], tekst: "", checks: [], toonVoorbeeld: false, toonJouwTekst: false };
 
+/* ---------- taakbalk: filter op leerweg (bb/kb) en vak ---------- */
+var VAKKEN = ["Nederlands", "Engels", "Natuur-scheikunde", "Wiskunde", "Economie", "Biologie"];
+var filter = store("filter", { leerweg: "bb", vak: "alle" });
+if (filter.leerweg !== "bb" && filter.leerweg !== "kb") filter.leerweg = "bb";
+if (filter.vak !== "alle" && VAKKEN.indexOf(filter.vak) === -1) filter.vak = "alle";
+function tekstVak(t) { return t.vak || (t.taal === "en" ? "Engels" : "Nederlands"); }
+function tekstLeerweg(t) { return t.leerweg || "bb"; }
+function schrijfVak(o) { return o.vak || "Nederlands"; }
+function schrijfLeerweg(o) { return o.leerweg || "bb"; }
+function actieveTeksten() {
+  return TEKSTEN.filter(function (t) {
+    return tekstLeerweg(t) === filter.leerweg && (filter.vak === "alle" || tekstVak(t) === filter.vak);
+  });
+}
+function actieveSchrijf() {
+  return SCHRIJF.filter(function (o) {
+    return schrijfLeerweg(o) === filter.leerweg && (filter.vak === "alle" || schrijfVak(o) === filter.vak);
+  });
+}
+function actieveWoorden() {
+  var alle = [];
+  actieveTeksten().forEach(function (t) { alle = alle.concat(t.woorden); });
+  return alle;
+}
+function filterLabel() {
+  var vak = filter.vak === "alle" ? "alle vakken" : filter.vak;
+  return vak + " · " + (filter.leerweg === "bb" ? "basis (bb)" : "kader (kb)");
+}
+function legeKeuzeKaart(wat) {
+  return '<div class="card" style="text-align:center">' +
+    '<h2>Nog geen ' + wat + '</h2>' +
+    '<p class="meta">Voor <b>' + filterLabel() + '</b> staan hier nog geen ' + wat + '. Ze kunnen worden toegevoegd, bijvoorbeeld uit het echte examen. Kies voor nu hierboven een ander vak of een andere leerweg.</p>' +
+    '</div>';
+}
+function setFilter(nieuw) {
+  filter = nieuw;
+  set("filter", filter);
+  document.getElementById("selLeerweg").value = filter.leerweg;
+  document.getElementById("selVak").value = filter.vak;
+  if (view === "lezer" || view === "quiz") {
+    var t = leesKaart();
+    if (!t || actieveTeksten().indexOf(t) === -1) { ga("teksten"); return; }
+  }
+  if (view === "schrijf") {
+    var o = swOpdracht();
+    if (!o || actieveSchrijf().indexOf(o) === -1) { ga("schrijven"); return; }
+  }
+  if (view === "trainer" && trainer.pool.length === 0) { ga("woordjes"); return; }
+  render();
+}
+
 function ga(naar) {
   view = naar;
   render();
@@ -1841,11 +2027,12 @@ function shuffle(a) {
 }
 function startTrainer(mode, scope) {
   var pool = [];
-  if (scope === "alle") { pool = shuffle(alleWoorden()); }
+  if (scope === "alle") { pool = shuffle(actieveWoorden()); }
   else {
     var t = TEKSTEN.find(function (x) { return x.id === scope; });
-    pool = t ? shuffle(t.woorden) : shuffle(alleWoorden());
+    pool = t ? shuffle(t.woorden) : shuffle(actieveWoorden());
   }
+  if (!pool.length) { toast("Geen woordjes voor deze keuze. Kies bovenin een ander vak of een andere leerweg."); return; }
   trainer = { mode: mode, scope: scope, pool: pool, i: 0, goed: 0, flipped: false, gekozen: null, opties: [], gevraagd: null };
   if (mode === "invul") maakInvulVraag();
   view = "trainer";
@@ -1963,25 +2150,31 @@ function render() {
 }
 
 function viewHome() {
-  var g = geleerd().length;
   var st = store("streak", { count: 0 });
   var swk = schrijfOpslag();
-  var swKlaar = SCHRIJF.filter(function (o) { return swk[o.id] && swk[o.id].afgerond; }).length;
+  var teksten = actieveTeksten();
+  var schrijfLijst = actieveSchrijf();
+  var actW = actieveWoorden();
+  var g = geleerd().filter(function (w) { return actW.indexOf(w) !== -1; }).length;
+  var swKlaar = schrijfLijst.filter(function (o) { return swk[o.id] && swk[o.id].afgerond; }).length;
+  var label = (filter.vak === "alle" ? "Alle vakken" : filter.vak) + " · " + (filter.leerweg === "bb" ? "vmbo-bb" : "vmbo-kb");
   return '' +
     '<div class="card hero">' +
-    '<div class="label-boven">Examen Nederlands · 2F</div>' +
+    '<div class="label-boven">' + label + '</div>' +
     '<h1>Oefenen op jouw tempo</h1>' +
     '<p class="sub">Korte sessies: een tekst lezen, woordjes doen of een schrijfopdracht maken. Alles blijft op dit toestel.</p>' +
     '<div class="stats">' +
     '<div class="stat"><b>' + st.count + '</b><small>dagen streak</small></div>' +
+    '<div class="stat"><b>' + teksten.length + '</b><small>teksten voor je keuze</small></div>' +
     '<div class="stat"><b>' + g + '</b><small>woorden geleerd</small></div>' +
-    '<div class="stat"><b>' + swKlaar + '/' + SCHRIJF.length + '</b><small>schrijfopdrachten</small></div>' +
+    '<div class="stat"><b>' + swKlaar + '/' + schrijfLijst.length + '</b><small>schrijfopdrachten</small></div>' +
     '</div>' +
     '<button class="btn btn-primary" data-act="open-eerste-tekst">Tekst lezen</button>' +
     '<button class="btn btn-accent" data-act="start-flash-alle">Woordjes oefenen (5 min)</button>' +
     '<button class="btn btn-outline" data-act="open-schrijf-eerste">Schrijfopdracht maken</button>' +
     '<details class="hoe"><summary>Hoe werkt ExamenMaatje?</summary><ol>' +
-    '<li><b>Lees een tekst</b> in twee versies: Eenvoudig en 2F-examen. Tik op een gemarkeerd woord voor uitleg.</li>' +
+    '<li><b>Kies bovenin</b> je leerweg (bb of kb) en je vak. De app laat dan alleen de bijpassende teksten zien.</li>' +
+    '<li><b>Lees een tekst</b> in twee versies: Eenvoudig en examen. Tik op een gemarkeerd woord voor uitleg.</li>' +
     '<li><b>Doe de examenvragen</b> in echte examenstijl, met uitleg waarom iets goed of fout is.</li>' +
     '<li><b>Maak een schrijfopdracht</b> in vijf stappen, net als op het examen: van woordweb tot zelfcheck.</li>' +
     '<li><b>Oefen je woordjes</b> elke dag vijf minuten. Kleine sessies, groot effect.</li>' +
@@ -1992,7 +2185,9 @@ function viewHome() {
 function viewTeksten() {
   var sc = scores();
   var g = gelezen();
-  var kaarten = TEKSTEN.map(function (t) {
+  var lijst = actieveTeksten();
+  if (!lijst.length) return legeKeuzeKaart("teksten");
+  var kaarten = lijst.map(function (t) {
     var badge = "";
     if (sc[t.id]) badge = '<span class="badge">Vragen: ' + sc[t.id] + '</span>';
     else if (g.indexOf(t.id) !== -1) badge = '<span class="badge badge-blauw">Gelezen</span>';
@@ -2072,17 +2267,20 @@ function viewQuiz() {
 }
 
 function viewWoordjes() {
-  var opties = TEKSTEN.map(function (t) {
+  var lijst = actieveTeksten();
+  var actW = actieveWoorden();
+  var opties = lijst.map(function (t) {
     return '<button class="btn btn-soft" data-act="start-flash-tekst" data-id="' + t.id + '">' + t.titel + '</button>';
   }).join("");
   return '<div class="card">' +
-    '<div class="label-boven">Woordenschat</div>' +
+    '<div class="label-boven">Woordenschat · ' + filterLabel() + '</div>' +
     '<h2>Woordjes oefenen</h2>' +
     '<p class="meta">Twee manieren: <b>flashcards</b> (woord + uitleg) of een <b>invuloefening</b> (kies het goede woord in de zin).</p>' +
-    '<button class="btn btn-green" data-act="start-flash-alle">Alle woorden — flashcards</button>' +
-    '<button class="btn btn-accent" data-act="start-invul-alle">Alle woorden — invuloefening</button>' +
+    (actW.length ?
+      '<button class="btn btn-green" data-act="start-flash-alle">Alle woorden — flashcards</button>' +
+      '<button class="btn btn-accent" data-act="start-invul-alle">Alle woorden — invuloefening</button>' : '') +
     '</div>' +
-    '<div class="card"><h3>Woordjes per tekst</h3>' + opties + '</div>';
+    (lijst.length ? '<div class="card"><h3>Woordjes per tekst</h3>' + opties + '</div>' : legeKeuzeKaart("woordjes"));
 }
 
 function viewTrainer() {
@@ -2103,8 +2301,9 @@ function viewTrainer() {
   }
   var w = trainer.pool[trainer.i];
   var info = WOORDEN[w];
-  var g = geleerd().length;
-  var voortgangRegel = '<div class="meta" style="text-align:center;margin-bottom:10px">Woord ' + (trainer.i + 1) + ' van ' + trainer.pool.length + ' · geleerd: ' + g + ' van ' + alleWoorden().length + '</div>';
+  var actW = actieveWoorden();
+  var g = geleerd().filter(function (x) { return actW.indexOf(x) !== -1; }).length;
+  var voortgangRegel = '<div class="meta" style="text-align:center;margin-bottom:10px">Woord ' + (trainer.i + 1) + ' van ' + trainer.pool.length + ' · geleerd: ' + g + ' van ' + (actW.length || trainer.pool.length) + '</div>';
 
   if (trainer.mode === "flash") {
     var binnen = trainer.flipped ?
@@ -2152,7 +2351,9 @@ function viewTrainer() {
 
 function viewSchrijven() {
   var swk = schrijfOpslag();
-  var kaarten = SCHRIJF.map(function (o) {
+  var lijst = actieveSchrijf();
+  if (!lijst.length) return legeKeuzeKaart("schrijfopdrachten");
+  var kaarten = lijst.map(function (o) {
     var rec = swk[o.id];
     var badge = rec && rec.afgerond ? '<span class="badge">Afgerond</span>' : (rec && rec.tekst ? '<span class="badge badge-blauw">Bezig</span>' : '<span class="badge badge-blauw">Nieuw</span>');
     return '<div class="card tekstcard" data-act="sw-open" data-id="' + o.id + '">' +
@@ -2283,32 +2484,35 @@ function viewSchrijf() {
 
 function viewVoortgang() {
   var g = geleerd();
-  var totaal = alleWoorden().length;
-  var pct = Math.round(100 * g.length / totaal);
+  var actW = actieveWoorden();
+  var totaal = actW.length;
+  var pct = totaal ? Math.round(100 * g.filter(function (w) { return actW.indexOf(w) !== -1; }).length / totaal) : 0;
   var st = store("streak", { count: 0 });
   var sc = scores();
   var swk = schrijfOpslag();
-  var scHtml = TEKSTEN.map(function (t) {
+  var lijst = actieveTeksten();
+  var scHtml = lijst.map(function (t) {
     var status = sc[t.id] ? "Vragen: <b>" + sc[t.id] + "</b>" : (gelezen().indexOf(t.id) !== -1 ? "Gelezen, vragen nog open" : "Nog niet begonnen");
     return '<div class="card"><h3>' + t.titel + '</h3><div class="meta">' + status + ' · ' + t.woorden.length + ' woorden</div></div>';
   }).join("");
-  var swHtml = SCHRIJF.map(function (o) {
+  var swLijst = actieveSchrijf();
+  var swHtml = swLijst.map(function (o) {
     var rec = swk[o.id];
     var status = rec && rec.afgerond ? "Afgerond" : (rec && rec.tekst ? "Bezig (" + aantalWoorden(rec.tekst) + " woorden)" : "Nog niet begonnen");
     return '<div class="card"><h3>' + o.titel + '</h3><div class="meta">' + o.soort + ' · ' + status + '</div></div>';
   }).join("");
   var motivatie = pct >= 80 ? "Bijna alle woorden onder de knie." : pct >= 40 ? "Goed bezig. Elke dag een klein stukje." : "Begin vandaag: vijf minuten woordjes maakt al verschil.";
   return '<div class="card">' +
-    '<div class="label-boven">Voortgang</div>' +
+    '<div class="label-boven">Voortgang · ' + filterLabel() + '</div>' +
     '<div class="stats">' +
     '<div class="stat"><b>' + st.count + '</b><small>dagen streak</small></div>' +
-    '<div class="stat"><b>' + g.length + '/' + totaal + '</b><small>woorden geleerd</small></div>' +
+    '<div class="stat"><b>' + (totaal ? g.filter(function (w) { return actW.indexOf(w) !== -1; }).length : 0) + '/' + totaal + '</b><small>woorden geleerd</small></div>' +
     '</div>' +
     '<div class="pbalk"><div style="width:' + pct + '%"></div></div>' +
     '<p class="meta">' + motivatie + '</p>' +
     '</div>' +
-    '<div class="card"><h3 style="font-size:16px;margin:0 0 8px">Schrijfopdrachten</h3>' + swHtml.replace(/class="card"/g, 'class="card" style="margin-bottom:8px;padding:12px 14px"') + '</div>' +
-    scHtml +
+    (swLijst.length ? '<div class="card"><h3 style="font-size:16px;margin:0 0 8px">Schrijfopdrachten</h3>' + swHtml.replace(/class="card"/g, 'class="card" style="margin-bottom:8px;padding:12px 14px"') + '</div>' : '') +
+    (scHtml || legeKeuzeKaart("teksten")) +
     '<div class="card">' +
     '<button class="btn btn-outline" data-act="reset">Alles wissen</button>' +
     '<p class="meta">Je voortgang en teksten staan alleen op dit toestel. Alles wissen kan niet terug gedraaid worden.</p>' +
@@ -2327,13 +2531,17 @@ document.getElementById("app").addEventListener("click", function (e) {
 
   if (act === "open-tekst") openTekst(id);
   else if (act === "open-eerste-tekst") {
-    var nogNiet = TEKSTEN.filter(function (t) { return gelezen().indexOf(t.id) === -1; });
-    openTekst(nogNiet.length ? nogNiet[0].id : TEKSTEN[0].id);
+    var lijst = actieveTeksten();
+    if (!lijst.length) { toast("Nog geen teksten voor deze keuze. Kies bovenin een ander vak."); return; }
+    var nogNiet = lijst.filter(function (t) { return gelezen().indexOf(t.id) === -1; });
+    openTekst(nogNiet.length ? nogNiet[0].id : lijst[0].id);
   }
   else if (act === "open-schrijf-eerste") {
     var swk = schrijfOpslag();
-    var openstaand = SCHRIJF.filter(function (o) { return !(swk[o.id] && swk[o.id].afgerond); });
-    openSchrijf(openstaand.length ? openstaand[0].id : SCHRIJF[0].id);
+    var lijst2 = actieveSchrijf();
+    if (!lijst2.length) { toast("Nog geen schrijfopdrachten voor deze keuze."); return; }
+    var openstaand = lijst2.filter(function (o) { return !(swk[o.id] && swk[o.id].afgerond); });
+    openSchrijf(openstaand.length ? openstaand[0].id : lijst2[0].id);
   }
   else if (act === "laag") { cur.laag = el.getAttribute("data-laag"); render(); }
   else if (act === "lees-voor") {
@@ -2462,6 +2670,15 @@ document.getElementById("sheet").addEventListener("click", function (e) {
 
 document.querySelectorAll("#nav button").forEach(function (b) {
   b.addEventListener("click", function () { ga(b.getAttribute("data-nav")); });
+});
+
+document.getElementById("selLeerweg").value = filter.leerweg;
+document.getElementById("selVak").value = filter.vak;
+document.getElementById("selLeerweg").addEventListener("change", function () {
+  setFilter({ leerweg: this.value, vak: filter.vak });
+});
+document.getElementById("selVak").addEventListener("change", function () {
+  setFilter({ leerweg: filter.leerweg, vak: this.value });
 });
 
 /* ---------- start ---------- */
