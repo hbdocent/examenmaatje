@@ -1859,11 +1859,13 @@ if ("speechSynthesis" in window) {
 var actieveUitspraak = null;
 var ttsGestart = false;
 var ttsStatus = "uit";
+var ttsRun = 0;
 function leesVoor(tekst, lang) {
   if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
   if (!tekst) return;
   try {
-    speechSynthesis.cancel();
+    var mijnRun = ++ttsRun;
+    try { speechSynthesis.cancel(); } catch (e0) {}
     var engels = lang === "en";
     var u = new SpeechSynthesisUtterance(tekst);
     u.lang = engels ? "en-GB" : "nl-NL";
@@ -1873,10 +1875,11 @@ function leesVoor(tekst, lang) {
     ttsGestart = false;
     u.onstart = function () { ttsGestart = true; ttsStatus = "speelt"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
     u.onend = function () { ttsStatus = "uit"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
-    u.onerror = function () {
+    u.onerror = function (ev) {
       ttsStatus = "uit";
       ttsKnoppenVervers();
       if (view === "lezer" || view === "trainer") render();
+      if (ev && ev.error && (ev.error === "interrupted" || ev.error === "canceled")) return;
       if (engels) {
         toast(enStem ? "Voorlezen lukt niet op dit apparaat." : "Geen Engelse stem gevonden. Voeg een Engelse stem toe in de instellingen van je toestel.");
       } else {
@@ -1884,9 +1887,12 @@ function leesVoor(tekst, lang) {
       }
     };
     actieveUitspraak = u;
-    setTimeout(function () { speechSynthesis.speak(u); }, 60);
     setTimeout(function () {
-      if (!ttsGestart && !speechSynthesis.speaking) {
+      if (ttsRun !== mijnRun) return;
+      try { speechSynthesis.speak(u); } catch (e1) {}
+    }, 60);
+    setTimeout(function () {
+      if (ttsRun === mijnRun && !ttsGestart && !speechSynthesis.speaking) {
         toast("Geen geluid? Zet het media-volume van je toestel hoger.");
       }
     }, 2500);
@@ -1897,7 +1903,19 @@ function ttsKnoppenVervers() {
   if (b) b.textContent = ttsStatus === "uit" ? "Voorlezen" : "Stoppen";
 }
 function ttsCancel() {
+  var mijnStop = ++ttsRun;
+  if (!("speechSynthesis" in window)) { ttsStatus = "uit"; ttsKnoppenVervers(); return; }
+  try { speechSynthesis.pause(); } catch (e) {}
+  try { speechSynthesis.resume(); } catch (e) {}
   try { speechSynthesis.cancel(); } catch (e) {}
+  var pogingen = 0;
+  var timer = setInterval(function () {
+    pogingen++;
+    var bezig = false;
+    try { bezig = speechSynthesis.speaking || speechSynthesis.pending || speechSynthesis.paused; } catch (e) {}
+    if (!bezig || pogingen > 12 || ttsRun !== mijnStop) { clearInterval(timer); return; }
+    try { speechSynthesis.cancel(); } catch (e) {}
+  }, 120);
   ttsStatus = "uit";
   ttsKnoppenVervers();
 }
@@ -1924,7 +1942,8 @@ function leesWoordVoor(w) {
   if (info.t === "en") {
     if (!("speechSynthesis" in window)) { toast("Voorlezen werkt niet in deze browser."); return; }
     try {
-      speechSynthesis.cancel();
+      var mijnRun = ++ttsRun;
+      try { speechSynthesis.cancel(); } catch (e0) {}
       var u1 = new SpeechSynthesisUtterance(w);
       u1.lang = "en-GB";
       if (enStem) u1.voice = enStem;
@@ -1938,7 +1957,10 @@ function leesWoordVoor(w) {
       u2.onend = function () { ttsStatus = "uit"; ttsKnoppenVervers(); if (view === "lezer" || view === "trainer") render(); };
       u2.onerror = function () { ttsStatus = "uit"; ttsKnoppenVervers(); };
       actieveUitspraak = u1;
-      setTimeout(function () { speechSynthesis.speak(u1); speechSynthesis.speak(u2); }, 60);
+      setTimeout(function () {
+        if (ttsRun !== mijnRun) return;
+        try { speechSynthesis.speak(u1); speechSynthesis.speak(u2); } catch (e1) {}
+      }, 60);
     } catch (e) { toast("Voorlezen lukt niet op dit apparaat."); }
   } else {
     leesVoor(w + ". " + info.u, "nl");
